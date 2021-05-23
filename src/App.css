@@ -1,4 +1,15 @@
-.App {
+.paddedInput > input {
+  width: 100%;
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box;    
+  box-sizing: border-box;         
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +46,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
