@@ -22,3 +22,11 @@
 .register:hover , register:active{
     background-image: linear-gradient(to right,dodgerblue, #4caf50);
 }
+
+.mycard{
+    background: white;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    padding:30px;
+}

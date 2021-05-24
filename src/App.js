@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import Register from './Components/Register/Register';
+import Register from './Components/User/Register';
 import Header from './Components/Header/Header';
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
-import Login from './Components/Register/Login';
+import Login from './Components/User/Login';
 function App() {
   return (
     <div className="">

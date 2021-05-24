@@ -10,7 +10,7 @@ function Login() {
                 <Home />
                 <div className="col-md-9 d-flex flex-column justify-content-center align-items-center" >
                     <div className="">
-                        <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da'}}>
+                        <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da',margin:'20px'}}>
                                 <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px'}}>
                                     Login Form
                                 </div>
