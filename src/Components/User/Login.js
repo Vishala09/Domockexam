@@ -6,10 +6,13 @@ function Login() {
     return (
         <div>
             <div style={{marginTop:'10vh'}} className="container-fluid">
+           
             <div className="row d-flex" >
                 <Home />
                 <div className="col-md-9 d-flex flex-column justify-content-center align-items-center" >
+                <h3>Login</h3>
                     <div className="">
+                        
                         <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da',margin:'20px'}}>
                                 <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px'}}>
                                     Login Form
