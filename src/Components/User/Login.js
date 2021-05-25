@@ -19,9 +19,9 @@ function Login() {
                                 </div>
                                 <form>
                                 <div class="row smalltext" > 
-                                    <h6 class="px-3 smalltext">Email Address : <span className="px-1" style={{color:'red'}}>*</span></h6>
+                                    <h6 class="px-3 smalltext">Email Address or Username : <span className="px-1" style={{color:'red'}}>*</span></h6>
                                     <div class="px-3 paddedInput" >
-                                        <input class="mb-2 form-control smalltext" type="text" name="Email" placeholder="Enter Email Address" /> 
+                                        <input class="mb-2 form-control smalltext" type="text" name="Email" placeholder="Enter Email Address or Username" /> 
                                     </div>
                                 </div>
                                 <div class="row smalltext" > 

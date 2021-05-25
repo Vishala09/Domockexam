@@ -1,9 +1,11 @@
-import React,{useState} from 'react'
-
+import React,{useRef, useState} from 'react'
+import District from '../HelperComps/District'
+import PasswordView from '../HelperComps/PasswordView';
 function Tutor() {
     const [TutorData, setTutorData] = useState({firstname:"",surname:"",gender:"",phone:"",email:"",password:"",school:"",district:"",source:""})
+    const Passref = useRef()
     return (
-        <div className="row justify-content-center">
+        <div className="row justify-content-center" style={{width:'100%'}}>
             <div className="col-12">
             <div  style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da'}}>
                             <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px',width:'100%'}}>
@@ -58,8 +60,11 @@ function Tutor() {
                                 <div class="row smalltext" > 
                                     <h6 class="px-3 smalltext">Password : <span className="px-1" style={{color:'red'}}>*</span></h6>
                                     <div class="px-3 paddedInput" >
-                                        <input class="mb-2 form-control smalltext" type="password" value={TutorData.password} name="password"
+                                    <span style={{display:'flex',justifyContent:'space-around'}}>
+                                        <input  ref={Passref} class="mb-2 form-control smalltext" type="password" value={TutorData.password} name="password"
                                         onChange={(e)=>setTutorData({...TutorData,password:e.target.value})}  placeholder="Enter Password" /> 
+                                        <PasswordView Passref={Passref} />
+                                        </span>
                                     </div>
                                 </div>
                             
@@ -70,13 +75,7 @@ function Tutor() {
                                     onChange={(e)=>setTutorData({...TutorData,school:e.target.value})} placeholder="Enter School Name" /> 
                                 </div>
                             </div>
-                            <div class="row smalltext" > 
-                                <h6 class="px-3 smalltext">District Name :</h6>
-                                <div class="px-3 paddedInput" >
-                                    <input class="mb-2 form-control smalltext" type="text" value={TutorData.district} name="district" 
-                                    onChange={(e)=>setTutorData({...TutorData,district:e.target.value})} placeholder="Enter District Name" /> 
-                                </div>
-                            </div>
+                            <District Data={TutorData} setData={setTutorData} />
                             
                         </form>
                     </div>
@@ -88,7 +87,7 @@ function Tutor() {
                                     <span className="px-1 py-2 " style={{color:'red'}}>*</span>  Accept terms and conditions
                                     </label>
                                 </div>
-                                <button className="btn btn-primary register" type="submit">Register</button>
+                    <button className="btn btn-primary register" type="submit">Register</button>
                     </div>
         </div>
         

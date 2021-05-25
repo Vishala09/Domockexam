@@ -1,9 +1,11 @@
-import React,{useState} from 'react'
-
+import React,{useRef, useState} from 'react'
+import District from '../HelperComps/District'
+import PasswordView from '../HelperComps/PasswordView';
 function Teacher() {
     const [TeacherData, setTeacherData] = useState({firstname:"",surname:"",gender:"",phone:"",email:"",password:"",school:"",district:"",source:""})
+    const Passref = useRef()
     return (
-        <div className="row justify-content-center">
+        <div className="row justify-content-center" style={{width:'100%'}}>
             <div className="col-12">
             <div  style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da'}}>
                             <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px',width:'100%'}}>
@@ -58,8 +60,11 @@ function Teacher() {
                                 <div class="row smalltext" > 
                                     <h6 class="px-3 smalltext">Password : <span className="px-1" style={{color:'red'}}>*</span></h6>
                                     <div class="px-3 paddedInput" >
-                                        <input class="mb-2 form-control smalltext" type="password" value={TeacherData.password} name="password"
+                                    <span style={{display:'flex',justifyContent:'space-around'}}>
+                                        <input  ref={Passref} class="mb-2 form-control smalltext" type="password" value={TeacherData.password} name="password"
                                         onChange={(e)=>setTeacherData({...TeacherData,password:e.target.value})}  placeholder="Enter Password" /> 
+                                        <PasswordView Passref={Passref} />
+                                        </span>
                                     </div>
                                 </div>
                             
@@ -70,26 +75,22 @@ function Teacher() {
                                     onChange={(e)=>setTeacherData({...TeacherData,school:e.target.value})} placeholder="Enter School Name" /> 
                                 </div>
                             </div>
-                            <div class="row smalltext" > 
-                                <h6 class="px-3 smalltext">District Name :</h6>
+                            <District Data={TeacherData} setData={setTeacherData} />
+                            <div className="row smalltext">
+                                <h6 class="px-3 smalltext"> How did you hear about us?  </h6>
                                 <div class="px-3 paddedInput" >
-                                    <input class="mb-2 form-control smalltext" type="text" value={TeacherData.district} name="district" 
-                                    onChange={(e)=>setTeacherData({...TeacherData,district:e.target.value})} placeholder="Enter District Name" /> 
+                                    <select class="form-select smalltext mb-2" aria-label="Default select example">
+                                        <option selected>Select Source</option>
+                                        <option value="1">Search Engine</option>
+                                        <option value="2">Social Media</option>
+                                        <option value="3">Friend</option>
+                                    </select>
                                 </div>
                             </div>
-                            
                         </form>
                     </div>
                     </div>
-                    <div className="d-flex flex-column align-items-center">
-                                <div class="form-check ">
-                                    <input class="form-check-input" type="checkbox" value="" id="tct" />
-                                    <label class="form-check-label " for="tct">
-                                    <span className="px-1 py-2 " style={{color:'red'}}>*</span>  Accept terms and conditions
-                                    </label>
-                                </div>
-                                <button className="btn btn-primary register" type="submit">Register</button>
-                    </div>
+                    
         </div>
         
     )

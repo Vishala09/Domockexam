@@ -1,12 +1,15 @@
-import React,{useState} from 'react'
+import React,{useState,useRef} from 'react'
+import District from '../HelperComps/District';
+import PasswordView from '../HelperComps/PasswordView';
 import Parent from './Parent'
+import RecaptchaComp from './RecaptchaComp';
 function Student(props) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
                         "July", "August", "September", "October", "November", "December"
                         ];
-    const [StudentData, setStudentData] = useState({firstname:"",surname:"",gender:"",grade:"",email:"",password:"",school:"",district:""})
+    const [StudentData, setStudentData] = useState({firstname:"",surname:"",gender:"",grade:"",email:"",password:"",school:"",district:"",child:props.Parent})
     let checkSchoolGrade = (val) => {
-        if(val<=5)
+        if(val!="NA" && val<=13)
         {
             props.ParentHandle(true)
         }
@@ -15,14 +18,15 @@ function Student(props) {
         }
     }
     
+    const Passref = useRef()
     return (
-        <div className="row d-flex justify-content-center align-items-stretch">
+        <div className="row d-flex justify-content-center align-items-stretch" style={{width:'100%'}}>
         <div className={props.Parent ? 'col-md-6':'col-md-12'}>
         <div  style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da'}}>
                 <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px'}}>
                        Student Registration Form
                 </div>
-                <form>
+                <form >
                 <div class="row smalltext" > 
                     <h6 class="px-3 smalltext">Student First Name : <span className="px-1" style={{color:'red'}}>*</span></h6>
                     <div class="px-3 paddedInput"  >
@@ -58,22 +62,35 @@ function Student(props) {
                         <select value={StudentData.grade} class="form-select smalltext mb-2"
                         onChange={(e)=>{setStudentData({...StudentData,grade:e.target.value});checkSchoolGrade(e.target.value)}} aria-label="Default select example">
                             <option selected>Select Grade</option>
-                            <option value="1">I</option>
-                            <option value="2">II</option>
-                            <option value="3">III</option>
-                            <option value="4">IV</option>
-                            <option value="5">V</option>
-                            <option value="6">VI</option>
-                            <option value="7">VII</option>
-                            <option value="8">VIII</option>
-                            <option value="9">IX</option>
-                            <option value="10">X</option>
+                            <option value="NA">N/A(Above 18 years of age)</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5(Scolarship)</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11(G.C.E O/L)</option>
+                            <option value="12">12(G.C.E A/L)</option>
+                            <option value="13">13(G.C.E A/L)</option>
+
                         </select>
                     </div>
                 </div>
-                {
-                    !props.Parent &&
-                    <>
+                {!props.Parent && <div className="row smalltext">
+                    <div class="form-check">
+                        <label class="form-check-label pull-left" for="child">
+                            <h6 class="smalltext pr-15">Are you above 18 years of age? +{'           '} <span className="" style={{color:'red'}}>*</span></h6>
+                        </label>
+                        
+                        <input class="form-check-input" type="checkbox" value={StudentData.child} id="child" />
+                        
+                    </div>
+                </div>}
+                    
                     <div class="row smalltext" > 
                         <h6 class="px-3 smalltext">Email Address : <span className="px-1" style={{color:'red'}}>*</span></h6>
                         <div class="px-3 paddedInput" >
@@ -84,14 +101,16 @@ function Student(props) {
                     <div class="row smalltext" > 
                         <h6 class="px-3 smalltext">Password : <span className="px-1" style={{color:'red'}}>*</span></h6>
                         <div class="px-3 paddedInput" >
-                            <input class="mb-2 form-control smalltext" type="password" value={StudentData.password} name="password"
+                            <span style={{display:'flex',justifyContent:'space-around'}}>
+                            <input ref={Passref} class="mb-2 form-control smalltext" type="password" 
+                            value={StudentData.password} name="password"
                             onChange={(e)=>setStudentData({...StudentData,password:e.target.value})}  placeholder="Enter Password" /> 
+                            <PasswordView Passref={Passref} />
+                            </span>
+                            
                         </div>
                     </div>
-                    </>
-                }
-                
-                
+                                   
                 <div class="row smalltext" > 
                     <h6 class="px-3 smalltext">School Name :</h6>
                     <div class="px-3 paddedInput" >
@@ -99,28 +118,14 @@ function Student(props) {
                         onChange={(e)=>setStudentData({...StudentData,school:e.target.value})} placeholder="Enter School Name" /> 
                     </div>
                 </div>
-                <div class="row smalltext" > 
-                    <h6 class="px-3 smalltext">District Name :</h6>
-                    <div class="px-3 paddedInput" >
-                        <input class="mb-2 form-control smalltext" type="text" value={StudentData.district} name="district" 
-                        onChange={(e)=>setStudentData({...StudentData,district:e.target.value})} placeholder="Enter District Name" /> 
-                    </div>
-                </div>
+                <District Data={StudentData} setData={setStudentData} />
             </form>
         </div>
         </div>
         {
             props.Parent && <Parent />
         }
-        <div className="d-flex flex-column align-items-center">
-            <div class="form-check ">
-                <input class="form-check-input" type="checkbox" value="" id="tcs" />
-                <label class="form-check-label " for="tcs">
-                <span className="px-1 py-2 cursor-pointer" style={{color:'red'}}>*</span>  Accept terms and conditions
-                </label>
-            </div>
-            <button className="btn btn-primary register" type="submit">Register</button>
-        </div>
+    
                    
         </div>
     )

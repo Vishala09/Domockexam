@@ -1,16 +1,21 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import './Register.css';
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
 import Home from './Home';
 import Teacher from './Teacher';
 import Student from './Student';
 import Tutor from './Tutor';
+import RecaptchaComp from './RecaptchaComp';
+
 
 function Register() {
+    
     const [Parent, setParent] = useState(false);
     const history = useHistory();
-    const [UserType, setUserType] = useState(null);
-   
+    const [UserType, setUserType] = useState("");
+    const [Human, setHuman] = useState(false);
+    const tcref = useRef();
+    const [TcChecked, setTcChecked] = useState(false)
     let setUserTypeHandle = (e) => {
             if(e.target.value=="Child")
             {
@@ -26,6 +31,7 @@ function Register() {
             }
            
     }
+    
     return (
         <div style={{marginTop:'10vh'}} className="container-fluid">
             <div className="row" >
@@ -43,17 +49,34 @@ function Register() {
                                         <option value="Adult">Student(Adult)</option>
                                         <option value="Child">Student(Child) - Parent</option>
                                         <option value="Teacher">Teacher</option>
-                                        <option value="Tutor">Tutor</option>
+                                       
                                     </select>
                                 </div>
                         </div>
                     </div>
-                    { (UserType=="Adult" || UserType=="Child")  && <Student Parent={Parent} ParentHandle={(v)=>{setParent(v);if(v==true)setUserType("Child") ; else setUserType("Adult")}} />}
+                    { (UserType=="Adult" || UserType=="Child")  && 
+                    <Student Parent={Parent} ParentHandle={(v)=>{setParent(v);if(v==true)setUserType("Child") ; else setUserType("Adult")}} />}
                     { UserType=="Teacher" && <Teacher />} 
-                    { UserType=="Tutor" && <Tutor />}                     
+                    {UserType != "" &&
+                    <div className="d-flex flex-column align-items-center">
+                        <div class="form-check ">
+                            <input class="form-check-input" type="checkbox" 
+                            onChange={()=>setTcChecked(!TcChecked)} value={TcChecked}  id="tcs" />
+                            <label class="form-check-label " for="tcs">
+                            <span className="px-1 py-2 cursor-pointer" style={{color:'red'}}>*</span>  Accept terms and conditions
+                            </label>
+                        </div>
+                        <RecaptchaComp verifyHumanCallback={()=>setHuman(true)} />
+                        {Human && TcChecked ? 
+                        <button className="btn btn-primary register" type="submit">Register</button>
+                        : <button className="btn btn-secondary" type="submit">Register</button>}
+                        
+                    </div>
+                    }
                     <div className="d-flex flex-column align-items-center">
                         <div className="smalltext"><i>Already have an account?</i></div>
                         <button className="btn btn-warning" onClick={()=>history.push('/login')}>Login</button>
+                        
                     </div>
                 </div>
             </div>

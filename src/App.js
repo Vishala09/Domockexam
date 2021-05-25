@@ -4,6 +4,7 @@ import Register from './Components/User/Register';
 import Header from './Components/Header/Header';
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
 import Login from './Components/User/Login';
+import 'font-awesome/css/font-awesome.min.css';
 function App() {
   return (
     <div className="">
