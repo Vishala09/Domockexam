@@ -10,11 +10,12 @@ function RecaptchaComp(props) {
     var verifyCallback = function (response) {
         console.log('vcb',response);
       };
-
+    const herokuSitekey = "6LfW5-4aAAAAAMWz_1Sx7zElvz19Ekfc9h8sdJQV"
+    const localSiteKey = "6LeC8eoaAAAAAEwh0OPhVpwgs4tkCOHmB6XsCpq_"
     return (
         <div>
             <Recaptcha
-                sitekey="6LeC8eoaAAAAAEwh0OPhVpwgs4tkCOHmB6XsCpq_"
+                sitekey={herokuSitekey}
                 render="explicit"
                 verifyCallback={()=>props.verifyHumanCallback()}
                 onloadCallback={() => callback()}
