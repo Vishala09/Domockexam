@@ -87,9 +87,13 @@ function Header() {
                 <div className="header row text-center align-items-center" >
                     <div className="col-3" id="bar" onClick={()=>openSideNav()}>
                         <i class="fa fa-bars" style={{color:'white'}} aria-hidden="true"></i></div>
-                    <Link to="/" className="col-5 noLink">
-                        <div style={{background:'#4CAF50',color:'white',height:'10vh',display:'flex',alignItems:'center',justifyContent:'center'}}>LOGO</div>
+                    <Link to="/" className="col-6 noLink">
+                        <div 
+                        style={{background:'#4CAF50',color:'white',height:'10vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                            LOGO</div>
                     </Link>
+                    <div className="col-3">
+                    </div>
                 </div>
                 <div id="mySidenav" className="" style={{position:'fixed',backgroundColor:'gray',height:'100vh',width:'70%',top:'0',
                 left:'-1000px',zIndex:'30000'}}>
