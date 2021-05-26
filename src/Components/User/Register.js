@@ -41,7 +41,7 @@ function Register() {
                         <h3 className="d-flex justify-content-center align-items-center">Register</h3>
                     
                         <div className="smalltext" style={{marginTop:'20px'}} >
-                                <h6 class="px-3 smalltext"> Are you a Student(Child)/Student(Adult)/Teacher/Tutor?  </h6>
+                                <h6 class="px-3 smalltext"> Are you a Student(Child)/Student(Adult)/Teacher?  </h6>
                                 <div class=" px-3 paddedInput" >
                                     <select value={UserType} class="form-select smalltext mb-2" aria-label="Default select example"
                                     onChange={(e)=>{setUserType(e.target.value);setUserTypeHandle(e)}} >

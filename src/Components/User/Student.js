@@ -90,7 +90,19 @@ function Student(props) {
                         
                     </div>
                 </div>}
+                {
+                    props.Parent ?
+                    <> 
+                    <div class="row smalltext" > 
+                        <h6 class="px-3 smalltext">Username : <span className="px-1" style={{color:'red'}}>*</span></h6>
+                        <div class="px-3 paddedInput" >
+                            <input class="mb-2 form-control smalltext" type="email" value={StudentData.email} 
+                            onChange={(e)=>setStudentData({...StudentData,email:e.target.value})} name="email" placeholder="Enter User Name" /> 
+                        </div>
+                    </div>
                     
+                    </> :
+                    <> 
                     <div class="row smalltext" > 
                         <h6 class="px-3 smalltext">Email Address : <span className="px-1" style={{color:'red'}}>*</span></h6>
                         <div class="px-3 paddedInput" >
@@ -98,7 +110,10 @@ function Student(props) {
                             onChange={(e)=>setStudentData({...StudentData,email:e.target.value})} name="email" placeholder="Enter Email Address" /> 
                         </div>
                     </div>
-                    <div class="row smalltext" > 
+                   
+                    </> 
+                }
+                 <div class="row smalltext" > 
                         <h6 class="px-3 smalltext">Password : <span className="px-1" style={{color:'red'}}>*</span></h6>
                         <div class="px-3 paddedInput" >
                             <span style={{display:'flex',justifyContent:'space-around'}}>
@@ -109,8 +124,7 @@ function Student(props) {
                             </span>
                             
                         </div>
-                    </div>
-                                   
+                    </div>               
                 <div class="row smalltext" > 
                     <h6 class="px-3 smalltext">School Name :</h6>
                     <div class="px-3 paddedInput" >

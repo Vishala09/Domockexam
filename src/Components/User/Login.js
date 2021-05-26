@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Home from './Home'
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
+import PasswordView from '../HelperComps/PasswordView';
 function Login() {
     const history = useHistory();
+    const Passref = useRef()
     return (
         <div>
             <div style={{marginTop:'10vh'}} className="container-fluid">
@@ -25,10 +27,15 @@ function Login() {
                                     </div>
                                 </div>
                                 <div class="row smalltext" > 
+                               
                                     <h6 class="px-3 smalltext">Password : <span className="px-1" style={{color:'red'}}>*</span></h6>
                                     <div class="px-3 paddedInput" >
-                                        <input class="mb-2 form-control smalltext" type="text" name="password" placeholder="Enter Password" /> 
+                                        <span style={{display:'flex',justifyContent:'space-around'}}>
+                                            <input ref={Passref} class="mb-2 form-control smalltext" type="text" name="password" placeholder="Enter Password" /> 
+                                            <PasswordView Passref={Passref} />
+                                        </span>
                                     </div>
+                                
                                 </div>
                             
                                 </form>
