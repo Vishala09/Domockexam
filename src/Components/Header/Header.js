@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
 import './Header.css'
+import SearchBar from './SearchBar';
 function Header() {
     let closeSideNav = () => {
         document.getElementById("mySidenav").style.left='-1000px'
@@ -14,48 +15,32 @@ function Header() {
 
     return (
         <div>
+            
             {
                 window.screen.width >=576 ? 
-            
-        <div style={{position:'fixed',background:'black',height:'10vh',textAlign:'center',top:0,left:0,right:0,
+            <div>
+                <SearchBar view='desktop' />
+        <div style={{position:'fixed',background:'#232F3E',height:'5vh',textAlign:'center',top:'8vh',left:0,right:0,
         width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder'}}>
             
-            <div className="header_left" >
-                <div  id="bar" onClick={()=>openSideNav()}><i class="fa fa-bars" aria-hidden="true"></i></div>
-                <Link to="/" className="noLink" >
-                        Logo
-                </Link>
-                
-            </div>
+            {/* <div  id="bar"  onClick={()=>openSideNav()}><i style={{color:'white',marginLeft:'30px'}}  class="fa fa-bars" aria-hidden="true"></i></div> */}
             <div className="header_center" >
-                <Link  className="noLink" >
-                        Courses
+                <Link  className="noLink header_item" >
+                        Home
                 </Link>
-                <Link  className="noLink" >
-                        Our Speciality
-                </Link>
-                <Link  className="noLink" >
-                        Blog
-                </Link>
-                <Link  className="noLink" >
-                        Subscriber
-                </Link>
-                <Link  className="noLink" >
-                        About Us
-                </Link>
-                <Link  className="noLink" >
-                        Testimonials
+                <Link  className="noLink header_item" >
+                        Exams
                 </Link>
             </div>
             <div className="header_right">
                 <span className="header_contact">
                         <span>Contact Us</span>
-                        <span>xxxx-xxx-xxx</span>
+                        {/* <span>xxxx-xxx-xxx</span> */}
                 </span>
                 
             </div>
             <div id="mySidenav" className="" style={{position:'fixed',backgroundColor:'gray',height:'100vh',width:'70%',top:'0',
-                left:'-1000px',zIndex:'30000',width:'20%',textAlign:'left'}}>
+                left:'-1000px',zIndex:5000000,width:'20%',textAlign:'left'}}>
                     <div className="container-fluid">
                         <div className="row text-center justify-content-center align-items-center" 
                         style={{fontWeight:'bold',backgroundColor:'black',height:'40px',color:'white'}}>
@@ -80,23 +65,25 @@ function Header() {
                     </div>
                 </div>
         </div>
+        </div>
         :
         <div>
-        <div className="container-fluid" style={{position:'fixed',background:'black',height:'10vh',textAlign:'center',top:0,left:0,right:0,
+        <div className="container-fluid" style={{position:'fixed',background:'black',height:'7vh',textAlign:'center',top:'0',left:0,right:0,
         width:'100%',fontWeight:'bolder',zIndex:3000,textAlign:'left'}}>
+            
                 <div className="header row text-center align-items-center" >
                     <div className="col-3" id="bar" onClick={()=>openSideNav()}>
                         <i class="fa fa-bars" style={{color:'white'}} aria-hidden="true"></i></div>
                     <Link to="/" className="col-6 noLink">
                         <div 
-                        style={{background:'#4CAF50',color:'white',height:'10vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        style={{background:'#4CAF50',color:'white',height:'7vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
                             LOGO</div>
                     </Link>
                     <div className="col-3">
                     </div>
                 </div>
                 <div id="mySidenav" className="" style={{position:'fixed',backgroundColor:'gray',height:'100vh',width:'70%',top:'0',
-                left:'-1000px',zIndex:'30000'}}>
+                left:'-1000px',zIndex:50000}}>
                     <div className="container-fluid">
                         <div className="row text-center justify-content-center align-items-center" 
                         style={{fontWeight:'bold',backgroundColor:'black',height:'40px',color:'white'}}>
@@ -108,13 +95,8 @@ function Header() {
                         <div className="mt30" style={{lineHeight:2.5,fontWeight:'bold'}}>
                             <ul type="none" >
                                 <li><Link onClick={()=>closeSideNav()} to="/" className="noLink">Home</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink" >Courses</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink" >Our Speciality</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink">Subscriber</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink" >Blog</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink" >About Us</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink" >Testimonials</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink">Contact Us</Link></li>
+                                <li><Link onClick={()=>closeSideNav()} className="noLink" >Exams</Link></li>
+                                
                                 <li><Link onClick={()=>closeSideNav()} className="noLink">My Profile</Link></li>
                                 <li><Link onClick={()=>closeSideNav()} className="noLink">Change Password</Link></li>
                                 <li><Link onClick={()=>closeSideNav()} className="noLink">Log Out</Link></li>
@@ -126,6 +108,7 @@ function Header() {
                     </div>
                 </div>
             </div>
+            <SearchBar view='mobile' />
         </div>
             }
     </div>

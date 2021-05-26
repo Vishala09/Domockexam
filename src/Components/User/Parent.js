@@ -9,21 +9,7 @@ function Parent() {
                    Parent Registration Form
             </div>
             <form>
-            <div class="row smalltext" > 
-                <h6 class="px-3 smalltext">Email Address : <span className="px-1" style={{color:'red'}}>*</span></h6>
-                <div class="px-3 paddedInput" >
-                    <input class="mb-2 form-control smalltext" type="text" name="Email" placeholder="Enter Email Address" /> 
-                </div>
-            </div>
-            <div class="row smalltext" > 
-                <h6 class="px-3 smalltext">Password : <span className="px-1" style={{color:'red'}}>*</span></h6>
-                <div class="px-3 paddedInput" >
-                    <span style={{display:'flex',justifyContent:'space-around'}} >
-                    <input  ref={Passref} class="mb-2 form-control smalltext" type="password" name="password" placeholder="Enter Password" /> 
-                    <PasswordView Passref={Passref} />
-                    </span>
-                </div>
-            </div>
+           
             <div class="row smalltext" > 
                 <h6 class="px-3 smalltext">Parent First Name : <span className="px-1" style={{color:'red'}}>*</span></h6>
                 <div class="px-3 paddedInput"  >
@@ -52,7 +38,22 @@ function Parent() {
                 
             </div>
             <div class="row smalltext" > 
-                <h6 class="px-3 smalltext">Phone Number(Optional) :</h6>
+                <h6 class="px-3 smalltext">Email Address : <span className="px-1" style={{color:'red'}}>*</span></h6>
+                <div class="px-3 paddedInput" >
+                    <input class="mb-2 form-control smalltext" type="text" name="Email" placeholder="Enter Email Address" /> 
+                </div>
+            </div>
+            <div class="row smalltext" > 
+                <h6 class="px-3 smalltext">Password : <span className="px-1" style={{color:'red'}}>*</span></h6>
+                <div class="px-3 paddedInput" >
+                    <span style={{display:'flex',justifyContent:'space-around'}} >
+                    <input  ref={Passref} class="mb-2 form-control smalltext" type="password" name="password" placeholder="Enter Password" /> 
+                    <PasswordView Passref={Passref} />
+                    </span>
+                </div>
+            </div>
+            <div class="row smalltext" > 
+                <h6 class="px-3 smalltext">Phone Number :</h6>
                 <div class="px-3 paddedInput" >
                     <input class="mb-2 form-control smalltext" type="number" name="phone" placeholder="Enter Phone Number" /> 
                 </div>

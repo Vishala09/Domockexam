@@ -33,7 +33,7 @@ function Register() {
     }
     
     return (
-        <div style={{marginTop:'10vh'}} className="container-fluid">
+        <div style={{marginTop:'13vh'}} className="container-fluid">
             <div className="row" >
                 <Home />
                 <div className="col-md-9 d-flex flex-column justify-content-center align-items-center" >
@@ -41,13 +41,12 @@ function Register() {
                         <h3 className="d-flex justify-content-center align-items-center">Register</h3>
                     
                         <div className="smalltext" style={{marginTop:'20px'}} >
-                                <h6 class="px-3 smalltext"> Are you a Student(Child)/Student(Adult)/Teacher?  </h6>
+                                <h6 class="px-3 smalltext"> Are you a Student/Teacher?  </h6>
                                 <div class=" px-3 paddedInput" >
                                     <select value={UserType} class="form-select smalltext mb-2" aria-label="Default select example"
                                     onChange={(e)=>{setUserType(e.target.value);setUserTypeHandle(e)}} >
                                         <option selected value="">Select User Type</option>
-                                        <option value="Adult">Student(Adult)</option>
-                                        <option value="Child">Student(Child) - Parent</option>
+                                        <option value="Adult">Student</option>
                                         <option value="Teacher">Teacher</option>
                                        
                                     </select>

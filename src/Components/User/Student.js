@@ -7,9 +7,9 @@ function Student(props) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
                         "July", "August", "September", "October", "November", "December"
                         ];
-    const [StudentData, setStudentData] = useState({firstname:"",surname:"",gender:"",grade:"",email:"",password:"",school:"",district:"",child:props.Parent})
+    const [StudentData, setStudentData] = useState({firstname:"",surname:"",gender:"",grade:"",email:"",password:"",school:"",district:"",child:props.Parent,phone:""})
     let checkSchoolGrade = (val) => {
-        if(val!="NA" && val<=13)
+        if(val!="Other" && val<=12)
         {
             props.ParentHandle(true)
         }
@@ -62,20 +62,20 @@ function Student(props) {
                         <select value={StudentData.grade} class="form-select smalltext mb-2"
                         onChange={(e)=>{setStudentData({...StudentData,grade:e.target.value});checkSchoolGrade(e.target.value)}} aria-label="Default select example">
                             <option selected>Select Grade</option>
-                            <option value="NA">N/A(Above 18 years of age)</option>
+                            
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
-                            <option value="5">5(Scolarship)</option>
+                            <option value="5">5(Scholarship)</option>
                             <option value="6">6</option>
                             <option value="7">7</option>
                             <option value="8">8</option>
                             <option value="9">9</option>
                             <option value="10">10</option>
-                            <option value="11">11(G.C.E O/L)</option>
-                            <option value="12">12(G.C.E A/L)</option>
-                            <option value="13">13(G.C.E A/L)</option>
+                            <option value="11">G.C.E O/L</option>
+                            <option value="12">G.C.E A/L</option>
+                            <option value="Other">Other(Above 18 years of age)</option>
 
                         </select>
                     </div>
@@ -124,7 +124,17 @@ function Student(props) {
                             </span>
                             
                         </div>
-                    </div>               
+                </div>  
+                {
+                    !props.Parent &&
+                    <div class="row smalltext" > 
+                        <h6 class="px-3 smalltext">Phone Number :</h6>
+                        <div class="px-3 paddedInput" >
+                            <input class="mb-2 form-control smalltext" type="number" name="phone" value={StudentData.phone}
+                            onChange={(e)=>setStudentData({...StudentData,phone:e.target.value})} placeholder="Enter Phone Number" /> 
+                        </div>
+                    </div>
+                }             
                 <div class="row smalltext" > 
                     <h6 class="px-3 smalltext">School Name :</h6>
                     <div class="px-3 paddedInput" >
@@ -133,6 +143,20 @@ function Student(props) {
                     </div>
                 </div>
                 <District Data={StudentData} setData={setStudentData} />
+                {
+                    !props.Parent &&
+                    <div className="row smalltext">
+                        <h6 class="px-3 smalltext"> How did you hear about us?  </h6>
+                        <div class="px-3 paddedInput" >
+                            <select class="form-select smalltext mb-2" aria-label="Default select example">
+                                <option selected>Select Source</option>
+                                <option value="1">Search Engine</option>
+                                <option value="2">Social Media</option>
+                                <option value="3">Friend</option>
+                            </select>
+                        </div>
+                    </div>
+                }
             </form>
         </div>
         </div>

@@ -41,14 +41,7 @@ function Teacher() {
                                 </div>
                                 
                             </div>
-                            <div class="row smalltext" > 
-                                    <h6 class="px-3 smalltext">Phone Number : </h6>
-                                    <div class="px-3 paddedInput" >
-                                        <input class="mb-2 form-control smalltext" type="number" value={TeacherData.phone} 
-                                        onChange={(e)=>setTeacherData({...TeacherData,phone:e.target.value})} name="phone" 
-                                        placeholder="Enter Phone Number" /> 
-                                    </div>
-                            </div>
+                            
                             
                                 <div class="row smalltext" > 
                                     <h6 class="px-3 smalltext">Email Address : <span className="px-1" style={{color:'red'}}>*</span></h6>
@@ -67,7 +60,14 @@ function Teacher() {
                                         </span>
                                     </div>
                                 </div>
-                            
+                            <div class="row smalltext" > 
+                                    <h6 class="px-3 smalltext">Phone Number : </h6>
+                                    <div class="px-3 paddedInput" >
+                                        <input class="mb-2 form-control smalltext" type="number" value={TeacherData.phone} 
+                                        onChange={(e)=>setTeacherData({...TeacherData,phone:e.target.value})} name="phone" 
+                                        placeholder="Enter Phone Number" /> 
+                                    </div>
+                            </div>
                             <div class="row smalltext" > 
                                 <h6 class="px-3 smalltext">School Name :</h6>
                                 <div class="px-3 paddedInput" >

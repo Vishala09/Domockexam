@@ -5,10 +5,12 @@ import Header from './Components/Header/Header';
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
 import Login from './Components/User/Login';
 import 'font-awesome/css/font-awesome.min.css';
+import SearchBar from './Components/Header/SearchBar';
 function App() {
   return (
     <div className="">
       <Router>
+            
             <Header ></Header>
             
             <Route exact path="/login">
