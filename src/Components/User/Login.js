@@ -13,11 +13,11 @@ function Login() {
                 <Home />
                 <div className="col-md-9 d-flex flex-column justify-content-center align-items-center" >
                 <h3>Login</h3>
-                    <div className="d-flex align-items-center">
+                    <div className="d-flex align-items-center row">
                     
-                    <h6 className="col-3">We help you practice for your exam success</h6>
+                    <h6 className="col-md-3 col-12">We help you practice for your exam success</h6>
                     
-                    <div className="mycard col-9">
+                    <div className="mycard col-md-9 col-12">
                         
                         <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da',margin:'20px'}}>
                                 <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px'}}>
