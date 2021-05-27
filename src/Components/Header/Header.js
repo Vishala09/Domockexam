@@ -25,7 +25,7 @@ function Header() {
             
             {/* <div  id="bar"  onClick={()=>openSideNav()}><i style={{color:'white',marginLeft:'30px'}}  class="fa fa-bars" aria-hidden="true"></i></div> */}
             <div className="header_center" >
-                <Link  className="noLink header_item" >
+                <Link to="/home" className="noLink header_item" >
                         Home
                 </Link>
                 <Link  className="noLink header_item" >

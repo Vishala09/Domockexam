@@ -23,7 +23,12 @@
     background-image: linear-gradient(to right,dodgerblue, #4caf50);
 }
 
-
+.err{
+    color:red;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 500;
+}
 
 @media (max-width: 576px) {
     .mycard{

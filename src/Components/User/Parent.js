@@ -6,7 +6,7 @@ function Parent() {
         <div className="col-md-6">
         <div  style={{marginTop:window.screen.width<=576?'15px':'0px', backgroundColor:'#F5F5F5',border:'1px solid #ced4da',overflow:'hidden'}}>
             <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px'}}>
-                   Parent Registration Form
+                   Parent Registration Form(Must be completed)
             </div>
             <form>
            
