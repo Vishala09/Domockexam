@@ -1,10 +1,14 @@
 import React,{useRef, useState} from 'react'
 import District from '../HelperComps/District'
 import PasswordView from '../HelperComps/PasswordView';
+import RegisterFooter from './RegisterFooter';
 function Teacher() {
     const [TeacherData, setTeacherData] = useState({firstname:"",surname:"",gender:"",phone:"",email:"",
     password:"",school:"",district:"",source:""})
     const Passref = useRef()
+    let validate = () => {
+    
+    }
     return (
         <div className="row justify-content-center" style={{width:'100%'}}>
             <div className="col-12">
@@ -91,7 +95,7 @@ function Teacher() {
                         </form>
                     </div>
                     </div>
-                    
+                    <RegisterFooter validate={validate}  />
         </div>
         
     )
