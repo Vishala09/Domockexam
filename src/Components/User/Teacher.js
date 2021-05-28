@@ -9,7 +9,7 @@ function Teacher() {
         <div className="row justify-content-center" style={{width:'100%'}}>
             <div className="col-12">
             <div  style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da'}}>
-                            <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px',width:'100%'}}>
+                            <div className="mb-2" style={{backgroundColor:'#0275d8',color:'white',paddingLeft:'10px',width:'100%'}}>
                                    Teacher Registration Form
                             </div>
                             <form>

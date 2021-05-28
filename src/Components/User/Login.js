@@ -22,7 +22,7 @@ function Login() {
                     <div className="mycard col-md-9 col-12" >
                         
                         <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da',margin:'20px'}}>
-                                <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px'}}>
+                                <div className="mb-2" style={{backgroundColor:'#0275d8',color:'white',paddingLeft:'10px'}}>
                                     Login Form
                                 </div>
 

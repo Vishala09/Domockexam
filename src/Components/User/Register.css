@@ -20,7 +20,7 @@
 }
 
 .register:hover , register:active{
-    background-image: linear-gradient(to right,dodgerblue, #4caf50);
+    background-image: linear-gradient(to right,#0275d8, #4caf50);
 }
 
 .err{
