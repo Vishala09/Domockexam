@@ -7,6 +7,7 @@ import Login from './Components/User/Login';
 import 'font-awesome/css/font-awesome.min.css';
 import SearchBar from './Components/Header/SearchBar';
 import Home from './Components/Home/Home';
+import Exams from './Components/Exams/Exams';
 function App() {
   return (
     <div className="">
@@ -16,6 +17,9 @@ function App() {
             <div style={{marginTop:'13vh'}}>
             <Route exact path="/home">
                   <Home />
+            </Route>
+            <Route exact path="/exams">
+                  <Exams />
             </Route>
             <Route exact path="/login">
                   <Login />

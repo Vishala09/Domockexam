@@ -1,0 +1,30 @@
+id: '2',
+    name: 'G.C.E O/L',
+    children: [
+      {
+        id: '21',
+        name: 'English Language ',
+      },
+      {
+        id: '22',
+        name: 'English Literature ',
+      },
+      {
+        id: '23',
+        name: 'Maths ',
+        children: [
+            {
+                id: '231',
+                name: 'Sinhala Medium',
+            },
+            {
+                id: '232',
+                name: 'Tamil Medium',
+            },
+            {
+                id: '233',
+                name: 'English Medium',
+            },
+          ],
+      },
+    ],

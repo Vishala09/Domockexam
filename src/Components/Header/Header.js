@@ -21,14 +21,14 @@ function Header() {
             <div>
                 <SearchBar view='desktop' />
         <div style={{position:'fixed',background:'#232F3E',height:'5vh',textAlign:'center',top:'8vh',left:0,right:0,
-        width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder'}}>
+        width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:3000}}>
             
             {/* <div  id="bar"  onClick={()=>openSideNav()}><i style={{color:'white',marginLeft:'30px'}}  class="fa fa-bars" aria-hidden="true"></i></div> */}
             <div className="header_center" >
                 <Link to="/home" className="noLink header_item" >
                         Home
                 </Link>
-                <Link  className="noLink header_item" >
+                <Link to="/exams" className="noLink header_item" >
                         Exams
                 </Link>
             </div>
@@ -51,7 +51,7 @@ function Header() {
                         </div>
                         <div className="mt30">
                             <ul type="none" 
-                            style={{background:'', lineHeight:2.5,fontWeight:'bold',display:'flex',flexDirection:'column'}}>
+                            style={{lineHeight:2.5,fontWeight:'bold',display:'flex',flexDirection:'column'}}>
                                 <li><Link onClick={()=>closeSideNav()} to="/" className="noLink">My Profile</Link></li>
                                 
                                 <li><Link onClick={()=>closeSideNav()}  className="noLink">Change Password</Link></li>
@@ -63,7 +63,7 @@ function Header() {
                         
                         <div className="mt30 text-center contact bg-danger"><a className="noLink" href="tel:+91 9991124429">CALL US NOW</a></div>
                     </div>
-                </div>
+            </div>
         </div>
         </div>
         :
@@ -94,8 +94,8 @@ function Header() {
                         </div>
                         <div className="mt30" style={{lineHeight:2.5,fontWeight:'bold'}}>
                             <ul type="none" >
-                                <li><Link onClick={()=>closeSideNav()} to="/" className="noLink">Home</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink" >Exams</Link></li>
+                                <li><Link onClick={()=>closeSideNav()} to="/home" className="noLink">Home</Link></li>
+                                <li><Link onClick={()=>closeSideNav()} to="/exams" className="noLink" >Exams</Link></li>
                                 
                                 <li><Link onClick={()=>closeSideNav()} className="noLink">My Profile</Link></li>
                                 <li><Link onClick={()=>closeSideNav()} className="noLink">Change Password</Link></li>

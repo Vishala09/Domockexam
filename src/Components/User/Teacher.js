@@ -2,7 +2,8 @@ import React,{useRef, useState} from 'react'
 import District from '../HelperComps/District'
 import PasswordView from '../HelperComps/PasswordView';
 function Teacher() {
-    const [TeacherData, setTeacherData] = useState({firstname:"",surname:"",gender:"",phone:"",email:"",password:"",school:"",district:"",source:""})
+    const [TeacherData, setTeacherData] = useState({firstname:"",surname:"",gender:"",phone:"",email:"",
+    password:"",school:"",district:"",source:""})
     const Passref = useRef()
     return (
         <div className="row justify-content-center" style={{width:'100%'}}>

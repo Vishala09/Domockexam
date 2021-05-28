@@ -12,12 +12,14 @@ function Login() {
             <div className="row d-flex" >
                 <Home />
                 <div className="col-md-9 d-flex flex-column justify-content-center align-items-center" >
-                <h3>Login</h3>
+                    <div className="offset-2">
+                    <h3>Login</h3>
+                    </div>
                     <div className="d-flex align-items-center row">
                     
                     <h6 className="col-md-3 col-12">We help you practice for your exam success</h6>
                     
-                    <div className="mycard col-md-9 col-12">
+                    <div className="mycard col-md-9 col-12" >
                         
                         <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da',margin:'20px'}}>
                                 <div className="mb-2" style={{backgroundColor:'dodgerblue',color:'white',paddingLeft:'10px'}}>
@@ -45,18 +47,22 @@ function Login() {
                                
                                 </form>
                         </div>
-                        <div className="d-flex flex-column justify-content-center align-items-stretch">
-                                    <button className="btn btn-primary register">Login</button>
+                        <div className="" style={{margin:'20px'}}>
+                                    <button style={{width:'100%'}} className="btn btn-primary register">Login</button>
                         </div>
-                    </div>
-                    </div>
-                    <hr></hr>
-                    <div className="d-flex flex-column align-items-center">
+                        
+                        <div className="d-flex align-items-center justify-content-center" style={{margin:'20px'}}>
+                                <a href="/">Forgot Password</a>
+                        </div>
+                        <div className="" style={{margin:'20px'}}>
+                                <hr></hr>
+                        </div>
+                        <div className="d-flex flex-column align-items-center">
                         <div className="smalltext"><i>Don't have an account?</i></div>
                         <button className="btn btn-warning" onClick={()=>history.push('')}>Register</button>
                     </div>
-                    
-                   
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>

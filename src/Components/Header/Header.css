@@ -42,3 +42,7 @@
     text-decoration: none;
     color:white
 }
+
+.mySidenav{
+    z-index:500000;
+}
