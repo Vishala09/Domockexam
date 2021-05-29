@@ -3,7 +3,7 @@ import District from '../HelperComps/District';
 import PasswordView from '../HelperComps/PasswordView';
 import Parent from './Parent'
 import RegisterFooter from './RegisterFooter';
-import {validateFirstName,validateSurname,validateGender,validateGrade,validateEmail,validatePassword,validateUsername} from '../HelperFunctions/Validations'
+import {validateFirstName,validatePhone,validateSchool,validateGender,validateGrade,validateEmail,validatePassword,validateUsername} from '../HelperFunctions/Validations'
 function Student(props) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
                         "July", "August", "September", "October", "November", "December"
@@ -22,61 +22,54 @@ function Student(props) {
         }
     }
     const Passref = useRef()
-    let validationRules = {
-        firstname:"First Name should have minimum 3 and maximum 25 letters",
-        surname:"Surname have minimum 3 and maximum 25 letters",
-        gender:"Must select a gender",
-        grade:"Must select a grade",
-        email:"Please enter a valid email address",
-        username:"Username should have minimum 4 and maximum 10 characters",
-        password:"Please enter a valid password of minimum length 8 containing special characters,numbers,capital and small letters",
-        phone:"Must contain only 10 digits",
-        above18:"Please confirm"
-    }
-    const [ValidationError, setValidationError] = useState({firstname:false,surname:false,gender:false,grade:false,email:false,
-        password:false,school:false,district:false,child:IsParent,phone:false,above18:false,username:false
-    })
+    let [validationRules,setValidationRules] = useState({
+        firstname:"",
+        surname:"",
+        gender:"",
+        grade:"",
+        email:"",
+        username:"",
+        password:"",
+        phone:"",
+        above18:"",
+        school:""
+    });
+    const [RegisterFormValidation, setRegisterFormValidation] = useState(false);
+   
     const validateAbove18 = ( ) => {
-        return(!IsParent && !above18ref.current.checked)
+        if(!IsParent && !above18ref.current.checked)
+            return "Please confirm if you are above 18"
+        else
+            return ""
     }
     let validate = () => {
         let flag=false;
-        let ValidationErrorTemp = {firstname:false,surname:false,gender:false,grade:false,email:false,password:false,school:false,district:false,child:IsParent,phone:false}
-        
-        ValidationErrorTemp['firstname']=validateFirstName(StudentData.firstname)
-        if(!flag)
-            flag=ValidationErrorTemp['firstname']
-
-        ValidationErrorTemp['surname']=validateSurname(StudentData.surname)
-            if(!flag)
-                flag=ValidationErrorTemp['surname']
-        
-        ValidationErrorTemp['gender']=validateGender(StudentData.gender)
-            if(!flag)
-                flag=ValidationErrorTemp['gender']
-        
-        ValidationErrorTemp['grade']=validateGrade(StudentData.grade)
-            if(!flag)
-                flag=ValidationErrorTemp['grade']
-         
-        ValidationErrorTemp['email']=validateEmail(StudentData.email)
-            if(!flag)
-                flag=ValidationErrorTemp['email']
-
-        ValidationErrorTemp['password']=validatePassword(StudentData.password)
-            if(!flag)
-                flag=ValidationErrorTemp['password']
-    
-        ValidationErrorTemp['above18']=validateAbove18(StudentData.above18)
-            if(!flag)
-                flag=ValidationErrorTemp['above18']
-
-       setValidationError({...ValidationErrorTemp});
-       console.log('validation',ValidationErrorTemp)
-       return !flag;
+        let tempValidationRules={}
+        tempValidationRules['firstname']=validateFirstName(StudentData.firstname);
+        tempValidationRules['surname']=validateFirstName(StudentData.surname);
+        tempValidationRules['gender']=validateGender(StudentData.gender);
+        tempValidationRules['grade']=validateGrade(StudentData.grade);
+        tempValidationRules['email']=validateEmail(StudentData.email);
+        tempValidationRules['password']=validatePassword(StudentData.password);
+        tempValidationRules['school']=validateSchool(StudentData.school);
+        tempValidationRules['phone']=validatePhone(StudentData.phone);
+        tempValidationRules['above18']=validateAbove18();
+        if(IsParent)
+        tempValidationRules['username']=validateUsername(StudentData.username);
+        setValidationRules({...tempValidationRules})
+        for(let key in tempValidationRules)
+        {
+            if(tempValidationRules[key]!="")
+            {
+                flag=true;
+                break;
+            }
+        }
+       return !flag
     }
     return (
-        <div className="row d-flex justify-content-center align-items-center" style={{width:'100%'}}>
+        <>
+        <div className="row d-flex flex-row justify-content-center align-items-stretch" style={{width:'100%'}}>
         <div className={IsParent ? 'col-md-6':'col-md-12'}>
         <div  style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da'}}>
                 <div className="mb-2" style={{backgroundColor:'#0D6EFD',color:'white',paddingLeft:'10px'}}>
@@ -88,9 +81,9 @@ function Student(props) {
                     <div class="px-3 paddedInput mb-2"  >
                         <input class="form-control smalltext" type="text" value={StudentData.firstname}
                         onChange={(e)=>{setStudentData({...StudentData,firstname:e.target.value});
-                        setValidationError({...ValidationError,firstname: validateFirstName(e.target.value)})}} 
+                        setValidationRules({...validationRules,firstname: validateFirstName(e.target.value)})}} 
                         name="firstname" placeholder="Enter First Name" /> 
-                        { ValidationError.firstname ? <span className="err">{validationRules.firstname}</span> : ''}
+                        <span className="err">{validationRules.firstname}</span>
                     </div>
                 </div>
                 <div class="row smalltext" > 
@@ -98,9 +91,9 @@ function Student(props) {
                     <div class="px-3 paddedInput mb-2" >
                         <input class="form-control smalltext" type="text" value={StudentData.surname} 
                         onChange={(e)=>{setStudentData({...StudentData,surname:e.target.value});
-                        setValidationError({...ValidationError,surname: validateSurname(e.target.value)}) } }
+                        setValidationRules({...validationRules,surname: validateFirstName(e.target.value)}) } }
                         name="surname" placeholder="Enter Surname" /> 
-                        { ValidationError.surname ? <span className="err">{validationRules.surname}</span> : ''}
+                        <span className="err">{validationRules.surname}</span>
                     </div>
                 </div>
                 <div class="row px-1 smalltext" > 
@@ -109,16 +102,16 @@ function Student(props) {
                                 <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Female" 
                                 onChange={(e)=>{setStudentData({...StudentData,gender:"Female"})
-                                setValidationError({...ValidationError,gender: validateGender(e.target.value)}) }} />
+                                setValidationRules({...validationRules,gender: validateGender(e.target.value)}) }} />
                                 <label class="form-check-label smalltext" for="inlineRadio1">Female</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Male" 
                                 onChange={(e)=>{setStudentData({...StudentData,gender:"Male"})
-                                setValidationError({...ValidationError,gender: validateGender(e.target.value)}) }}/>
+                                setValidationRules({...validationRules,gender: validateGender(e.target.value)}) }}/>
                                 <label class="form-check-label smalltext" for="inlineRadio2">Male</label>
                                 </div>
-                                { ValidationError.gender ? <span className="err">{validationRules.gender}</span> : ''}
+                                <span className="err">{validationRules.gender}</span>
                             </h6>
                             
                     </div>
@@ -130,7 +123,7 @@ function Student(props) {
                     <div class="px-3 paddedInput mb-2" >
                         <select value={StudentData.grade} class="form-select smalltext"
                         onChange={(e)=>{setStudentData({...StudentData,grade:e.target.value});checkSchoolGrade(e.target.value);
-                        setValidationError({...ValidationError,grade: validateGrade(e.target.value)})}} 
+                        setValidationRules({...validationRules,grade: validateGrade(e.target.value)})}} 
                         
                         aria-label="Default select example">
                             <option value="" selected>Select Grade</option>
@@ -150,7 +143,7 @@ function Student(props) {
                             <option value="Other">Other(Above 18 years of age)</option>
 
                         </select>
-                        { ValidationError.grade ? <span className="err">{validationRules.grade}</span> : ''}
+                        <span className="err">{validationRules.grade}</span>
                     </div>
                 </div>
                 {!IsParent && <div className="row smalltext">
@@ -162,8 +155,8 @@ function Student(props) {
                         
                         <input class="form-check-input" type="checkbox" ref={above18ref}
                         value={StudentData.child}  id="child"
-                        onChange={(e)=>{setValidationError({...ValidationError,above18: validateAbove18(e.target.value)})}} />
-                        { ValidationError.above18 ? <span className="err">{validationRules.above18}</span> : ''}
+                        onChange={(e)=>{setValidationRules({...validationRules,above18: validateAbove18(e.target.value)})}} />
+                        <span className="err">{validationRules.above18}</span>
                     </div>
                 </div>}
                 {
@@ -174,10 +167,10 @@ function Student(props) {
                         <div class="px-3 paddedInput mb-2" >
                             <input class="form-control smalltext" type="email" value={StudentData.username} 
                             onChange={(e)=>{setStudentData({...StudentData,username:e.target.value});
-                            setValidationError({...ValidationError,username: validateUsername(e.target.value)})}}
+                            setValidationRules({...validationRules,username: validateUsername(e.target.value)})}}
                             
                             name="username" placeholder="Enter User Name" /> 
-                            { ValidationError.username ? <span className="err">{validationRules.username}</span> : ''}
+                           <span className="err">{validationRules.username}</span>
                         </div>
                     </div>
                     
@@ -188,10 +181,10 @@ function Student(props) {
                         <div class="px-3 paddedInput mb-2" >
                             <input class="form-control smalltext" type="email" value={StudentData.email} 
                             onChange={(e)=>{setStudentData({...StudentData,email:e.target.value});
-                            setValidationError({...ValidationError,email: validateEmail(e.target.value)})}} 
+                            setValidationRules({...validationRules,email: validateEmail(e.target.value)})}} 
                             
                             name="email" placeholder="Enter Email Address" /> 
-                            { ValidationError.email ? <span className="err">{validationRules.email}</span> : ''}
+                            <span className="err">{validationRules.email}</span>
                         </div>
                     </div>
                    
@@ -204,28 +197,32 @@ function Student(props) {
                             <input ref={Passref} class="form-control smalltext" type="password" 
                             value={StudentData.password} name="password"
                             onChange={(e)=>{setStudentData({...StudentData,password:e.target.value});
-                            setValidationError({...ValidationError,password: validatePassword(e.target.value)})}}  
+                            setValidationRules({...validationRules,password: validatePassword(e.target.value)})}}  
                             placeholder="Enter Password" /> 
                             <PasswordView Passref={Passref} />
                             </span>
-                            { ValidationError.password ? <span className="err">{validationRules.password}</span> : ''}
+                            <span className="err">{validationRules.password}</span>
                         </div>
                 </div>  
                 {
                     !IsParent &&
                     <div class="row smalltext" > 
                         <h6 class="px-3 smalltext">Phone Number :</h6>
-                        <div class="px-3 paddedInput" >
-                            <input class="mb-2 form-control smalltext" type="number" name="phone" value={StudentData.phone}
-                            onChange={(e)=>setStudentData({...StudentData,phone:e.target.value})} placeholder="Enter Phone Number" /> 
+                        <div class="px-3 paddedInput mb-2" >
+                            <input class="mb-1 form-control smalltext" type="number" name="phone" value={StudentData.phone}
+                            onChange={(e)=>{setStudentData({...StudentData,phone:e.target.value})
+                            setValidationRules({...validationRules,phone: validatePhone(e.target.value)})}} placeholder="Enter Phone Number" /> 
+                            <span className="err">{validationRules.phone}</span>
                         </div>
                     </div>
                 }             
                 <div class="row smalltext" > 
                     <h6 class="px-3 smalltext">School Name :</h6>
-                    <div class="px-3 paddedInput" >
-                        <input class="mb-2 form-control smalltext" type="text" value={StudentData.school} name="school" 
-                        onChange={(e)=>setStudentData({...StudentData,school:e.target.value})} placeholder="Enter School Name" /> 
+                    <div class="px-3 paddedInput mb-2" >
+                        <input class="mb-1 form-control smalltext" type="text" value={StudentData.school} name="school" 
+                        onChange={(e)=>{setStudentData({...StudentData,school:e.target.value})
+                        setValidationRules({...validationRules,school: validateSchool(e.target.value)})}} placeholder="Enter School Name" /> 
+                        <span className="err">{validationRules.school}</span>
                     </div>
                 </div>
                 <District Data={StudentData} setData={setStudentData} />
@@ -250,9 +247,12 @@ function Student(props) {
         {
             IsParent && <Parent />
         }
-        <RegisterFooter validate={validate}  />
-                   
         </div>
+        <div>
+            <RegisterFooter validate={validate}  />
+        </div>        
+        
+        </>
     )
 }
 

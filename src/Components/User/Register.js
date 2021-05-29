@@ -5,6 +5,7 @@ import Home from './Home';
 import Teacher from './Teacher';
 import Student from './Student';
 import RecaptchaComp from './RecaptchaComp';
+import RegisterFooter from './RegisterFooter';
 
 
 function Register() {
@@ -34,14 +35,17 @@ function Register() {
                                 </div>
                         </div>
                     </div>
-                    { (UserType=="Adult")  && 
-                    <Student />}
+                    { (UserType=="Adult")  && <Student />}
                     { UserType=="Teacher" && <Teacher />} 
-                    <div className="d-flex flex-column justify-content-center align-items-stretch">
+                    
+                   
+                    <div className="d-flex flex-column justify-content-center align-items-center">
                         <p></p>
-                        <div className="smalltext"><i>Already have an account?</i></div>
-                        <button className="btn btn-warning" onClick={()=>history.push('/login')}>Login</button>
+                        <div className=""><i>Already have an account?</i></div>
+                        <button className="btn btn-warning lrbutton" onClick={()=>history.push('/login')}>Login</button>
+                      
                     </div>
+                    
                     
                     </div>
             </div>

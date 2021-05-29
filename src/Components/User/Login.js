@@ -58,9 +58,9 @@ function Login() {
                                 <hr></hr>
                         </div>
                         <div className="d-flex flex-column align-items-center">
-                        <div className="smalltext"><i>Don't have an account?</i></div>
-                        <button className="btn btn-warning" onClick={()=>history.push('')}>Register</button>
-                    </div>
+                            <div className=""><i>Don't have an account?</i></div>
+                            <button className="btn btn-warning lrbutton" onClick={()=>history.push('')}>Register</button>
+                        </div>
                     </div>
                     </div>
                 </div>

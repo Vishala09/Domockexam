@@ -1,30 +1,33 @@
-id: '2',
-    name: 'G.C.E O/L',
-    children: [
-      {
-        id: '21',
-        name: 'English Language ',
-      },
-      {
-        id: '22',
-        name: 'English Literature ',
-      },
-      {
-        id: '23',
-        name: 'Maths ',
-        children: [
-            {
-                id: '231',
-                name: 'Sinhala Medium',
-            },
-            {
-                id: '232',
-                name: 'Tamil Medium',
-            },
-            {
-                id: '233',
-                name: 'English Medium',
-            },
-          ],
-      },
-    ],
+let flag=false;
+        let ValidationErrorTemp = {firstname:false,surname:false,gender:false,grade:false,email:false,password:false,school:false,district:false,child:IsParent,phone:false}
+        
+        ValidationErrorTemp['firstname']=validateFirstName(StudentData.firstname)
+        if(!flag)
+            flag=ValidationErrorTemp['firstname']
+
+        ValidationErrorTemp['surname']=validateSurname(StudentData.surname)
+            if(!flag)
+                flag=ValidationErrorTemp['surname']
+        
+        ValidationErrorTemp['gender']=validateGender(StudentData.gender)
+            if(!flag)
+                flag=ValidationErrorTemp['gender']
+        
+        ValidationErrorTemp['grade']=validateGrade(StudentData.grade)
+            if(!flag)
+                flag=ValidationErrorTemp['grade']
+         
+        ValidationErrorTemp['email']=validateEmail(StudentData.email)
+            if(!flag)
+                flag=ValidationErrorTemp['email']
+
+        ValidationErrorTemp['password']=validatePassword(StudentData.password)
+            if(!flag)
+                flag=ValidationErrorTemp['password']
+    
+        ValidationErrorTemp['above18']=validateAbove18(StudentData.above18)
+            if(!flag)
+                flag=ValidationErrorTemp['above18']
+
+       setValidationError({...ValidationErrorTemp});
+       console.log('validation',ValidationErrorTemp)

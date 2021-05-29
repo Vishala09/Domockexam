@@ -23,6 +23,9 @@
     background-image: linear-gradient(to right,#0D6EFD, #4caf50);
 }
 
+.lrbutton{
+    width:200px;
+}
 .linkBlue{
     color:#0D6EFD;
 }
@@ -31,6 +34,7 @@
     font-size: 12px;
     font-style: italic;
     font-weight: 500;
+
 }
 
 @media (max-width: 576px) {
