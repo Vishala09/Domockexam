@@ -22,7 +22,7 @@ function Login() {
                     <div className="mycard col-md-9 col-12" >
                         
                         <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da',margin:'20px'}}>
-                                <div className="mb-2" style={{backgroundColor:'#0275d8',color:'white',paddingLeft:'10px'}}>
+                                <div className="mb-2" style={{backgroundColor:'#0D6EFD',color:'white',paddingLeft:'10px'}}>
                                     Login Form
                                 </div>
 
@@ -52,7 +52,7 @@ function Login() {
                         </div>
                         
                         <div className="d-flex align-items-center justify-content-center" style={{margin:'20px'}}>
-                                <a href="/">Forgot Password</a>
+                                <a href="/" className="linkBlue">Forgot Password</a>
                         </div>
                         <div className="" style={{margin:'20px'}}>
                                 <hr></hr>

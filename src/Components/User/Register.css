@@ -20,9 +20,12 @@
 }
 
 .register:hover , register:active{
-    background-image: linear-gradient(to right,#0275d8, #4caf50);
+    background-image: linear-gradient(to right,#0D6EFD, #4caf50);
 }
 
+.linkBlue{
+    color:#0D6EFD;
+}
 .err{
     color:red;
     font-size: 12px;

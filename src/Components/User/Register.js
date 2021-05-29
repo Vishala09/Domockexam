@@ -21,7 +21,7 @@ function Register() {
                     <div className={UserType==""?'mycard':''} >
                         <h3 className="d-flex justify-content-center align-items-center">Register</h3>
                     
-                        <div className="smalltext" style={{marginTop:'20px'}} >
+                        <div className="smalltext"  >
                                 <h6 class="px-3 smalltext"> Are you a Student/Teacher?  </h6>
                                 <div class=" px-3 paddedInput" >
                                     <select value={UserType} class="form-select smalltext mb-2" aria-label="Default select example"
@@ -37,13 +37,13 @@ function Register() {
                     { (UserType=="Adult")  && 
                     <Student />}
                     { UserType=="Teacher" && <Teacher />} 
-                    <hr></hr>
-                    <div className="d-flex flex-column align-items-center">
+                    <div className="d-flex flex-column justify-content-center align-items-stretch">
+                        <p></p>
                         <div className="smalltext"><i>Already have an account?</i></div>
                         <button className="btn btn-warning" onClick={()=>history.push('/login')}>Login</button>
-                        
                     </div>
-                </div>
+                    
+                    </div>
             </div>
         </div>
     )

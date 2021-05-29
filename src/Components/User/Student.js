@@ -76,10 +76,10 @@ function Student(props) {
        return !flag;
     }
     return (
-        <div className="row d-flex justify-content-center align-items-stretch" style={{width:'100%'}}>
+        <div className="row d-flex justify-content-center align-items-center" style={{width:'100%'}}>
         <div className={IsParent ? 'col-md-6':'col-md-12'}>
         <div  style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da'}}>
-                <div className="mb-2" style={{backgroundColor:'#0275d8',color:'white',paddingLeft:'10px'}}>
+                <div className="mb-2" style={{backgroundColor:'#0D6EFD',color:'white',paddingLeft:'10px'}}>
                        Student Registration Form
                 </div>
                 <form >

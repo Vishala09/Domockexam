@@ -133,18 +133,21 @@ function Exams() {
   
   );
     return (
-        <div style={{top:'20vh',margin:'20px'}} >
-            <h4 className="d-flex justify-content-center" >Exams</h4>
-            <div className="row">
-            <TreeView className={classes.treeview+' col-3'} 
-                defaultCollapseIcon={<ExpandMoreIcon />}
-                defaultExpandIcon={<ChevronRightIcon />}
-                >
-                {
-                    data.map((nodes)=>renderTree(nodes))
-                }
-                
-            </TreeView>
+        <div style={{top:'20vh'}} >
+            <h4 className="text-center" >Exams</h4>
+            <div className="d-flex flex-row">
+              <TreeView className={classes.treeview+' col-md-3 col-5'} 
+                  defaultCollapseIcon={<ExpandMoreIcon />}
+                  defaultExpandIcon={<ChevronRightIcon />}
+                  >
+                  {
+                      data.map((nodes)=>renderTree(nodes))
+                  }
+                  
+              </TreeView>
+              <div className="col-9">
+                    
+              </div>
             </div>
         </div>
     )

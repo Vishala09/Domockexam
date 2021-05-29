@@ -20,7 +20,7 @@ function Header() {
                 window.screen.width >=576 ? 
             <div>
                 <SearchBar view='desktop' />
-        <div style={{position:'fixed',background:'#232F3E',height:'5vh',textAlign:'center',top:'8vh',left:0,right:0,
+        <div style={{position:'fixed',background:'#232F3E',height:'7vh',textAlign:'center',top:'8vh',left:0,right:0,
         width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:3000}}>
             
             {/* <div  id="bar"  onClick={()=>openSideNav()}><i style={{color:'white',marginLeft:'30px'}}  class="fa fa-bars" aria-hidden="true"></i></div> */}

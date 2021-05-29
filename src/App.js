@@ -14,7 +14,7 @@ function App() {
       <Router>
             
             <Header ></Header>
-            <div style={{marginTop:'13vh'}}>
+            <div style={{marginTop:'15vh'}}>
             <Route exact path="/home">
                   <Home />
             </Route>
