@@ -1,29 +1,27 @@
-var splcharformat = /[`0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-var emailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+var splcharformat = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+var emailformat = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 var numberformat = /^\d+$/;
+var spaceformat = /\s/g;
 
 export function validateFirstName(data)
 {
     if(data=="")
     return "Name must be 3 to 25 letters long"
+    else if(splcharformat.test(data))
+    return "Name must not contain special characters"
+    else if(numberformat.test(data))
+    return "Name must not contain numbers"
+    else if(spaceformat.test(data))
+    return "Name must not contain space"
     else if(data.length <3) 
     return "Name too short"
     else if(data.length > 25)
     return "Name too long"
-    else if(splcharformat.test(data))
-    return "Name must not contain special characters"
     else
     return ""
 
 }
 
-export function validateSurname(data)
-{
-    if(data.length <3 || data.length > 25 || splcharformat.test(data)) 
-    return true
-    else
-    return false
-}
 
 export function validateGender(data)
 {
