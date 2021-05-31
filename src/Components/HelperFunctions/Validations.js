@@ -1,18 +1,18 @@
 var splcharformat = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 var emailformat = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-var numberformat = /^\d+$/;
-var spaceformat = /\s/g;
+var numberformat = /\d+/g;
+var spaceformat = /\s+/g;
 
 export function validateFirstName(data)
 {
     if(data=="")
     return "Name must be 3 to 25 letters long"
+    else if(spaceformat.test(data))
+    return "Name must not contain space"
     else if(splcharformat.test(data))
     return "Name must not contain special characters"
     else if(numberformat.test(data))
     return "Name must not contain numbers"
-    else if(spaceformat.test(data))
-    return "Name must not contain space"
     else if(data.length <3) 
     return "Name too short"
     else if(data.length > 25)
