@@ -12,12 +12,12 @@ function Login() {
             <div className="row d-flex" >
                 <Home />
                 <div className="col-md-9 d-flex flex-column justify-content-center align-items-center" >
-                    <div className="offset-2">
+                    <div className="offset-md-2">
                     <h3>Login</h3>
                     </div>
                     <div className="d-flex align-items-center row">
                     
-                    <h6 className="col-md-3 col-12">We help you practice for your exam success</h6>
+                    <h3 className="col-md-3 col-12 text-center">We help you practice for your exam success</h3>
                     
                     <div className="mycard col-md-9 col-12" >
                         

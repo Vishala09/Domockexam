@@ -12,7 +12,7 @@ function SearchBar(props) {
                         {
                             props.view=='desktop' &&
                             <div className="header_left" >
-                                <div  id="bar" onClick={()=>openSideNav()}><i class="fa fa-bars" aria-hidden="true"></i></div>
+                                <div  id="bar" className="cursor-pointer" onClick={()=>openSideNav()}><i class="fa fa-bars" aria-hidden="true"></i></div>
                                 <Link to="/" className="noLink" >
                                         Logo
                                 </Link>

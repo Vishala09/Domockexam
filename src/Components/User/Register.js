@@ -43,7 +43,7 @@ function Register() {
                         <p></p>
                         <div className=""><i>Already have an account?</i></div>
                         <button className="btn btn-warning lrbutton" onClick={()=>history.push('/login')}>Login</button>
-                      
+                        <p></p>
                     </div>
                     
                     

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
 import './Header.css'
 import SearchBar from './SearchBar';
@@ -12,7 +12,7 @@ function Header() {
         document.getElementById("mySidenav").style.left='0px'
         document.getElementById("mySidenav").classList.add('mySidenav')
     }
-
+    const [ActiveHeader, setActiveHeader] = useState("")
     return (
         <div>
             
@@ -25,10 +25,10 @@ function Header() {
             
             {/* <div  id="bar"  onClick={()=>openSideNav()}><i style={{color:'white',marginLeft:'30px'}}  class="fa fa-bars" aria-hidden="true"></i></div> */}
             <div className="header_center" >
-                <Link to="/home" className="noLink header_item" >
+                <Link to="/home" onClick={()=>setActiveHeader('home')} className={ActiveHeader=='home'?'header_item activeHeader':'noLink header_item'} >
                         Home
                 </Link>
-                <Link to="/exams" className="noLink header_item" >
+                <Link to="/exams" onClick={()=>setActiveHeader('exams')} className={ActiveHeader=='exams'?'header_item activeHeader':'noLink header_item'} >
                         Exams
                 </Link>
             </div>
@@ -39,7 +39,7 @@ function Header() {
                 </span>
                 
             </div>
-            <div id="mySidenav" className="" style={{position:'fixed',backgroundColor:'gray',height:'100vh',width:'70%',top:'0',
+            <div id="mySidenav" className="" style={{position:'fixed',backgroundColor:'#0D6EFD',height:'100vh',width:'70%',top:'0',
                 left:'-1000px',zIndex:5000000,width:'20%',textAlign:'left'}}>
                     <div className="container-fluid">
                         <div className="row text-center justify-content-center align-items-center" 
@@ -53,9 +53,9 @@ function Header() {
                             <ul type="none" 
                             style={{lineHeight:2.5,fontWeight:'bold',display:'flex',flexDirection:'column'}}>
                                 <li><Link onClick={()=>closeSideNav()} to="/" className="noLink">My Profile</Link></li>
-                                
+                                <hr></hr>
                                 <li><Link onClick={()=>closeSideNav()}  className="noLink">Change Password</Link></li>
-
+                                <hr></hr>
                                 <li><Link onClick={()=>closeSideNav()}  className="noLink">Log Out</Link></li>
                             </ul>
                             

@@ -4,13 +4,21 @@ import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+ 
 
 function Exams() {
     const useStyles = makeStyles({
         treeview: {
-          background:'#4CAF50',
-          minHeight:'80vh',
+          background:'#0D6EFD',
+          minHeight:'90vh',
           zIndex:1
+        },
+        treeviewmobile: {
+          background:'#0D6EFD',
+          minHeight:'90vh',
+          zIndex:1,
+          fontSize:'11px'
         },
       });
       const classes = useStyles();
@@ -24,11 +32,11 @@ function Exams() {
         children: [
             {
                 id: '111',
-                name: 'Sinhala Medium',
+                name: 'Sinhala&nbsp;Medium',
             },
             {
                 id: '112',
-                name: 'Tamil Medium',
+                name: 'Tamil&nbsp;Medium',
             },
           ],
       },
@@ -38,11 +46,11 @@ function Exams() {
     children: [
       {
         id: '21',
-        name: 'English Language ',
+        name: 'English&nbsp;Language ',
       },
       {
         id: '22',
-        name: 'English Literature ',
+        name: 'English&nbsp;Literature ',
       },
       {
         id: '23',
@@ -50,15 +58,15 @@ function Exams() {
         children: [
             {
                 id: '231',
-                name: 'Sinhala Medium',
+                name: 'Sinhala&nbsp;Medium',
             },
             {
                 id: '232',
-                name: 'Tamil Medium',
+                name: 'Tamil&nbsp;Medium',
             },
             {
                 id: '233',
-                name: 'English Medium',
+                name: 'English&nbsp;Medium',
             },
           ],
       },
@@ -73,15 +81,15 @@ function Exams() {
         children: [
             {
                 id: '311',
-                name: 'Sinhala Medium',
+                name: 'Sinhala&nbsp;Medium',
             },
             {
                 id: '312',
-                name: 'Tamil Medium',
+                name: 'Tamil&nbsp;Medium',
             },
             {
                 id: '313',
-                name: 'English Medium',
+                name: 'English&nbsp;Medium',
             },
           ],
       },
@@ -91,33 +99,33 @@ function Exams() {
         children: [
             {
                 id: '321',
-                name: 'Sinhala Medium',
+                name: 'Sinhala&nbsp;Medium',
             },
             {
                 id: '322',
-                name: 'Tamil Medium',
+                name: 'Tamil&nbsp;Medium',
             },
             {
                 id: '323',
-                name: 'English Medium',
+                name: 'English&nbsp;Medium',
             },
           ],
       },
       {
         id: '33',
-        name: 'General Knowledge ',
+        name: 'General&nbsp;Knowledge ',
         children: [
             {
                 id: '331',
-                name: 'Sinhala Medium',
+                name: 'Sinhala&nbsp;Medium',
             },
             {
                 id: '332',
-                name: 'Tamil Medium',
+                name: 'Tamil&nbsp;Medium',
             },
             {
                 id: '333',
-                name: 'English Medium',
+                name: 'English&nbsp;Medium',
             },
           ],
       },
@@ -127,16 +135,16 @@ function Exams() {
   
   const renderTree = (nodes) => (
  
-        <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
+        <TreeItem key={nodes.id} nodeId={nodes.id} label={ReactHtmlParser(nodes.name)}>
               {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTree(node)) : null}
         </TreeItem>
   
   );
     return (
         <div style={{top:'20vh'}} >
-            <h4 className="text-center" >Exams</h4>
+            {/* <h4 className="text-center" >Exams</h4> */}
             <div className="d-flex flex-row">
-              <TreeView className={classes.treeview+' col-md-3 col-5'} 
+              <TreeView className={window.screen.width<576?classes.treeviewmobile+'':classes.treeview+' col-2'} 
                   defaultCollapseIcon={<ExpandMoreIcon />}
                   defaultExpandIcon={<ChevronRightIcon />}
                   >

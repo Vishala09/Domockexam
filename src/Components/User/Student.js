@@ -1,9 +1,10 @@
-import React,{useState,useRef} from 'react'
+import React,{useState,useRef, useEffect} from 'react'
 import District from '../HelperComps/District';
 import PasswordView from '../HelperComps/PasswordView';
 import Parent from './Parent'
 import RegisterFooter from './RegisterFooter';
 import {validateFirstName,validatePhone,validateSchool,validateGender,validateGrade,validateEmail,validatePassword,validateUsername} from '../HelperFunctions/Validations'
+import DistrictMUI from '../HelperComps/DistrictMUI';
 function Student(props) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
                         "July", "August", "September", "October", "November", "December"
@@ -11,6 +12,7 @@ function Student(props) {
     const [IsParent, setIsParent] = useState(false);
     const [StudentData, setStudentData] = useState({firstname:"",surname:"",gender:"",grade:"",email:"",password:"",
                                                 school:"",district:"",child:IsParent,phone:"",username:"",source:""})
+    
     const above18ref = useRef()
     let checkSchoolGrade = (val) => {
         if(val!="" && val!="Other" && val<=12)
@@ -67,6 +69,7 @@ function Student(props) {
         }
        return !flag
     }
+    
     return (
         <>
         <div className="row d-flex flex-row justify-content-center align-items-stretch" style={{width:'100%'}}>
@@ -79,9 +82,9 @@ function Student(props) {
                 <div class="row smalltext" > 
                     <h6 class="px-3 smalltext">Student First Name : <span className="px-1" style={{color:'red'}}>*</span></h6>
                     <div class="px-3 paddedInput mb-2"  >
-                        <input class="form-control smalltext" type="text" value={StudentData.firstname}
+                        <input class="mb-1 form-control smalltext" type="text" value={StudentData.firstname}
                         onChange={(e)=>{setStudentData({...StudentData,firstname:e.target.value});
-                        setValidationRules({...validationRules,firstname: validateFirstName(e.target.value)})}} 
+                        ;setValidationRules({...validationRules,firstname: validateFirstName(e.target.value)})}} 
                         name="firstname" placeholder="Enter First Name" /> 
                         <span className="err">{validationRules.firstname}</span>
                     </div>
@@ -89,7 +92,7 @@ function Student(props) {
                 <div class="row smalltext" > 
                     <h6 class="px-3 smalltext">Student Surname : <span className="px-1" style={{color:'red'}}>*</span></h6>
                     <div class="px-3 paddedInput mb-2" >
-                        <input class="form-control smalltext" type="text" value={StudentData.surname} 
+                        <input class="mb-1 form-control smalltext" type="text" value={StudentData.surname} 
                         onChange={(e)=>{setStudentData({...StudentData,surname:e.target.value});
                         setValidationRules({...validationRules,surname: validateFirstName(e.target.value)}) } }
                         name="surname" placeholder="Enter Surname" /> 
@@ -121,7 +124,7 @@ function Student(props) {
                     <h6 class="px-3 smalltext"> School Grade : (In {monthNames[new Date().getMonth()] +" "+ new Date().getFullYear()}) 
                     <span className="px-1" style={{color:'red'}}>*</span>  </h6>
                     <div class="px-3 paddedInput mb-2" >
-                        <select value={StudentData.grade} class="form-select smalltext"
+                        <select value={StudentData.grade} class="mb-1 form-select smalltext"
                         onChange={(e)=>{setStudentData({...StudentData,grade:e.target.value});checkSchoolGrade(e.target.value);
                         setValidationRules({...validationRules,grade: validateGrade(e.target.value)})}} 
                         
@@ -153,7 +156,7 @@ function Student(props) {
                             <span className="" style={{color:'red'}}>*</span></h6>
                         </label>
                         
-                        <input class="form-check-input" type="checkbox" ref={above18ref}
+                        <input class="mb-1 form-check-input" type="checkbox" ref={above18ref}
                         value={StudentData.child}  id="child"
                         onChange={(e)=>{setValidationRules({...validationRules,above18: validateAbove18(e.target.value)})}} />
                         <span className="err">{validationRules.above18}</span>
@@ -165,7 +168,7 @@ function Student(props) {
                     <div class="row smalltext" > 
                         <h6 class="px-3 smalltext">Username : <span className="px-1" style={{color:'red'}}>*</span></h6>
                         <div class="px-3 paddedInput mb-2" >
-                            <input class="form-control smalltext" type="email" value={StudentData.username} 
+                            <input class="mb-1 form-control smalltext" type="email" value={StudentData.username} 
                             onChange={(e)=>{setStudentData({...StudentData,username:e.target.value});
                             setValidationRules({...validationRules,username: validateUsername(e.target.value)})}}
                             
@@ -179,7 +182,7 @@ function Student(props) {
                     <div class="row smalltext" > 
                         <h6 class="px-3 smalltext">Email Address : <span className="px-1" style={{color:'red'}}>*</span></h6>
                         <div class="px-3 paddedInput mb-2" >
-                            <input class="form-control smalltext" type="email" value={StudentData.email} 
+                            <input class="mb-1 form-control smalltext" type="email" value={StudentData.email} 
                             onChange={(e)=>{setStudentData({...StudentData,email:e.target.value});
                             setValidationRules({...validationRules,email: validateEmail(e.target.value)})}} 
                             
@@ -194,7 +197,7 @@ function Student(props) {
                         <h6 class="px-3 smalltext">Password : <span className="px-1" style={{color:'red'}}>*</span></h6>
                         <div class="px-3 paddedInput mb-2" >
                             <span style={{display:'flex',justifyContent:'space-around'}}>
-                            <input ref={Passref} class="form-control smalltext" type="password" 
+                            <input ref={Passref} class="mb-1 form-control smalltext" type="password" 
                             value={StudentData.password} name="password"
                             onChange={(e)=>{setStudentData({...StudentData,password:e.target.value});
                             setValidationRules({...validationRules,password: validatePassword(e.target.value)})}}  

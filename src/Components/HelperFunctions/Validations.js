@@ -1,10 +1,13 @@
 var splcharformat = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-var emailformat = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-var numberformat = /\d+/g;
-var spaceformat = /\s+/g;
+var emailformat = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"][a-z]{1,})$/i;
+emailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$/;
+var numberformat = /\d/;
+var spaceformat = /\s/;
+var dotformat = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/;
 
 export function validateFirstName(data)
 {
+// console.log('entered',data,numberformat.test(data))
     if(data=="")
     return "Name must be 3 to 25 letters long"
     else if(spaceformat.test(data))
@@ -61,10 +64,14 @@ export function validatePassword(data)
     if(data.match(/[a-z]/g) && data.match(
         /[A-Z]/g) && data.match(
         /[0-9]/g) && data.match(
-        /[^a-zA-Z\d]/g) && data.length >= 8) 
+        /[^a-zA-Z\d]/g) && 
+        splcharformat.test(data) && 
+        !spaceformat.test(data) && data.length >= 8) 
     return ""
+    else if(spaceformat.test(data))
+    return "Password must not contain spaces"
     else
-    return "Password must be atleast 8 letters long and must contain atleat 1 lowercase, 1 uppercase and 1 digit"
+    return "Password must be atleast 8 letters long and must contain atleat 1 lowercase, 1 uppercase ,1 special character and 1 digit"
 }
 
 export function validatePhone(data)
@@ -79,8 +86,14 @@ export function validatePhone(data)
 
 export function validateSchool(data)
 {
-    if(data!="" && splcharformat.test(data))
-    return "School name must not contain special characters"
+    if(data=="")
+    return ""
+    else if(spaceformat.test(data))
+    return "School Name must not contain space"
+    else if(dotformat.test(data))
+    return "School Name must not contain special characters"
+    else if(numberformat.test(data))
+    return "School Name must not contain numbers"
     else
     return ""
 }
