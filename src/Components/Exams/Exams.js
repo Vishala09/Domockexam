@@ -11,12 +11,12 @@ function Exams() {
     const useStyles = makeStyles({
         treeview: {
           background:'#0D6EFD',
-          minHeight:'90vh',
+          minHeight:'85vh',
           zIndex:1
         },
         treeviewmobile: {
           background:'#0D6EFD',
-          minHeight:'90vh',
+          minHeight:'85vh',
           zIndex:1,
           fontSize:'11px'
         },

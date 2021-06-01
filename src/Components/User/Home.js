@@ -3,7 +3,7 @@ import React from 'react'
 function Home() {
     return (
             <div className="col-md-3 text-center d-flex justify-content-center "
-                  style={{minHeight:window.screen.width<=576?'50vh':'90vh',backgroundColor:'#0D6EFD'}}>
+                  style={{minHeight:window.screen.width<=576?'50vh':'85vh',backgroundColor:'#0D6EFD'}}>
                     <div class="" >
                         <div class="card-body" >
                             <h3>Company Name</h3>
