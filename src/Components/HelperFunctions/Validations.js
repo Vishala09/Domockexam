@@ -12,21 +12,29 @@ var dotformat = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/;
 export function validateFirstName(data)
 {
 // console.log('entered',data,numberformat.test(data))
-
+    let err=""
     if(data=="")
-    return "Name must be 3 to 25 letters long"
-    else if(spaceformat.test(data))
-    return "Name must not contain space"
-    else if(splcharformat.test(data))
-    return "Name must not contain special characters"
+    err = "Name must be 3 to 25 letters long."
+    else if(spaceformat.test(data) && numberformat.test(data) && splcharformat.test(data))
+    err += "Name must not contain special characters, numbers and space."
+    else if(spaceformat.test(data) && splcharformat.test(data))
+    err += "Name must not contain space and special characters."
+    else if(splcharformat.test(data) && numberformat.test(data))
+    err += "Name must not contain special characters and numbers."
+    else if(spaceformat.test(data) && numberformat.test(data))
+    err += "Name must not contain numbers and space."
     else if(numberformat.test(data))
-    return "Name must not contain numbers"
-    else if(data.length <3) 
-    return "Name too short"
-    else if(data.length > 25)
-    return "Name too long"
-    else
-    return ""
+    err += "Name must not contain numbers."
+    else if(splcharformat.test(data))
+    err += "Name must not contain special characters."
+    else if(spaceformat.test(data))
+    err += "Name must not contain space."
+    if(data.length <3) 
+    err += "Name too short."
+    if(data.length > 25)
+    err += "Name too long."
+    
+    return err;
 
 }
 
