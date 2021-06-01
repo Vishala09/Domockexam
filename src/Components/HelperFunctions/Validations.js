@@ -1,6 +1,10 @@
+import * as EmailValidator from 'email-validator';
+ 
+
 var splcharformat = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 var emailformat = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"][a-z]{1,})$/i;
-emailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,4}$/;
+emailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,254}$/;
+emailformat = /^(([^<>()/\[\]\\.,;:\s@"]+(\.[^<>()/\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 var numberformat = /\d/;
 var spaceformat = /\s/;
 var dotformat = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/;
@@ -8,6 +12,7 @@ var dotformat = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/;
 export function validateFirstName(data)
 {
 // console.log('entered',data,numberformat.test(data))
+
     if(data=="")
     return "Name must be 3 to 25 letters long"
     else if(spaceformat.test(data))
@@ -53,6 +58,7 @@ export function validateUsername(data)
 
 export function validateEmail(data)
 {
+    //d=data.split("@");
     if(emailformat.test(data)) 
     return ""
     else

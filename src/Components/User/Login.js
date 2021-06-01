@@ -5,6 +5,7 @@ import PasswordView from '../HelperComps/PasswordView';
 function Login() {
     const history = useHistory();
     const Passref = useRef()
+    // bootstrap cols - 5 for text,6 for form,1 for right space(not mentioning) ; 
     return (
         <div>
             <div style={{}} className="container-fluid">
@@ -12,14 +13,14 @@ function Login() {
             <div className="row d-flex" >
                 <Home />
                 <div className="col-md-9 d-flex flex-column justify-content-center align-items-center" >
-                    <div className="offset-md-2">
+                    <div className="offset-md-5">
                     <h3>Login</h3>
                     </div>
-                    <div className="d-flex align-items-center row">
+                    <div className="d-flex justify-content-center align-items-center row">
                     
-                    <h3 className="col-md-3 col-12 text-center">We help you practice for your exam success</h3>
+                    <h3 className="col-md-5 col-12 text-center">We help you practice for your exam success</h3>
                     
-                    <div className="mycard col-md-9 col-12" >
+                    <div className="mycard col-md-6 col-11" >
                         
                         <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da',margin:'20px'}}>
                                 <div className="mb-2" style={{backgroundColor:'#0D6EFD',color:'white',paddingLeft:'10px'}}>
