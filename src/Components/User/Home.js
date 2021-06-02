@@ -2,7 +2,7 @@ import React from 'react'
 
 function Home() {
     return (
-            <div className="col-md-3 text-center d-flex justify-content-center "
+            <div className="col-md-3 text-center d-flex justify-content-center mb-3 mb-sm-0"
                   style={{minHeight:window.screen.width<=576?'50vh':'85vh',backgroundColor:'#0D6EFD'}}>
                     <div class="" >
                         <div class="card-body" >

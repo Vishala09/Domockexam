@@ -20,7 +20,7 @@ function Login() {
                     
                     <h3 className="col-md-5 col-12 text-center">We help you practice for your exam success</h3>
                     
-                    <div className="mycard col-md-6 col-11" >
+                    <div className="mycard col-md-6 col-11 mb-3 mb-sm-0" >
                         <h3 className="d-flex flex-column justify-content-center align-items-center">Login</h3>
                         <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da',margin:'20px'}}>
                                 <div className="mb-2" style={{backgroundColor:'#0D6EFD',color:'white',paddingLeft:'10px'}}>
@@ -58,7 +58,7 @@ function Login() {
                         <div className="" style={{margin:'20px'}}>
                                 <hr></hr>
                         </div>
-                        <div className="d-flex flex-column align-items-center">
+                        <div className="d-flex flex-column align-items-center mb">
                             <div className=""><i>Don't have an account?</i></div>
                             <button className="btn btn-warning lrbutton" onClick={()=>history.push('')}>Register</button>
                         </div>

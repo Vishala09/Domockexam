@@ -16,22 +16,22 @@ export function validateFirstName(data)
     if(data=="")
     err = "Name must be 3 to 25 letters long."
     else if(spaceformat.test(data) && numberformat.test(data) && splcharformat.test(data))
-    err += "Name must not contain special characters, numbers and space."
+    err += "Name must not contain special characters or numbers or space."
     else if(spaceformat.test(data) && splcharformat.test(data))
-    err += "Name must not contain space and special characters."
+    err += "Name must not contain space or special characters."
     else if(splcharformat.test(data) && numberformat.test(data))
-    err += "Name must not contain special characters and numbers."
+    err += "Name must not contain special characters or numbers."
     else if(spaceformat.test(data) && numberformat.test(data))
-    err += "Name must not contain numbers and space."
+    err += "Name must not contain numbers or space."
     else if(numberformat.test(data))
     err += "Name must not contain numbers."
     else if(splcharformat.test(data))
     err += "Name must not contain special characters."
     else if(spaceformat.test(data))
     err += "Name must not contain space."
-    if(data.length <3) 
+    else if(data.length <3) 
     err += "Name too short."
-    if(data.length > 25)
+    else if(data.length > 25)
     err += "Name too long."
     
     return err;
