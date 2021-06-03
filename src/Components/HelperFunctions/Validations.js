@@ -4,6 +4,8 @@ var emailformat = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))
 emailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,254}$/;
 emailformat = /^(([^<>()/\[\]\\.,;:\s@"]+(\.[^<>()/\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,253}))$/
 emailformat = /^(([^<>()/\[\]\\.#!%$‘&+*-/=?^_`.{|}~,;:\s@"]+([.#!%$‘&+*-/=?^_`.{|}~][^<>()/\[\]\\.#!%$‘&+*-/=?^_`.{|}~,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,253}))$/
+emailformat = /^(([^<>()/\[\]\\.#!%$‘&+*-/=?^_`.{|}~,;:\s@"]+([.#!%$‘&+*-/=?^_`.{|}~][^<>()/\[\]\\.#!%$‘&+*/=?^`.{|}~,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,253}))$/
+
 //(.|#|!|%|$|&|[+]|[*]|-|[/]|[=]|[?]|[^]|_|`|{|}|~)
 var numberformat = /\d/;
 var spaceformat = /\s/;
@@ -14,25 +16,25 @@ export function validateFirstName(data)
 // console.log('entered',data,numberformat.test(data))
     let err=""
     if(data=="")
-    err = "Name must be 3 to 25 letters long."
+    err = "Name must be 3 to 25 letters long"
     else if(spaceformat.test(data) && numberformat.test(data) && splcharformat.test(data))
-    err += "Name must not contain special characters or numbers or space."
+    err += "Name must not contain special characters or numbers or spaces"
     else if(spaceformat.test(data) && splcharformat.test(data))
-    err += "Name must not contain space or special characters."
+    err += "Name must not contain spaces or special characters"
     else if(splcharformat.test(data) && numberformat.test(data))
-    err += "Name must not contain special characters or numbers."
+    err += "Name must not contain special characters or numbers"
     else if(spaceformat.test(data) && numberformat.test(data))
-    err += "Name must not contain numbers or space."
+    err += "Name must not contain numbers or spaces"
     else if(numberformat.test(data))
-    err += "Name must not contain numbers."
+    err += "Name must not contain numbers"
     else if(splcharformat.test(data))
-    err += "Name must not contain special characters."
+    err += "Name must not contain special characters"
     else if(spaceformat.test(data))
-    err += "Name must not contain space."
+    err += "Name must not contain space"
     else if(data.length <3) 
-    err += "Name too short."
+    err += "Name too short"
     else if(data.length > 25)
-    err += "Name too long."
+    err += "Name too long"
     
     return err;
 
@@ -66,9 +68,11 @@ export function validateUsername(data)
 
 export function validateEmail(data)
 {
-    //d=data.split("@");
+    let d=data.split("@");
     if(emailformat.test(data)) 
     return ""
+    else if(d[0].length>=64)
+    return "Please enter a valid email address"
     else
     return "Please enter a valid email address"
 }
@@ -85,7 +89,7 @@ export function validatePassword(data)
     else if(spaceformat.test(data))
     return "Password must not contain spaces"
     else
-    return "Password must be atleast 8 letters long and must contain atleat 1 lowercase, 1 uppercase ,1 special character and 1 digit"
+    return "Password must be minimum 8 characters long and must contain 1 lowercase, 1 uppercase ,1 special character and 1 number"
 }
 
 export function validatePhone(data)
