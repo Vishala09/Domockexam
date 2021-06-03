@@ -20,7 +20,7 @@ function Header() {
                 window.screen.width >=576 ? 
             <div>
                 <SearchBar view='desktop' />
-        <div style={{position:'fixed',background:'#232F3E',height:'7vh',textAlign:'center',top:'8vh',left:0,right:0,
+        <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'8vh',left:0,right:0,
         width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:3000}}>
             
             {/* <div  id="bar"  onClick={()=>openSideNav()}><i style={{color:'white',marginLeft:'30px'}}  class="fa fa-bars" aria-hidden="true"></i></div> */}
@@ -39,28 +39,28 @@ function Header() {
                 </span>
                 
             </div>
-            <div id="mySidenav" className="" style={{position:'fixed',backgroundColor:'#0D6EFD',height:'100vh',width:'70%',top:'0',
-                left:'-1000px',zIndex:5000000,width:'20%',textAlign:'left'}}>
-                    <div className="container-fluid">
-                        <div className="row text-center justify-content-center align-items-center" 
-                        style={{fontWeight:'bold',backgroundColor:'black',height:'40px',color:'white'}}>
+            <div id="mySidenav" className="container-fluid" 
+            style={{position:'fixed',backgroundColor:'black',height:'100vh',top:'0',
+                left:'-1000px',zIndex:5000000,width:'20%'}}>
+                    <div >
+                        <div className="row text-center"
+                        style={{fontWeight:'900',fontSize:'24px',marginTop:'20px',marginBottom:'20px',backgroundColor:'black',height:'40px',
+                        color:'white'}}>
                             <div className="offset-1 col-9" >
                                     MENU
                             </div>
                             <div className="col-2 cursor-pointer" onClick={()=>closeSideNav()}><b>X</b></div>
                         </div>
-                        <div className="mt30">
-                            <ul type="none" 
-                            style={{lineHeight:2.5,fontWeight:'bold',display:'flex',flexDirection:'column'}}>
-                                <li><Link onClick={()=>closeSideNav()} to="/" className="noLink">My Profile</Link></li>
-                                <hr></hr>
-                                <li><Link onClick={()=>closeSideNav()}  className="noLink">Change Password</Link></li>
-                                <hr></hr>
-                                <li><Link onClick={()=>closeSideNav()}  className="noLink">Log Out</Link></li>
-                            </ul>
+                        <div className="d-flex flex-column justify-content-center align-items-start" 
+                        style={{fontWeight:'bold',columnGap:'10px'}}>
+                            <Link onClick={()=>closeSideNav()} to="/" className="noLink">My Profile</Link>
+                            <span className="colorHr"></span>
+                            <Link onClick={()=>closeSideNav()}  className="noLink">Change Password</Link>
+                            <span className="colorHr"></span>
+                            <Link onClick={()=>closeSideNav()}  className="noLink">Log Out</Link>
                             
                         </div>
-                        
+                        <p></p>
                         <div className="mt30 text-center contact bg-danger"><a className="noLink" href="tel:+91 9991124429">CALL US NOW</a></div>
                     </div>
             </div>

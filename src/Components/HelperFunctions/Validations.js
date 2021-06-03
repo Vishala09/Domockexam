@@ -4,7 +4,7 @@ var emailformat = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))
 emailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,254}$/;
 emailformat = /^(([^<>()/\[\]\\.,;:\s@"]+(\.[^<>()/\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,253}))$/
 emailformat = /^(([^<>()/\[\]\\.#!%$‘&+*-/=?^_`.{|}~,;:\s@"]+([.#!%$‘&+*-/=?^_`.{|}~][^<>()/\[\]\\.#!%$‘&+*-/=?^_`.{|}~,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,253}))$/
-emailformat = /^(([^<>()/\[\]\\.#!%$‘&+*-/=?^_`.{|}~,;:\s@"]+([.#!%$‘&+*-/=?^_`.{|}~][^<>()/\[\]\\.#!%$‘&+*/=?^`.{|}~,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,253}))$/
+emailformat = /^(([^<>()/\[\]\\.#!%$‘&+*-/=?^_`.{|}~,;:\s@"]+([.#!%$‘&+*-/=?^_`.{|}~][^<>()/\[\]\\.#!%$‘&+*-/=?^_`.{|}~,;:\s@"]+)*)|(".+"))\-?\@[a-zA-Z]+((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,253}))$/
 
 //(.|#|!|%|$|&|[+]|[*]|-|[/]|[=]|[?]|[^]|_|`|{|}|~)
 var numberformat = /\d/;
@@ -18,13 +18,13 @@ export function validateFirstName(data)
     if(data=="")
     err = "Name must be 3 to 25 letters long"
     else if(spaceformat.test(data) && numberformat.test(data) && splcharformat.test(data))
-    err += "Name must not contain special characters or numbers or spaces"
+    err += "Name must not contain special characters or numbers or space"
     else if(spaceformat.test(data) && splcharformat.test(data))
-    err += "Name must not contain spaces or special characters"
+    err += "Name must not contain space or special characters"
     else if(splcharformat.test(data) && numberformat.test(data))
     err += "Name must not contain special characters or numbers"
     else if(spaceformat.test(data) && numberformat.test(data))
-    err += "Name must not contain numbers or spaces"
+    err += "Name must not contain numbers or space"
     else if(numberformat.test(data))
     err += "Name must not contain numbers"
     else if(splcharformat.test(data))
