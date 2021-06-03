@@ -69,10 +69,11 @@ export function validateUsername(data)
 export function validateEmail(data)
 {
     let d=data.split("@");
-    if(emailformat.test(data)) 
-    return ""
-    else if(d[0].length>=64)
+    console.log(d,d[0].length,d[0].length>=64)
+    if(data.includes("@") && d[0].length>=64)
     return "Please enter a valid email address"
+    else if(emailformat.test(data)) 
+    return ""
     else
     return "Please enter a valid email address"
 }
