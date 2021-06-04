@@ -31,14 +31,17 @@ function Header() {
                 <Link to="/exams" onClick={()=>setActiveHeader('exams')} className={ActiveHeader=='exams'?'header_item activeHeader':'noLink header_item'} >
                         Exams
                 </Link>
+                <Link to="" onClick={()=>setActiveHeader('contact')} className={ActiveHeader=='contact'?'header_item activeHeader':'noLink header_item'} >
+                        Contact Us
+                </Link>
             </div>
-            <div className="header_right">
+            {/* <div className="header_right">
                 <span className="header_contact">
                         <span>Contact Us</span>
-                        {/* <span>xxxx-xxx-xxx</span> */}
+                       
                 </span>
                 
-            </div>
+            </div> */}
             <div id="mySidenav" className="container-fluid" 
             style={{position:'fixed',backgroundColor:'black',height:'100vh',top:'0',
                 left:'-1000px',zIndex:5000000,width:'20%'}}>
@@ -49,7 +52,7 @@ function Header() {
                             <div className="offset-1 col-9" >
                                     MENU
                             </div>
-                            <div className="col-2 cursor-pointer" onClick={()=>closeSideNav()}><b>X</b></div>
+                            <div className="col-2 cursor-pointer" onClick={()=>closeSideNav()}>X</div>
                         </div>
                         <div className="d-flex flex-column justify-content-center align-items-start" 
                         style={{fontWeight:'bold',columnGap:'10px'}}>
@@ -58,13 +61,7 @@ function Header() {
                             <Link onClick={()=>closeSideNav()}  className="noLink">Change Password</Link>
                             <span className="colorHr"></span>
                             <Link onClick={()=>closeSideNav()}  className="noLink">Log Out</Link>
-                            <p>WHITE</p>
-                            <Link onClick={()=>closeSideNav()} to="/" className="noLink">My Profile</Link>
-                            <span className="colorHr2"></span>
-                            <Link onClick={()=>closeSideNav()}  className="noLink">Change Password</Link>
-                            <span className="colorHr2"></span>
-                            <Link onClick={()=>closeSideNav()}  className="noLink">Log Out</Link>
-                            
+                        
                         </div>
                         <p></p>
                         <div className="mt30 text-center contact " style={{background:'#4CAF50'}}><a className="noLink" href="tel:+91 9991124429">CALL US NOW</a></div>
