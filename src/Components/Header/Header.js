@@ -44,10 +44,10 @@ function Header() {
             </div> */}
             <div id="mySidenav" className="" 
             style={{position:'fixed',backgroundColor:'black',height:'100vh',top:'0',
-                left:'-1000px',zIndex:5000000,width:'20%',padding:'20px'}}>
+                left:'-1000px',zIndex:5000000,width:'20%',padding:'15px'}}>
                     <div >
                         <div className="row text-center"
-    style={{fontWeight:'600',fontSize:'22px',marginTop:'20px',marginBottom:'20px',backgroundColor:'black',height:'40px',color:'white'}}>
+    style={{fontWeight:'600',fontSize:'22px',marginBottom:'20px',backgroundColor:'black',height:'40px',color:'white'}}>
                             <div className="offset-1 col-9" >
                                     MENU
                             </div>
@@ -59,7 +59,6 @@ function Header() {
                             <Link onClick={()=>closeSideNav()} to="/" className="noLink linkLH">Change Password</Link>
                             <hr className="colorHr"></hr>
                             <Link onClick={()=>closeSideNav()} to="/" className="noLink linkLH">Log Out</Link>
-                            <hr className="colorHr"></hr>
                             
                         </div>
                         <p></p>
