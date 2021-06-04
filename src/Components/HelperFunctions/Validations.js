@@ -88,7 +88,7 @@ export function validatePassword(data)
         !spaceformat.test(data) && data.length >= 8) 
     return ""
     else if(spaceformat.test(data))
-    return "Password must not contain spaces"
+    return "Password must not contain space"
     else
     return "Password must be minimum 8 characters long and must contain 1 lowercase, 1 uppercase ,1 special character and 1 number"
 }
