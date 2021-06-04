@@ -69,7 +69,7 @@ export function validateUsername(data)
 export function validateEmail(data)
 {
     let d=data.split("@");
-    console.log(d,d[0].length,d[0].length>=64)
+    //console.log(d,d[0].length,d[0].length>=64)
     if(data.includes("@") && d[0].length>=64)
     return "Please enter a valid email address"
     else if(emailformat.test(data)) 
@@ -94,11 +94,13 @@ export function validatePassword(data)
 }
 
 export function validatePhone(data)
-{
+{   console.log('phonevalidate',data)
     if(data!="" && !numberformat.test(data))
     return "Phone number must contain only digits"
     else if(data!="" && data.length!=10) 
-    return "Phone number must have 10 digits"
+    {
+        return "Phone number must have 10 digits"
+    }
     else
     return ""
 }

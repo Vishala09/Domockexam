@@ -15,7 +15,7 @@ function RecaptchaComp(props) {
     return (
         <div>
             <Recaptcha
-                sitekey={herokuSitekey}
+                sitekey={localSiteKey}
                 render="explicit"
                 verifyCallback={()=>props.verifyHumanCallback()}
                 onloadCallback={() => callback()}

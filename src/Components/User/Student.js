@@ -36,13 +36,23 @@ function Student(props) {
         above18:"",
         school:""
     });
-    const [RegisterFormValidation, setRegisterFormValidation] = useState(false);
+   
    
     const validateAbove18 = ( ) => {
         if(!IsParent && !above18ref.current.checked)
             return "Please confirm if you are above 18"
         else
             return ""
+    }
+    const PhoneInputHandler = (e) => {
+        let phone=e.target.value;
+        
+        if(e.nativeEvent.data>=0 && e.nativeEvent.data<=9)
+        {
+            setStudentData({...StudentData,phone:phone})
+            setValidationRules({...validationRules,phone: validatePhone(e.target.value)})
+        }
+        
     }
     let validate = () => {
         let flag=false;
@@ -69,7 +79,7 @@ function Student(props) {
         }
        return !flag
     }
-    
+   
     return (
         <>
         <div className="row d-flex flex-row justify-content-center align-items-stretch" style={{width:'100%'}}>
@@ -212,9 +222,8 @@ function Student(props) {
                     <div class="row smalltext" > 
                         <h6 class="px-3 smalltext">Phone Number :</h6>
                         <div class="px-3 paddedInput mb-2" >
-                            <input class="mb-1 form-control smalltext" type="number" name="phone" value={StudentData.phone}
-                            onChange={(e)=>{setStudentData({...StudentData,phone:e.target.value})
-                            setValidationRules({...validationRules,phone: validatePhone(e.target.value)})}} placeholder="Enter Phone Number" /> 
+                            <input class="mb-1 form-control smalltext" type="number"  name="phone" value={StudentData.phone}
+                             onChange={(e)=> {PhoneInputHandler(e);}} placeholder="Enter Phone Number" /> 
                             <span className="err">{validationRules.phone}</span>
                         </div>
                     </div>
