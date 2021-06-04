@@ -53,26 +53,20 @@
 }
 
 .colorHr{
-    color:#0D6EFD;
     display: block;
     background-color: #0D6EFD;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    /* margin-top: 20px;
+    margin-bottom: 20px; */
     width: 100%;
-    height: 1px;
-    /* opacity: 0.3; */
+    height: 2px;
+    opacity: 1;
 }
-.colorHr2{
-    color:white;
-    display: block;
-    background-color: white;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 100%;
-    height: 0.1px;
-    /* opacity: 0.3; */
-}
+
 
 .bb{
     border-bottom: 2px solid white;
+}
+
+.linkLH{
+    line-height: 2.5;
 }
