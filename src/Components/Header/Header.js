@@ -48,8 +48,8 @@ function Header() {
         </div>
         :
         <div>
-        <div className="container-fluid" style={{position:'fixed',background:'black',height:'7vh',textAlign:'center',top:'0',left:0,right:0,
-        width:'100%',fontWeight:'bolder',zIndex:3000,textAlign:'left'}}>
+        <div className="container-fluid" style={{position:'fixed',background:'black',height:'7vh',textAlign:'center',top:0,left:0,right:0,
+        width:'100%',fontWeight:'bolder',zIndex:3000,textAlign:'left',padding:'10px'}}>
             
                 <div className="header row  align-items-center" >
                     <div className="col-1" style={{fontSize:'18px',paddingLeft:'20px'}} id="bar" onClick={()=>openSideNav()}>
