@@ -42,7 +42,7 @@ function Exams() {
       },
     ]},
     {id: '2',
-    name: 'G.C.E O/L',
+    name: 'G.C.E&nbspO/L',
     children: [
       {
         id: '21',
@@ -73,7 +73,7 @@ function Exams() {
     ],
     },
     {id: '3',
-    name: 'G.C.E A/L',
+    name: 'G.C.E&nbspA/L',
     children: [
       {
         id: '31',
@@ -144,7 +144,7 @@ function Exams() {
         <div style={{top:'20vh'}} >
             {/* <h4 className="text-center" >Exams</h4> */}
             <div className="d-flex flex-row">
-              <TreeView className={window.screen.width<576?classes.treeviewmobile+'':classes.treeview+' col-2'} 
+              <TreeView className={window.screen.width<576?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
                   defaultCollapseIcon={<ExpandMoreIcon />}
                   defaultExpandIcon={<ChevronRightIcon />}
                   >

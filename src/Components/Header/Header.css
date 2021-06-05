@@ -70,3 +70,50 @@
 .linkLH{
     line-height: 2.5;
 }
+
+@media only screen and (max-width: 770px) {
+    .sideBarMenu {
+        font-weight:600;
+        font-size:18px;
+        margin-top:20px;
+        margin-bottom:20px;
+        background-color:black;
+        height:40px;
+        color:white
+    }
+    .sideBar{
+        position:fixed;
+        background-color:black;
+        height:100vh;
+        top:0;
+        left:-1000px;
+        z-index:5000000;
+        width:60%;
+        padding: 20px;
+    }
+  }
+
+  @media only screen and (min-width: 770px) {
+    .sideBarMenu {
+        font-weight:600;
+        font-size:22px;
+        margin-top:20px;
+        margin-bottom:20px;
+        background-color:black;
+        height:40px;
+        color:white;
+        
+    }
+    .sideBar{
+        position:fixed;
+        background-color:black;
+        height:100vh;
+        top:0;
+        left:-1000px;
+        z-index:5000000;
+        width:20%;
+        padding: 20px;
+    }
+  }
+
+ 

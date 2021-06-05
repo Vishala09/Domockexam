@@ -13,14 +13,14 @@ function Login() {
             <div className="row d-flex" >
                 <Home />
                 <div className="col-md-9 d-flex flex-column justify-content-center align-items-center" >
-                    <div className="offset-md-5">
+                    <div className="offset-lg-5">
                     {/* <h3>Login</h3> */}
                     </div>
                     <div className="d-flex justify-content-center align-items-center row">
                     
-                    <h3 className="col-md-5 col-12 text-center">We help you practice for your exam success</h3>
+                    <h3 className="col-lg-5 col-12 text-center">We help you practice for your exam success</h3>
                     
-                    <div className="mycard col-md-6 col-11 mb-3 mb-sm-0" >
+                    <div className="mycard col-lg-6 col-11 mb-3 mb-sm-0" >
                         <h3 className="d-flex flex-column justify-content-center align-items-center">Login</h3>
                         <div className="" style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da',margin:'20px'}}>
                                 <div className="mb-2" style={{backgroundColor:'#0D6EFD',color:'white',paddingLeft:'10px'}}>

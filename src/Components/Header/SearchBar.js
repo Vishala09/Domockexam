@@ -21,14 +21,15 @@ function SearchBar(props) {
                         
                         }
                         
-                        <select style={{width:props.view=='mobile'?'15%':'5%',height:'5vh',border:'2px solid #ff8000',background:'whitesmoke'}}
+                        <select style={{width:props.view=='mobile'?'15%':'10%',height:'5vh',border:'2px solid #ff8000',background:'whitesmoke'}}
                             class="smalltext" aria-label="Default select example" >
                                                                 <option selected value="">All</option>
                                                                 <option value="1">Category 1</option>
                                                                 <option value="2">Category 2</option>
                         </select>
                         <input type="text" style={{width:props.view=='mobile'?'70%':'50%',height:'5vh',border:'2px solid #ff8000'}} />
-                        <button style={{width:props.view=='mobile'?'15%':'5%',background:'#ff9933',height:'5vh',border:'2px solid #ff8000'}}><i class="fa fa-search" ></i></button>
+                        <button style={{width:props.view=='mobile'?'15%':'5%',background:'#ff9933',height:'5vh',border:'2px solid #ff8000'}}>
+                            <i class="fa fa-search" ></i></button>
                         
             </div>
         

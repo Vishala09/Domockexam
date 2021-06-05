@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
 import './Header.css'
 import SearchBar from './SearchBar';
+import SideBar from './SideBar';
 function Header() {
     let closeSideNav = () => {
         document.getElementById("mySidenav").style.left='-1000px'
@@ -35,36 +36,7 @@ function Header() {
                         Contact Us
                 </Link>
             </div>
-            {/* <div className="header_right">
-                <span className="header_contact">
-                        <span>Contact Us</span>
-                       
-                </span>
-                
-            </div> */}
-            <div id="mySidenav" className="" 
-            style={{position:'fixed',backgroundColor:'black',height:'100vh',top:'0',
-                left:'-1000px',zIndex:5000000,width:'20%',padding:'15px'}}>
-                    <div >
-                        <div className="row text-center"
-    style={{fontWeight:'600',fontSize:'22px',marginBottom:'20px',backgroundColor:'black',height:'40px',color:'white'}}>
-                            <div className="offset-1 col-9" >
-                                    MENU
-                            </div>
-                            <div className="col-2 cursor-pointer" onClick={()=>closeSideNav()}>X</div>
-                        </div>
-                        <div className="" >
-                            <Link onClick={()=>closeSideNav()} to="/" className="noLink linkLH">My Profile</Link>
-                            <hr className="colorHr"></hr>
-                            <Link onClick={()=>closeSideNav()} to="/" className="noLink linkLH">Change Password</Link>
-                            <hr className="colorHr"></hr>
-                            <Link onClick={()=>closeSideNav()} to="/" className="noLink linkLH">Log Out</Link>
-                            
-                        </div>
-                        <p></p>
-                        <div className="mt30 text-center contact " style={{background:'#4CAF50'}}><a className="noLink" href="tel:+91 9991124429">CALL US NOW</a></div>
-                    </div>
-            </div>
+            <SideBar />
         </div>
         </div>
         :
@@ -83,59 +55,7 @@ function Header() {
                     <div className="col-3">
                     </div>
                 </div>
-                <div id="mySidenav" className="container-fluid" 
-            style={{position:'fixed',backgroundColor:'black',height:'100vh',top:'0',
-                left:'-1000px',zIndex:5000000,width:'40%'}}>
-                    <div >
-                        <div className="row text-center"
-    style={{fontWeight:'600',fontSize:'18px',marginTop:'20px',marginBottom:'20px',backgroundColor:'black',height:'40px',color:'white'}}>
-                            <div className="offset-1 col-8" >
-                                    MENU
-                            </div>
-                            <div className="col-2 cursor-pointer" onClick={()=>closeSideNav()}>X</div>
-                        </div>
-                        <div className="" style={{fontSize:'12px'}}>
-                            <Link onClick={()=>closeSideNav()} to="/" className="noLink">Home</Link>
-                            <hr className="colorHr"></hr>
-                            <Link onClick={()=>closeSideNav()}  className="noLink">Exams</Link>
-                            <hr className="colorHr"></hr>
-                            <Link onClick={()=>closeSideNav()}  className="noLink">Contact Us</Link>
-                            <hr className="colorHr"></hr>
-                            <Link onClick={()=>closeSideNav()} to="/" className="noLink">My Profile</Link>
-                            <hr className="colorHr"></hr>
-                            <Link onClick={()=>closeSideNav()}  className="noLink">Change Password</Link>
-                            <hr className="colorHr"></hr>
-                            <Link onClick={()=>closeSideNav()}  className="noLink">Log Out</Link>
-                        </div>
-                        <p></p>
-                        <div className="mt30 text-center contact " style={{background:'#4CAF50'}}><a className="noLink" href="tel:+91 9991124429">CALL US NOW</a></div>
-                    </div>
-            </div>
-                {/* <div id="mySidenav" className="" style={{position:'fixed',backgroundColor:'gray',height:'100vh',width:'70%',top:'0',
-                left:'-1000px',zIndex:50000}}>
-                    <div className="container-fluid">
-                        <div className="row text-center justify-content-center align-items-center" 
-                        style={{fontWeight:'bold',backgroundColor:'black',height:'40px',color:'white'}}>
-                            <div className="offset-1 col-9" >
-                                    MENU
-                            </div>
-                            <div className="col-2" onClick={()=>closeSideNav()}><b>X</b></div>
-                        </div>
-                        <div className="mt30" style={{lineHeight:2.5,fontWeight:'bold'}}>
-                            <ul type="none" >
-                                <li><Link onClick={()=>closeSideNav()} to="/home" className="noLink">Home</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} to="/exams" className="noLink" >Exams</Link></li>
-                                
-                                <li><Link onClick={()=>closeSideNav()} className="noLink">My Profile</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink">Change Password</Link></li>
-                                <li><Link onClick={()=>closeSideNav()} className="noLink">Log Out</Link></li>
-                            </ul>
-                            
-                        </div>
-                        
-                        <div className="mt30 text-center contact bg-danger"><a className="noLink" href="tel:+91 9991124429">CALL US NOW</a></div>
-                    </div>
-                </div> */}
+                <SideBar />
             </div>
             <SearchBar view='mobile' />
         </div>
