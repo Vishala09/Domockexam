@@ -11,6 +11,7 @@ import Exams from './Components/Exams/Exams';
 function App() {
   return (
     <div className="">
+      <div className="dim" id="dim"></div>
       <Router>
             
             <Header ></Header>

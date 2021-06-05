@@ -4,7 +4,7 @@ function Parent() {
     const Passref = useRef()
     return (
         <div className="col-md-6">
-        <div  style={{marginTop:window.screen.width<=576?'15px':'0px', backgroundColor:'#F5F5F5',border:'1px solid #ced4da',overflow:'hidden'}}>
+        <div  style={{marginTop:window.screen.width<=770?'15px':'0px', backgroundColor:'#F5F5F5',border:'1px solid #ced4da',overflow:'hidden'}}>
             <div className="mb-2" style={{backgroundColor:'#0D6EFD',color:'white',paddingLeft:'10px'}}>
                    Parent Registration Form(Must be completed)
             </div>

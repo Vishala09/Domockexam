@@ -12,7 +12,8 @@ function Exams() {
         treeview: {
           background:'#0D6EFD',
           minHeight:'85vh',
-          zIndex:1
+          zIndex:1,
+          color:'antiquewhite'
         },
         treeviewmobile: {
           background:'#0D6EFD',
@@ -144,7 +145,7 @@ function Exams() {
         <div style={{top:'20vh'}} >
             {/* <h4 className="text-center" >Exams</h4> */}
             <div className="d-flex flex-row">
-              <TreeView className={window.screen.width<576?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
+              <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
                   defaultCollapseIcon={<ExpandMoreIcon />}
                   defaultExpandIcon={<ChevronRightIcon />}
                   >

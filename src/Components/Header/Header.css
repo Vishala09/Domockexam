@@ -87,7 +87,7 @@
         height:100vh;
         top:0;
         left:-1000px;
-        z-index:5000000;
+        z-index:50000;
         width:60%;
         padding: 20px;
     }
@@ -108,11 +108,12 @@
         position:fixed;
         background-color:black;
         height:100vh;
-        top:0;
+        top:10px;
         left:-1000px;
-        z-index:5000000;
+        z-index:50000;
         width:20%;
-        padding: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
   }
 

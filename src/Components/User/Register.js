@@ -18,7 +18,7 @@ function Register() {
         <div style={{}} className="container-fluid">
             <div className="row" >
                 <Home />
-                <div className="col-md-9 d-flex flex-column justify-content-center align-items-center" >
+                <div className="col-lg-9 d-flex flex-column justify-content-center align-items-center" >
                     <div className={UserType==""?'mycard':''} >
                         <h3 className="d-flex justify-content-center align-items-center">Register</h3>
                     

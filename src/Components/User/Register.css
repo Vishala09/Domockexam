@@ -37,7 +37,7 @@
 
 }
 
-@media (max-width: 576px) {
+@media (max-width: 770px) {
     .mycard{
         background: white;
         backdrop-filter: blur(5px);
@@ -45,10 +45,11 @@
         border-radius: 5px;
         padding:30px;
         width: 100%;
+        margin:10px;
     }
   }
 
-  @media (min-width: 576px) {
+  @media (min-width: 770px) {
     .mycard{
         background: white;
         backdrop-filter: blur(5px);
