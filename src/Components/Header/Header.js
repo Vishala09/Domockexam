@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
 import './Header.css'
 import SearchBar from './SearchBar';
@@ -17,6 +17,11 @@ function Header() {
         console.log(document.getElementById('dim'))
     }
     const [ActiveHeader, setActiveHeader] = useState("")
+    useEffect(() => {
+        document.getElementById('dim').addEventListener('click',function(){
+              closeSideNav();
+        })
+  }, [])
     return (
         <div>
             

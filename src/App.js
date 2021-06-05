@@ -8,7 +8,9 @@ import 'font-awesome/css/font-awesome.min.css';
 import SearchBar from './Components/Header/SearchBar';
 import Home from './Components/Home/Home';
 import Exams from './Components/Exams/Exams';
+import { useEffect } from 'react';
 function App() {
+      
   return (
     <div className="">
       <div className="dim" id="dim"></div>
