@@ -15,7 +15,7 @@ function SearchBar(props) {
                     </div>
                 }
                         
-                        <select style={{width:props.view=='mobile'?'15%':'10%',height:'5vh',border:'2px solid #ff8000',background:'whitesmoke'}}
+                        <select style={{width:props.view=='mobile'?'20%':'10%',height:'5vh',border:'2px solid #ff8000',background:'whitesmoke'}}
                             class="smalltext" aria-label="Default select example" >
                                                                 <option selected value="">All</option>
                                                                 <option value="1">Category 1</option>
