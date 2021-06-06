@@ -19,7 +19,7 @@ function SideBar(props) {
                             <i className="fa fa-user-circle col-3" style={{color:'white',fontSize:'50px'}}></i>
                             <div className="col-1"></div>
                             <div style={{display:'flex',flexDirection:'column'}} className="col-5">
-                                <span><Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">My Name</Link></span>
+                                <span><Link onClick={()=>props.closeSideNav()} to="/" className="normalHeader linkLH">My Name</Link></span>
                                 <span style={{color:'gray'}}>Student</span>
                             </div>
                         </div>
@@ -27,26 +27,26 @@ function SideBar(props) {
                             window.screen.width>=770?
                             <>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Change Password</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/" className="normalHeader linkLH">Change Password</Link>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Log Out</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/" className="normalHeader linkLH">Log Out</Link>
                             </>
                             :
                             <>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/home" className="noLink linkLH">Home</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/home" className="normalHeader linkLH">Home</Link>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/exams" className="noLink linkLH">Exams</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/exams" className="normalHeader linkLH">Exams</Link>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Change Password</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/" className="normalHeader linkLH">Change Password</Link>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Log Out</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/" className="normalHeader linkLH">Log Out</Link>
                             </>
                         }
                         
                     </div>
                     <p></p>
-                    <div className="mt30 text-center contact " style={{background:'#4CAF50'}}><a className="noLink" href="tel:+91 9991124429">CALL US NOW</a></div>
+                    <div className="mt30 text-center contact " style={{background:'#4CAF50'}}><a className="normalHeader" href="tel:+91 9991124429">CALL US NOW</a></div>
                 </div>
         </div>
     )
