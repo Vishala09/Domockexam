@@ -38,7 +38,7 @@
     justify-content: center;
     font-size: smaller;
 }
-.noLink{
+.normalHeader{
     text-decoration: none;
     color:white
 }
@@ -62,10 +62,6 @@
     opacity: 1;
 }
 
-
-.bb{
-    border-bottom: 2px solid white;
-}
 
 .linkLH{
     line-height: 2.5;
@@ -117,4 +113,38 @@
     }
   }
 
- 
+.normalHeader:hover > .selectedHeaderOptions1{
+    visibility: visible;
+}
+.activeHeader:hover > .selectedHeaderOptions1{
+    visibility: visible;
+}
+.selectedHeaderOptions1{
+    position: absolute;
+    color: white;
+    z-index: 20000;
+    padding:16px;
+    visibility: hidden;
+    background-color: #232F3E;
+    /* background-color: black; */
+    line-height: 2;
+    font-size: 12px;;
+    /* margin-top: 10px; */
+}
+
+.subHeader{
+    color: white;
+}
+.subHeader:hover{
+    color: #0D6EFD;
+}
+
+.subHeaderLink{
+    text-decoration: none;
+    color: white;
+}
+
+.subHeaderLink:hover{
+    text-decoration: none;
+    color: #0D6EFD;
+}

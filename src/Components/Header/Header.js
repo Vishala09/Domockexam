@@ -33,13 +33,36 @@ function Header() {
                 
                 {/* <div  id="bar"  onClick={()=>openSideNav()}><i style={{color:'white',marginLeft:'30px'}}  class="fa fa-bars" aria-hidden="true"></i></div> */}
                 <div className="header_center" >
-                    <Link to="/home" onClick={()=>setActiveHeader('home')} className={ActiveHeader=='home'?'header_item activeHeader':'noLink header_item'} >
-                            Home
+                    <Link to="/home" onClick={()=>setActiveHeader('home')} 
+                    className={ActiveHeader=='home'?'header_item activeHeader':'normalHeader header_item'} >
+                            <div >Home</div>
+                            <div type="none"  className="selectedHeaderOptions1">
+                                <div className="subHeader">
+                                        <a className="subHeaderLink">Sub Header 1</a>
+                                </div>  
+                                <div className="subHeader">
+                                        <a className="subHeaderLink">Sub Header 2</a>
+                                </div>  
+                                <div className="subHeader">
+                                        <a className="subHeaderLink">Sub Header 3</a>
+                                </div>         
+                            </div>
                     </Link>
-                    <Link to="/exams" onClick={()=>setActiveHeader('exams')} className={ActiveHeader=='exams'?'header_item activeHeader':'noLink header_item'} >
-                            Exams
+                    <Link to="/exams" onClick={()=>setActiveHeader('exams')} className={ActiveHeader=='exams'?'header_item activeHeader':'normalHeader header_item'} >
+                            <div >Exams</div>
+                            <div type="none"  className="selectedHeaderOptions1">
+                                <div className="subHeader">
+                                        <a className="subHeaderLink">Sub Header 1</a>
+                                </div>  
+                                <div className="subHeader">
+                                        <a className="subHeaderLink">Sub Header 2</a>
+                                </div>  
+                                <div className="subHeader">
+                                        <a className="subHeaderLink">Sub Header 3</a>
+                                </div>         
+                            </div>
                     </Link>
-                    <Link to="" onClick={()=>setActiveHeader('contact')} className={ActiveHeader=='contact'?'header_item activeHeader':'noLink header_item'} >
+                    <Link to="" onClick={()=>setActiveHeader('contact')} className={ActiveHeader=='contact'?'header_item activeHeader':'normalHeader header_item'} >
                             Contact Us
                     </Link>
                 </div>
@@ -56,7 +79,7 @@ function Header() {
                         <i class="fa fa-bars" style={{color:'white'}} aria-hidden="true"></i>
                         
                     </div>
-                    <Link to="/" className="col-10 noLink">
+                    <Link to="/" className="col-10 normalHeader">
                         <div 
                         style={{color:'white',height:'7vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
                             Company Name
