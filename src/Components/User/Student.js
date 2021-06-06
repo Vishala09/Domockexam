@@ -46,9 +46,10 @@ function Student(props) {
     }
     const PhoneInputHandler = (e) => {
         let phone=e.target.value;
-        
+        console.log(e.nativeEvent)
         if(e.nativeEvent.data>=0 && e.nativeEvent.data<=9)
         {
+            console.log(e.nativeEvent.data)
             setStudentData({...StudentData,phone:phone})
             setValidationRules({...validationRules,phone: validatePhone(e.target.value)})
         }
@@ -222,8 +223,8 @@ function Student(props) {
                     <div class="row smalltext" > 
                         <h6 class="px-3 smalltext">Phone Number :</h6>
                         <div class="px-3 paddedInput mb-2" >
-                            <input class="mb-1 form-control smalltext" type="number"  name="phone" value={StudentData.phone}
-                             onChange={(e)=> {PhoneInputHandler(e);}} placeholder="Enter Phone Number" /> 
+                            <input class="mb-1 form-control smalltext" type="text"  name="phone" value={StudentData.phone}
+                            onChange={(e)=> {PhoneInputHandler(e);}}  placeholder="Enter Phone Number" /> 
                             <span className="err">{validationRules.phone}</span>
                         </div>
                     </div>
