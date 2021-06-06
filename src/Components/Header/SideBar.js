@@ -15,9 +15,10 @@ function SideBar(props) {
                         
                     </div>
                     <div className="" style={{fontSize:'12px'}}>
-                        <div style={{display:'flex',alignItems:'center'}}>
-                            <i class="fa fa-user-circle" style={{color:'white',fontSize:'50px',flex:0.3}}></i>
-                            <div style={{display:'flex',flexDirection:'column',flex:0.7}}>
+                        <div className="row">
+                            <i className="fa fa-user-circle col-3" style={{color:'white',fontSize:'50px'}}></i>
+                            <div className="col-1"></div>
+                            <div style={{display:'flex',flexDirection:'column'}} className="col-5">
                                 <span><Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">My Name</Link></span>
                                 <span style={{color:'gray'}}>Student</span>
                             </div>

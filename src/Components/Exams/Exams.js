@@ -13,13 +13,20 @@ function Exams() {
           background:'#0D6EFD',
           minHeight:'85vh',
           zIndex:1,
-          color:'antiquewhite'
+          color:'white',
+          fontWeight:'bold',
+          fontFamily: 'Lucida Console, Courier New, monospace',
+          paddingRight:'10px'
         },
         treeviewmobile: {
           background:'#0D6EFD',
           minHeight:'85vh',
           zIndex:1,
-          fontSize:'11px'
+          fontSize:'11px',
+          color:'white',
+          fontWeight:'bold',
+          fontFamily: 'Lucida Console, Courier New, monospace',
+          paddingRight:'10px'
         },
       });
       const classes = useStyles();
