@@ -36,17 +36,20 @@ function Header() {
                     <Link to="/home" onClick={()=>setActiveHeader('home')} 
                     className={ActiveHeader=='home'?'header_item activeHeader':'normalHeader header_item'} >
                             <div >Home</div>
-                            <div type="none"  className="selectedHeaderOptions1">
-                                <div className="subHeader">
-                                        <a className="subHeaderLink">Sub Header 1</a>
-                                </div>  
-                                <div className="subHeader">
-                                        <a className="subHeaderLink">Sub Header 2</a>
-                                </div>  
-                                <div className="subHeader">
-                                        <a className="subHeaderLink">Sub Header 3</a>
-                                </div>         
-                            </div>
+                           
+                                <div type="none"  className="selectedHeaderOptions1">
+                                    <div className="subHeader">
+                                            <a className="subHeaderLink">Sub Header 1</a>
+                                    </div>  
+                                    <div className="subHeader">
+                                            <a className="subHeaderLink">Sub Header 2</a>
+                                    </div>  
+                                    <div className="subHeader">
+                                            <a className="subHeaderLink">Sub Header 3</a>
+                                    </div>         
+                                </div>
+                                
+                           
                     </Link>
                     <Link to="/exams" onClick={()=>setActiveHeader('exams')} className={ActiveHeader=='exams'?'header_item activeHeader':'normalHeader header_item'} >
                             <div >Exams</div>

@@ -38,19 +38,7 @@
     justify-content: center;
     font-size: smaller;
 }
-.normalHeader{
-    text-decoration: none;
-    color:white
-}
 
-/* .mySidenav{
-    z-index:500000;
-} */
-
-.activeHeader{
-    color:#0D6EFD;
-    text-decoration: none;
-}
 
 .colorHr{
     display: block;
@@ -113,27 +101,55 @@
     }
   }
 
-.normalHeader:hover > .selectedHeaderOptions1{
-    visibility: visible;
+  .normalHeader,.normalHeader:hover{
+    text-decoration: none;
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
 }
-.activeHeader:hover > .selectedHeaderOptions1{
+
+
+.activeHeader,.activeHeader:hover{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    color:#232F3E;
+    text-decoration: none;
+    background-color: cornsilk;
+    /* width: 100%; */
+    height: 100%;
+    padding: 10px;
+    
+}
+.normalHeader:hover > .selectedHeaderOptions1{
+    /* visibility: visible; */
+    
+}
+.activeHeader:hover  > .selectedHeaderOptions1{
     visibility: visible;
 }
 .selectedHeaderOptions1{
     position: absolute;
-    color: white;
     z-index: 20000;
     padding:16px;
     visibility: hidden;
-    background-color: #232F3E;
-    /* background-color: black; */
+    background-color: cornsilk;
     line-height: 2;
     font-size: 12px;;
-    /* margin-top: 10px; */
+    top:7vh;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin-left: -10px;
 }
+  
+
 
 .subHeader{
-    color: white;
+    color: #232F3E;
 }
 .subHeader:hover{
     color: #0D6EFD;
@@ -141,7 +157,7 @@
 
 .subHeaderLink{
     text-decoration: none;
-    color: white;
+    color: #232F3E;
 }
 
 .subHeaderLink:hover{
