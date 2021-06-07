@@ -118,7 +118,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    background-color: cornsilk;
+    background-color: #4CAF50;
     height: 100%;
     padding: 10px;
 }
@@ -131,7 +131,7 @@
     justify-content: center;
     color:#232F3E;
     text-decoration: none;
-    background-color: cornsilk;
+    background-color: #4CAF50;
     height: 100%;
     padding: 10px;
     
@@ -148,7 +148,7 @@
     z-index: 20000;
     padding:16px;
     visibility: hidden;
-    background-color: cornsilk;
+    background-color: #4CAF50;
     line-height: 2;
     font-size: 12px;;
     top:7vh;
@@ -160,20 +160,20 @@
 
 
 .subHeader{
-    color: #232F3E;
+    color: black;
 }
 .subHeader:hover{
-    color: #0D6EFD;
+    color: white;
 }
 
 .subHeaderLink{
     text-decoration: none;
-    color: #232F3E;
+    color: black;
 }
 
 .subHeaderLink:hover{
     text-decoration: none;
-    color: #0D6EFD;
+    color: white;
 }
 
 .noLink{
