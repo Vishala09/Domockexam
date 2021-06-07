@@ -77,17 +77,17 @@ function Header() {
         <div className="container-fluid" style={{position:'fixed',background:'black',height:'7vh',textAlign:'center',top:0,left:0,right:0,
         width:'100%',fontWeight:'bolder',zIndex:3000,textAlign:'left',padding:'10px'}}>
             
-                <div className="header row  align-items-center" >
+                <div className="header row  align-items-start" >
                     <div className="col-1" style={{fontSize:'18px',paddingLeft:'20px'}} id="bar" onClick={()=>openSideNav()}>
                         <i class="fa fa-bars" style={{color:'white'}} aria-hidden="true"></i>
                         
                     </div>
-                    <Link to="/" className="col-10 normalHeader">
-                        <div 
-                        style={{color:'white',height:'7vh',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                   
+                        <div className="col-10 noLink"
+                        style={{color:'white',height:'7vh',display:'flex',justifyContent:'center'}}>
                             Company Name
                         </div>
-                    </Link>
+             
                     <div className="col-3">
                     </div>
                 </div>

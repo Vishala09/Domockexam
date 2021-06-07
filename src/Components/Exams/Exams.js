@@ -36,7 +36,7 @@ function Exams() {
       const TreeItem = withStyles({
         root: {
           "&.Mui-selected > .MuiTreeItem-content": {
-            background: "#4CAF50"
+            background: "#89CFF0"
           }
         }
       })(MuiTreeItem);
@@ -151,9 +151,7 @@ function Exams() {
     ],
     }
 ];
-  
-  const renderTree = (nodes) => (
- 
+  const renderTree = (nodes) => ( 
         <TreeItem key={nodes.id} nodeId={nodes.id} label={ReactHtmlParser(nodes.name)}>
               {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTree(node)) : null}
         </TreeItem>
@@ -168,9 +166,15 @@ function Exams() {
             <div className="d-flex flex-row">
               <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
                   defaultCollapseIcon={<RemoveSharpIcon />}
-                  defaultExpandIcon={<svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 6 6" aria-hidden="true"><line
-                  x1="0" y1="0" x2="0" y2="600" stroke="white" stroke-width="3" /></svg>}
-                  onLabelClick={(e)=>iconClick()}
+                  defaultExpandIcon={<div class="MuiTreeItem-iconContainer" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+                    viewBox="0 0 16 16">
+  <rect width="4" height="16" x="6" y="1" rx="1"/>
+  <path d="M1.5 14a.5.5 0 0 0 0 1v-1zm13 1a.5.5 0 0 0 0-1v1zm-13 "/>
+</svg>
+                    </div>}
+                 
+                  // onLabelClick={(e)=>iconClick()}
                   >
                   {
                       data.map((nodes)=>renderTree(nodes))
