@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -157,28 +157,39 @@ function Exams() {
     }
 ];
   const renderTree = (nodes) => ( 
-        <TreeItem key={nodes.id} className="treeItemCustom" nodeId={nodes.id} label={ReactHtmlParser(nodes.name)}>
+        <TreeItem key={nodes.id}  nodeId={nodes.id} label={ReactHtmlParser(nodes.name)}>
               {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTree(node)) : null}
         </TreeItem>
   
   );
-  function onNodeSelect(node) {
-    console.log(node," clicked")
-  }
+  const [expanded, setExpanded] = React.useState([]);
+  const [selected, setSelected] = React.useState([]);
+
+  const handleToggle = (event, nodeIds) => {
+    setExpanded(nodeIds);
+  };
+
+  const handleSelect = (event, nodeIds) => {
+    console.log(event.target.value);
+    setSelected(nodeIds);
+  };
+  useEffect(() => {
+    console.log(selected);
+  }, [selected])
     return (
         <div style={{top:'20vh'}} >
             {/* <h4 className="text-center" >Exams</h4> */}
             <div className="d-flex flex-row">
               <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
                   defaultCollapseIcon={<RemoveSharpIcon />}
-                  defaultExpandIcon={
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
-                    viewBox="0 0 16 16">
-  <rect width="4" height="16" x="6" y="1" rx="1"/>
-  <path d="M1.5 14a.5.5  1a.5.5  "/>
-</svg>}
+                  expanded={expanded}
+                  selected={selected}
+                  onNodeToggle={handleToggle}
+                  onNodeSelect={handleSelect}
+                  defaultExpandIcon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                          <rect width="4" height="16" x="6" y="1" rx="1"/><path d="M1.5 14a.5.5  1a.5.5  "/></svg>}
                  
-                   onLeafClick={(e)=>onNodeSelect()}
+                   
                   >
                   {
                       data.map((nodes)=>renderTree(nodes))
