@@ -32,12 +32,17 @@ function Exams() {
           fontFamily: 'Lucida Console, Courier New, monospace',
           paddingRight:'10px'
         },
+
       });
       const TreeItem = withStyles({
         root: {
           "&.Mui-selected > .MuiTreeItem-content": {
             background: "#89CFF0"
-          }
+          },
+          "&.MuiTreeItem-root > .MuiTreeItem-content:hover": {
+            background: "gray"
+          },
+          
         }
       })(MuiTreeItem);
       const classes = useStyles();
@@ -152,13 +157,13 @@ function Exams() {
     }
 ];
   const renderTree = (nodes) => ( 
-        <TreeItem key={nodes.id} nodeId={nodes.id} label={ReactHtmlParser(nodes.name)}>
+        <TreeItem key={nodes.id} className="treeItemCustom" nodeId={nodes.id} label={ReactHtmlParser(nodes.name)}>
               {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTree(node)) : null}
         </TreeItem>
   
   );
-  const iconClick =(e) => {
-      console.log(e)
+  function onNodeSelect(node) {
+    console.log(node," clicked")
   }
     return (
         <div style={{top:'20vh'}} >
@@ -166,15 +171,14 @@ function Exams() {
             <div className="d-flex flex-row">
               <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
                   defaultCollapseIcon={<RemoveSharpIcon />}
-                  defaultExpandIcon={<div class="MuiTreeItem-iconContainer" >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+                  defaultExpandIcon={
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
                     viewBox="0 0 16 16">
   <rect width="4" height="16" x="6" y="1" rx="1"/>
   <path d="M1.5 14a.5.5  1a.5.5  "/>
-</svg>
-                    </div>}
+</svg>}
                  
-                  // onLabelClick={(e)=>iconClick()}
+                   onLeafClick={(e)=>onNodeSelect()}
                   >
                   {
                       data.map((nodes)=>renderTree(nodes))
