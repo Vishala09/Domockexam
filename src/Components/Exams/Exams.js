@@ -40,9 +40,15 @@ function Exams() {
             background: "#89CFF0"
           },
           "&.MuiTreeItem-root > .MuiTreeItem-content:hover": {
-            background: "gray"
+            background: "gray",
+          },
+          "&.MuiTreeItem-root > .MuiTreeItem-content:hover > .MuiTreeItem-label": {
+            background: "#89CFF0",
           },
           
+          '@media (hover: none)': {
+            backgroundColor: 'transparent',
+          },
         }
       })(MuiTreeItem);
       const classes = useStyles();
@@ -156,6 +162,29 @@ function Exams() {
     ],
     }
 ];
+  const getDataById = (data,id) => {
+    
+    if(data==null)
+        {
+          console.log('none')
+          return 'fun'
+        }
+    for(let i=0;i<data.length;i++) {
+      let el=data[i];
+           if(el.id==id)
+           {
+                console.log(el);
+                return el;
+           }     
+           else 
+           {
+              if(Array.isArray(el.children)) 
+                  getDataById(el.children,id) 
+              else 
+                  getDataById(null,id);
+           }
+       }
+  }
   const renderTree = (nodes) => ( 
         <TreeItem key={nodes.id}  nodeId={nodes.id} label={ReactHtmlParser(nodes.name)}>
               {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTree(node)) : null}
@@ -170,12 +199,12 @@ function Exams() {
   };
 
   const handleSelect = (event, nodeIds) => {
-    console.log(event.target.value);
-    setSelected(nodeIds);
+    //console.log(nodeIds)
+    let sel = getDataById(data,nodeIds);
+    console.log(sel)
+    // setSelected(sel.name);
   };
-  useEffect(() => {
-    console.log(selected);
-  }, [selected])
+  
     return (
         <div style={{top:'20vh'}} >
             {/* <h4 className="text-center" >Exams</h4> */}
@@ -186,8 +215,8 @@ function Exams() {
                   selected={selected}
                   onNodeToggle={handleToggle}
                   onNodeSelect={handleSelect}
-                  defaultExpandIcon={<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                          <rect width="4" height="16" x="6" y="1" rx="1"/><path d="M1.5 14a.5.5  1a.5.5  "/></svg>}
+                   defaultExpandIcon={<svg class="MuiSvgIcon-root" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                   viewBox="0 0 16 16" focusable="true" aria-hidden="true"><rect width="4" height="16" x="6" y="1" rx="1"/><path d="M1.5 14a.5.5  1a.5.5  "/></svg>}
                  
                    
                   >
