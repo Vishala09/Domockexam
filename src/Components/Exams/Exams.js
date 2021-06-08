@@ -162,18 +162,16 @@ function Exams() {
     ],
     }
 ];
+  let getDataByIdResult={};
   const getDataById = (data,id) => {
     
-    if(data==null)
-        {
-          console.log('none')
-          return 'fun'
-        }
+  
     for(let i=0;i<data.length;i++) {
       let el=data[i];
            if(el.id==id)
            {
                 console.log(el);
+                getDataByIdResult=el;
                 return el;
            }     
            else 
@@ -181,10 +179,25 @@ function Exams() {
               if(Array.isArray(el.children)) 
                   getDataById(el.children,id) 
               else 
-                  getDataById(null,id);
+                 {
+                   console.log('no children')
+                    return getDataByIdResult
+                 } 
            }
        }
   }
+  
+  var getSubMenuItem = function (subMenuItems, id) {
+    if (subMenuItems) {
+        for (var i = 0; i < subMenuItems.length; i++) {
+            if (subMenuItems[i].id == id) {
+                return subMenuItems[i];
+            }
+            var found = getSubMenuItem(subMenuItems[i].children, id);
+            if (found) return found;
+        }
+    }
+};
   const renderTree = (nodes) => ( 
         <TreeItem key={nodes.id}  nodeId={nodes.id} label={ReactHtmlParser(nodes.name)}>
               {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTree(node)) : null}
@@ -200,9 +213,9 @@ function Exams() {
 
   const handleSelect = (event, nodeIds) => {
     //console.log(nodeIds)
-    let sel = getDataById(data,nodeIds);
+    let sel = getSubMenuItem(data,nodeIds);
     console.log(sel)
-    // setSelected(sel.name);
+   setSelected(sel.name);
   };
   
     return (
@@ -226,6 +239,9 @@ function Exams() {
                   
               </TreeView>
               <div className="col-9">
+                  <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                          {ReactHtmlParser(selected)}
+                  </div>
                     
               </div>
             </div>
