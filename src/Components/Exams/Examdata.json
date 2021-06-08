@@ -1,0 +1,110 @@
+[
+    {"id": "1",
+    "name": "Grade 5",
+    "children": [
+      {
+        "id": "11",
+        "name": "Scholarship ",
+        "children": [
+            {
+                "id": "111",
+                "name": "Sinhala&nbsp;Medium"
+            },
+            {
+                "id": "112",
+                "name": "Tamil&nbsp;Medium"
+            }
+          ]
+      }
+    ]},
+    {"id": "2",
+    "name": "G.C.E&nbspO/L",
+    "children": [
+      {
+        "id": "21",
+        "name": "English&nbsp;Language "
+      },
+      {
+        "id": "22",
+        "name": "English&nbsp;Literature "
+      },
+      {
+        "id": "23",
+        "name": "Maths ",
+        "children": [
+            {
+                "id": "231",
+                "name": "Sinhala&nbsp;Medium"
+            },
+            {
+                "id": "232",
+                "name": "Tamil&nbsp;Medium"
+            },
+            {
+                "id": "233",
+                "name": "English&nbsp;Medium"
+            }
+          ]
+      }
+    ]
+    },
+    {"id": "3",
+    "name": "G.C.E&nbspA/L",
+    "children": [
+      {
+        "id": "31",
+        "name": "Physics",
+        "children": [
+            {
+                "id": "311",
+                "name": "Sinhala&nbsp;Medium"
+            },
+            {
+                "id": "312",
+                "name": "Tamil&nbsp;Medium"
+            },
+            {
+                "id": "313",
+                "name": "English&nbsp;Medium"
+            }
+          ]
+      },
+      {
+        "id": "32",
+        "name": "Chemistry",
+        "children": [
+            {
+                "id": "321",
+                "name": "Sinhala&nbsp;Medium"
+            },
+            {
+                "id": "322",
+                "name": "Tamil&nbsp;Medium"
+            },
+            {
+                "id": "323",
+                "name": "English&nbsp;Medium"
+            }
+          ]
+      },
+      {
+        "id": "33",
+        "name": "General&nbsp;Knowledge ",
+        "children": [
+            {
+                "id": "331",
+                "name": "Sinhala&nbsp;Medium"
+            },
+            {
+                "id": "332",
+                "name": "Tamil&nbsp;Medium"
+            },
+            {
+                "id": "333",
+                "name": "English&nbsp;Medium"
+            }
+          ]
+      }
+    ]
+    }
+]

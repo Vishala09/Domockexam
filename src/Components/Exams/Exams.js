@@ -9,7 +9,11 @@ import AddSharpIcon from '@material-ui/icons/AddSharp';
 import RemoveSharpIcon from '@material-ui/icons/RemoveSharp';
 import MuiTreeItem from "@material-ui/lab/TreeItem";
 import { withStyles } from "@material-ui/core/styles";
-
+import Typography from '@material-ui/core/Typography';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import data from './Examdata.json';
+import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
+import './Exams.css'
 function Exams() {
     const useStyles = makeStyles({
         
@@ -50,151 +54,28 @@ function Exams() {
             backgroundColor: 'transparent',
           },
         }
+    
       })(MuiTreeItem);
       const classes = useStyles();
-  const data =  [
-    {id: '1',
-    name: 'Grade 5',
-    children: [
-      {
-        id: '11',
-        name: 'Scholarship ',
-        children: [
-            {
-                id: '111',
-                name: 'Sinhala&nbsp;Medium',
-            },
-            {
-                id: '112',
-                name: 'Tamil&nbsp;Medium',
-            },
-          ],
-      },
-    ]},
-    {id: '2',
-    name: 'G.C.E&nbspO/L',
-    children: [
-      {
-        id: '21',
-        name: 'English&nbsp;Language ',
-      },
-      {
-        id: '22',
-        name: 'English&nbsp;Literature ',
-      },
-      {
-        id: '23',
-        name: 'Maths ',
-        children: [
-            {
-                id: '231',
-                name: 'Sinhala&nbsp;Medium',
-            },
-            {
-                id: '232',
-                name: 'Tamil&nbsp;Medium',
-            },
-            {
-                id: '233',
-                name: 'English&nbsp;Medium',
-            },
-          ],
-      },
-    ],
-    },
-    {id: '3',
-    name: 'G.C.E&nbspA/L',
-    children: [
-      {
-        id: '31',
-        name: 'Physics',
-        children: [
-            {
-                id: '311',
-                name: 'Sinhala&nbsp;Medium',
-            },
-            {
-                id: '312',
-                name: 'Tamil&nbsp;Medium',
-            },
-            {
-                id: '313',
-                name: 'English&nbsp;Medium',
-            },
-          ],
-      },
-      {
-        id: '32',
-        name: 'Chemistry',
-        children: [
-            {
-                id: '321',
-                name: 'Sinhala&nbsp;Medium',
-            },
-            {
-                id: '322',
-                name: 'Tamil&nbsp;Medium',
-            },
-            {
-                id: '323',
-                name: 'English&nbsp;Medium',
-            },
-          ],
-      },
-      {
-        id: '33',
-        name: 'General&nbsp;Knowledge ',
-        children: [
-            {
-                id: '331',
-                name: 'Sinhala&nbsp;Medium',
-            },
-            {
-                id: '332',
-                name: 'Tamil&nbsp;Medium',
-            },
-            {
-                id: '333',
-                name: 'English&nbsp;Medium',
-            },
-          ],
-      },
-    ],
-    }
-];
-  let getDataByIdResult={};
-  const getDataById = (data,id) => {
-    
   
-    for(let i=0;i<data.length;i++) {
-      let el=data[i];
-           if(el.id==id)
-           {
-                console.log(el);
-                getDataByIdResult=el;
-                return el;
-           }     
-           else 
-           {
-              if(Array.isArray(el.children)) 
-                  getDataById(el.children,id) 
-              else 
-                 {
-                   console.log('no children')
-                    return getDataByIdResult
-                 } 
-           }
-       }
-  }
-  
-  var getSubMenuItem = function (subMenuItems, id) {
+  var getSubMenuItem = function (subMenuItems, id,arr) {
     if (subMenuItems) {
         for (var i = 0; i < subMenuItems.length; i++) {
+            if(subMenuItems[i].children)
+            arr.push(subMenuItems[i])
+
             if (subMenuItems[i].id == id) {
-                return subMenuItems[i];
+                if(subMenuItems[i].children==undefined)
+                arr.push(subMenuItems[i])
+
+                return [subMenuItems[i],arr];
             }
-            var found = getSubMenuItem(subMenuItems[i].children, id);
+            var found = getSubMenuItem(subMenuItems[i].children, id,arr);
             if (found) return found;
+            if(subMenuItems[i].children)
+            {
+              arr.pop()
+            }
         }
     }
 };
@@ -206,41 +87,67 @@ function Exams() {
   );
   const [expanded, setExpanded] = React.useState([]);
   const [selected, setSelected] = React.useState([]);
-
+  const [selectedData, setselectedData] = useState([])
   const handleToggle = (event, nodeIds) => {
     setExpanded(nodeIds);
   };
 
   const handleSelect = (event, nodeIds) => {
     //console.log(nodeIds)
-    let sel = getSubMenuItem(data,nodeIds);
-    console.log(sel)
-   setSelected(sel.name);
+    let arr=[];
+    let sel = getSubMenuItem(data,nodeIds,arr);
+     //console.log('sel',sel);
+   setSelected(nodeIds);
+   setselectedData(sel[1]);
+
   };
+  function handleClick(event,id) {
+    event.preventDefault();
+    let arr=[]
+    let sel = getSubMenuItem(data,id,arr)
+    setselectedData(sel[1]);
+  }
   
     return (
         <div style={{top:'20vh'}} >
             {/* <h4 className="text-center" >Exams</h4> */}
             <div className="d-flex flex-row">
               <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
-                  defaultCollapseIcon={<RemoveSharpIcon />}
-                  expanded={expanded}
-                  selected={selected}
-                  onNodeToggle={handleToggle}
-                  onNodeSelect={handleSelect}
-                   defaultExpandIcon={<svg class="MuiSvgIcon-root" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                   viewBox="0 0 16 16" focusable="true" aria-hidden="true"><rect width="4" height="16" x="6" y="1" rx="1"/><path d="M1.5 14a.5.5  1a.5.5  "/></svg>}
-                 
-                   
-                  >
+                  defaultCollapseIcon={<RemoveSharpIcon />} 
+                  expanded={expanded}  selected={selected}
+                  onNodeToggle={handleToggle}  onNodeSelect={handleSelect}
+                  defaultExpandIcon={<svg class="MuiSvgIcon-root" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                   viewBox="0 0 16 16" focusable="true" aria-hidden="true"><rect width="4" height="16" x="6" y="1" rx="1"/>
+                   <path d="M1.5 14a.5.5  1a.5.5  "/></svg>}>
                   {
                       data.map((nodes)=>renderTree(nodes))
                   }
                   
               </TreeView>
               <div className="col-9">
-                  <div style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
-                          {ReactHtmlParser(selected)}
+                  <div style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop:'10px'}}>
+                          {/* {ReactHtmlParser(selectedData)} */}
+                          <div>
+                          <Breadcrumbs separator="›"  aria-label="breadcrumb">
+                            {
+                               selectedData.map((el,idx)=>
+                                        <>
+                                            {
+                                              idx==selectedData.length-1 ?
+                                              <Typography color="textSecondary" key={idx} >
+                                                    { ReactHtmlParser(el.name) }
+                                              </Typography>
+                                              :
+                                              <Link style={{textDecoration:'none'}} key={idx} color="inherit" to="/" onClick={(e)=>handleClick(e,el.id)}>
+                                                    { ReactHtmlParser(el.name) }
+                                              </Link>
+                                            }
+                                        </>
+                                        
+                                )
+                            }
+                            </Breadcrumbs>
+                          </div>
                   </div>
                     
               </div>
