@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme, makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -13,7 +13,13 @@ import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import data from './Examdata.json';
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
-import './Exams.css'
+import './Exams.css';
+
+
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 function Exams() {
     const useStyles = makeStyles({
         
@@ -38,21 +44,25 @@ function Exams() {
         },
 
       });
+      
       const TreeItem = withStyles({
         root: {
-          "&.Mui-selected > .MuiTreeItem-content": {
+          "&.MuiTreeItem-root.Mui-selected > .MuiTreeItem-content .MuiTreeItem-label": {
             background: "#89CFF0"
           },
-          "&.MuiTreeItem-root > .MuiTreeItem-content:hover": {
-            background: "gray",
-          },
-          "&.MuiTreeItem-root > .MuiTreeItem-content:hover > .MuiTreeItem-label": {
-            background: "#89CFF0",
-          },
-          
-          '@media (hover: none)': {
-            backgroundColor: 'transparent',
-          },
+          // "&.MuiTreeItem-root > .MuiTreeItem-content:hover": {
+          //   background: "gray",
+          // },
+          // "&.MuiTreeItem-root > .MuiTreeItem-content:hover > .MuiTreeItem-label": {
+          //   background: "#89CFF0",
+          // },
+          // '@media (hover: none)': {
+          //   backgroundColor: 'transparent',
+          // },
+          "&.MuiTreeItem-root > .MuiTreeItem-content > .MuiTreeItem-iconContainer svg:hover":{
+              background:'gray',
+              height:'100%'
+          }
         }
     
       })(MuiTreeItem);
@@ -79,6 +89,28 @@ function Exams() {
         }
     }
 };
+
+var isParentNode = function (subMenuItems, id) {
+  if (subMenuItems) {
+      for (var i = 0; i < subMenuItems.length; i++) {
+         
+          if (subMenuItems[i].id == id) {
+              
+              if(subMenuItems[i].children==undefined)
+              {
+                return false;
+              }
+              else 
+              {
+                return true;
+              }
+          }
+          var found = isParentNode(subMenuItems[i].children, id);
+          if (found) return found;
+          
+      }
+  }
+};
   const renderTree = (nodes) => ( 
         <TreeItem key={nodes.id}  nodeId={nodes.id} label={ReactHtmlParser(nodes.name)}>
               {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTree(node)) : null}
@@ -93,7 +125,6 @@ function Exams() {
   };
 
   const handleSelect = (event, nodeIds) => {
-    //console.log(nodeIds)
     let arr=[];
     let sel = getSubMenuItem(data,nodeIds,arr);
      //console.log('sel',sel);
@@ -106,24 +137,49 @@ function Exams() {
     let arr=[]
     let sel = getSubMenuItem(data,id,arr)
     setselectedData(sel[1]);
+    setSelected(id);
+    let isParent=isParentNode(data,id,arr)
+    if(isParent)
+    {
+      let exp=expanded.slice(1,expanded.length)
+      setExpanded([...exp])
+    }
   }
+  const [anchor, setanchor] = useState(false);
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setanchor(open);
+  };
+  const theme = createMuiTheme();
   
     return (
         <div style={{top:'20vh'}} >
             {/* <h4 className="text-center" >Exams</h4> */}
             <div className="d-flex flex-row">
+              {
+                //  window.screen.width <=770 ?
               <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
-                  defaultCollapseIcon={<RemoveSharpIcon />} 
                   expanded={expanded}  selected={selected}
                   onNodeToggle={handleToggle}  onNodeSelect={handleSelect}
-                  defaultExpandIcon={<svg class="MuiSvgIcon-root" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                   viewBox="0 0 16 16" focusable="true" aria-hidden="true"><rect width="4" height="16" x="6" y="1" rx="1"/>
-                   <path d="M1.5 14a.5.5  1a.5.5  "/></svg>}>
+                  defaultExpandIcon={<svg className="d-flex justify-content-center" xmlns="http://www.w3.org/2000/svg" 
+                  width="16" height="16" fill="currentColor"viewBox="0 0 16 16" focusable="true" aria-hidden="true">
+                  <rect width="4" height="16" x="6" y="1" rx="1"/><path d="M1.5 14a.5.5  1a.5.5  "/></svg>}
+                defaultCollapseIcon={<span style={{width:'100%'}}><RemoveSharpIcon /></span>}
+                defaultExpandIcon={<span style={{width:'100%'}}><ChevronRightIcon /></span>}  
+                >
+                    
                   {
                       data.map((nodes)=>renderTree(nodes))
-                  }
-                  
+                  }   
               </TreeView>
+              // :
+              // <div>
+              //     Mobile Vieww
+                  
+              // </div>
+              }
               <div className="col-9">
                   <div style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop:'10px'}}>
                           {/* {ReactHtmlParser(selectedData)} */}
@@ -138,7 +194,8 @@ function Exams() {
                                                     { ReactHtmlParser(el.name) }
                                               </Typography>
                                               :
-                                              <Link style={{textDecoration:'none'}} key={idx} color="inherit" to="/" onClick={(e)=>handleClick(e,el.id)}>
+                                              <Link style={{textDecoration:'none'}} key={idx} color="inherit" to="/" 
+                                              onClick={(e)=>handleClick(e,el.id)}>
                                                     { ReactHtmlParser(el.name) }
                                               </Link>
                                             }
