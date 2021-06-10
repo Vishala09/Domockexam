@@ -16,10 +16,16 @@ import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-ro
 import './Exams.css';
 
 
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import clsx from 'clsx';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
 function Exams() {
     const useStyles = makeStyles({
         
@@ -34,7 +40,7 @@ function Exams() {
         },
         treeviewmobile: {
           background:'#0D6EFD',
-          minHeight:'85vh',
+          minHeight:'100vh',
           zIndex:1,
           fontSize:'11px',
           color:'white',
@@ -42,6 +48,12 @@ function Exams() {
           fontFamily: 'Lucida Console, Courier New, monospace',
           paddingRight:'10px'
         },
+        list: {
+          width: 250,
+        },
+        fullList: {
+          width: 'auto',
+        }
 
       });
       
@@ -160,6 +172,7 @@ var isParentNode = function (subMenuItems, id) {
   }
   const [anchor, setanchor] = useState(false);
   const toggleDrawer = (open) => (event) => {
+    //console.log(open,event.type,event.key)
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -172,7 +185,7 @@ var isParentNode = function (subMenuItems, id) {
             {/* <h4 className="text-center" >Exams</h4> */}
             <div className="d-flex flex-row">
               {
-                //  window.screen.width <=770 ?
+              window.screen.width >=770 ?
               <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
                   expanded={expanded}  selected={selected}
                   onNodeToggle={handleToggle}  onNodeSelect={handleSelect}
@@ -181,22 +194,53 @@ var isParentNode = function (subMenuItems, id) {
                   <rect width="4" height="16" x="6" y="1" rx="1"/><path d="M1.5 14a.5.5  1a.5.5  "/></svg>}
                 defaultCollapseIcon={<span style={{width:'100%'}} ><RemoveSharpIcon /></span>}
                 defaultExpandIcon={<span style={{width:'100%'}}><ChevronRightIcon /></span>}  
-                >
-                    
+                > 
                   {
                       data.map((nodes)=>renderTree(nodes))
                   }   
               </TreeView>
-              // :
-              // <div>
-              //     Mobile Vieww
-                  
-              // </div>
+              :
+              <div>
+                  <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'15vh',left:0,right:0,
+                  width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:3000,padding:'10px'}}> 
+                        <div className="header row  align-items-start" >
+                          <div onClick={toggleDrawer(true)} className="col-1" style={{fontSize:'18px',paddingLeft:'20px'}}>
+                              <i class="fa fa-bars" style={{color:'white'}} aria-hidden="true"></i>
+                              
+                          </div>
+                        </div>
+                  </div>
+                  <Drawer anchor={'left'} open={anchor} style={{zIndex:3000}} onClose={toggleDrawer(false)}>
+                  <div
+                      className={clsx(classes.list, {
+                        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+                      })}
+                      role="presentation"
+                      // onClick={toggleDrawer(false)}
+                      // onKeyDown={toggleDrawer(false)}
+                    >
+                      <Button style={{width:'100%'}} onClick={toggleDrawer(false)}>Close</Button>
+                      <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
+                          expanded={expanded}  selected={selected}
+                          onNodeToggle={handleToggle}  onNodeSelect={handleSelect}
+                          defaultExpandIcon={<svg className="d-flex justify-content-center" xmlns="http://www.w3.org/2000/svg" 
+                          width="16" height="16" fill="currentColor"viewBox="0 0 16 16" focusable="true" aria-hidden="true">
+                          <rect width="4" height="16" x="6" y="1" rx="1"/><path d="M1.5 14a.5.5  1a.5.5  "/></svg>}
+                        defaultCollapseIcon={<span style={{width:'100%'}} ><RemoveSharpIcon /></span>}
+                        defaultExpandIcon={<span style={{width:'100%'}}><ChevronRightIcon /></span>}  
+                        > 
+                          {
+                              data.map((nodes)=>renderTree(nodes))
+                          }   
+                      </TreeView>
+                    </div>
+                  </Drawer>
+              </div>
               }
-              <div className="col-9">
+              <div className="col-9" style={{marginTop:window.screen.width<770?'7vh':'0'}}>
                   <div style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop:'10px'}}>
                           {/* {ReactHtmlParser(selectedData)} */}
-                          <div>
+                          <div >
                           <Breadcrumbs separator="›"  aria-label="breadcrumb">
                             {
                                selectedData.map((el,idx)=>
