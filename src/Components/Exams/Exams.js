@@ -59,7 +59,7 @@ function Exams() {
           // '@media (hover: none)': {
           //   backgroundColor: 'transparent',
           // },
-          "&.MuiTreeItem-root > .MuiTreeItem-content > .MuiTreeItem-iconContainer svg:hover":{
+          "&.MuiTreeItem-root > .MuiTreeItem-content:hover > .MuiTreeItem-iconContainer svg":{
               background:'gray',
               height:'100%'
           }
@@ -121,7 +121,20 @@ var isParentNode = function (subMenuItems, id) {
   const [selected, setSelected] = React.useState([]);
   const [selectedData, setselectedData] = useState([])
   const handleToggle = (event, nodeIds) => {
-    setExpanded(nodeIds);
+    if(nodeIds.length>1)
+    {
+      let a =nodeIds[0].slice(0,1);
+      let b =nodeIds[1].slice(0,1);
+      if(a!=b)
+      {
+         let exp=[nodeIds[0]];
+         setExpanded([...exp])
+      }
+      else
+      setExpanded(nodeIds);
+    }
+    else
+      setExpanded(nodeIds);
   };
 
   const handleSelect = (event, nodeIds) => {
@@ -166,7 +179,7 @@ var isParentNode = function (subMenuItems, id) {
                   defaultExpandIcon={<svg className="d-flex justify-content-center" xmlns="http://www.w3.org/2000/svg" 
                   width="16" height="16" fill="currentColor"viewBox="0 0 16 16" focusable="true" aria-hidden="true">
                   <rect width="4" height="16" x="6" y="1" rx="1"/><path d="M1.5 14a.5.5  1a.5.5  "/></svg>}
-                defaultCollapseIcon={<span style={{width:'100%'}}><RemoveSharpIcon /></span>}
+                defaultCollapseIcon={<span style={{width:'100%'}} ><RemoveSharpIcon /></span>}
                 defaultExpandIcon={<span style={{width:'100%'}}><ChevronRightIcon /></span>}  
                 >
                     
