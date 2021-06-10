@@ -204,10 +204,11 @@ var isParentNode = function (subMenuItems, id) {
                   <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'15vh',left:0,right:0,
                   width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:2500,padding:'10px'}}> 
                         <div className="header row  align-items-start" >
-                          <div onClick={toggleDrawer(true)} className="col-1" style={{fontSize:'18px',paddingLeft:'20px'}}>
-                              <i class="fa fa-bars" style={{color:'white'}} aria-hidden="true"></i>
-                              
+                          <div onClick={toggleDrawer(true)} className="col-1 d-flex align-items-center" style={{fontSize:'18px',paddingLeft:'20px',color:'white'}}>
+                              <i class="fa fa-chevron-circle-down"></i>
+                              <span style={{marginLeft:'3px'}}> Courses</span>
                           </div>
+                          
                         </div>
                   </div>
                   <Drawer anchor={'left'} open={anchor} style={{zIndex:3000}} onClose={toggleDrawer(false)}>
