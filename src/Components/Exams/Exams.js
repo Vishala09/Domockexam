@@ -65,9 +65,9 @@ function Exams() {
           // "&.MuiTreeItem-root > .MuiTreeItem-content:hover": {
           //   background: "gray",
           // },
-          // "&.MuiTreeItem-root > .MuiTreeItem-content:hover > .MuiTreeItem-label": {
-          //   background: "#89CFF0",
-          // },
+          "&.MuiTreeItem-root > .MuiTreeItem-content:hover > .MuiTreeItem-label": {
+            background: "#89CFF0",
+          },
           // '@media (hover: none)': {
           //   backgroundColor: 'transparent',
           // },
