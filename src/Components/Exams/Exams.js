@@ -133,14 +133,22 @@ var isParentNode = function (subMenuItems, id) {
   const [selected, setSelected] = React.useState([]);
   const [selectedData, setselectedData] = useState([])
   const handleToggle = (event, nodeIds) => {
+    console.log(nodeIds)
     if(nodeIds.length>1)
     {
       let a =nodeIds[0].slice(0,1);
       let b =nodeIds[1].slice(0,1);
+      
       if(a!=b)
       {
          let exp=[nodeIds[0]];
          setExpanded([...exp])
+      }
+      else if(Number(nodeIds[0])<Number(nodeIds[1]))
+      {
+        console.log(a,b)
+        let exp=[nodeIds[0]];
+        setExpanded([...exp])
       }
       else
       setExpanded(nodeIds);
@@ -203,15 +211,18 @@ var isParentNode = function (subMenuItems, id) {
               <div>
                   <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'15vh',left:0,right:0,
                   width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:2500,padding:'10px'}}> 
-                        <div className="header row  align-items-start" >
-                          <div onClick={toggleDrawer(true)} className="col-1 d-flex align-items-center" style={{fontSize:'18px',paddingLeft:'20px',color:'white'}}>
+                        <div className="row" style={{fontSize:'18px',paddingLeft:'20px',color:'white',width:'100%'}}>
+                          <div onClick={toggleDrawer(true)} className="col-1" >
                               <i class="fa fa-chevron-circle-down"></i>
-                              <span style={{marginLeft:'3px'}}> Courses</span>
+                             
+                          </div>
+                          <div className="col-10">
+                          <span style={{marginLeft:'3px'}}> Courses</span>
                           </div>
                           
                         </div>
                   </div>
-                  <Drawer anchor={'left'} open={anchor} style={{zIndex:3000}} onClose={toggleDrawer(false)}>
+                  <Drawer anchor={'left'} open={anchor} style={{zIndex:3000,marginTop:'15vh'}} onClose={toggleDrawer(false)}>
                   <div
                       className={clsx(classes.list, {
                         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
