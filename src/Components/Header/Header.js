@@ -79,7 +79,7 @@ function Header() {
             
                 <div className="header row  align-items-start" >
                     <div className="col-1" style={{fontSize:'18px',paddingLeft:'20px'}} id="bar" onClick={()=>openSideNav()}>
-                        <i class="fa fa-bars" style={{color:'white'}} aria-hidden="true"></i>
+                        <i class="fa fa-bars customLink" style={{color:'white'}} aria-hidden="true"></i>
                         
                     </div>
                    

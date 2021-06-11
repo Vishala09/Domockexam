@@ -7,7 +7,7 @@ function SideBar(props) {
                 <div >
                     <div className="row text-center sideBarMenu">
                         <div className="col-1 cursor-pointer" style={{}} onClick={()=>props.closeSideNav()}>
-                            <i class="fa fa-times" style={{color:'white'}} aria-hidden="true"></i>
+                            <i class="fa fa-times customLink" aria-hidden="true"></i>
                         </div>
                         <div className="offset-1 col-9" >
                                 

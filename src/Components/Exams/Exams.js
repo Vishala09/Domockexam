@@ -133,25 +133,24 @@ var isParentNode = function (subMenuItems, id) {
   const [selected, setSelected] = React.useState([]);
   const [selectedData, setselectedData] = useState([])
   const handleToggle = (event, nodeIds) => {
-    console.log(nodeIds)
-    if(nodeIds.length>1)
+    if(nodeIds.length>1 && nodeIds.includes(selected))
     {
       let a =nodeIds[0].slice(0,1);
-      let b =nodeIds[1].slice(0,1);
-      
-      if(a!=b)
+      let exp=[nodeIds[0]]
+      for(let i=1;i<nodeIds.length;i++)
       {
-         let exp=[nodeIds[0]];
-         setExpanded([...exp])
+          if(nodeIds[i].slice(0,1)==a)
+          {
+             if(nodeIds[i].length>nodeIds[0].length)
+             {
+             }
+             else
+             exp.push(nodeIds[i])
+          }
+          else
+          exp.push(nodeIds[i])
       }
-      else if(Number(nodeIds[0])<Number(nodeIds[1]))
-      {
-        console.log(a,b)
-        let exp=[nodeIds[0]];
-        setExpanded([...exp])
-      }
-      else
-      setExpanded(nodeIds);
+      setExpanded([...exp]);
     }
     else
       setExpanded(nodeIds);
@@ -165,6 +164,7 @@ var isParentNode = function (subMenuItems, id) {
    setselectedData(sel[1]);
 
   };
+ 
   function handleClick(event,id) {
     event.preventDefault();
     let arr=[]

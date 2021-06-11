@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 function App() {
       
   return (
-    <div className="" style={{position:'relative'}}>
+    <div className="" >
       <div className="dim" id="dim"></div>
       <Router>
             
