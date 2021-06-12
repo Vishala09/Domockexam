@@ -4,7 +4,7 @@ import PasswordView from '../HelperComps/PasswordView';
 import Parent from './Parent'
 import RegisterFooter from './RegisterFooter';
 import {validateFirstName,validatePhone,validateSchool,validateGender,validateGrade,validateEmail,validatePassword,validateUsername} from '../HelperFunctions/Validations'
-import DistrictMUI from '../HelperComps/DistrictMUI';
+
 function Student(props) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
                         "July", "August", "September", "October", "November", "December"
@@ -83,7 +83,7 @@ function Student(props) {
    
     return (
         <>
-        <div className="row d-flex flex-row justify-content-center align-items-stretch" style={{width:'100%'}}>
+        <div className="row d-flex flex-row justify-content-center align-items-start" style={{width:'100%'}}>
         <div className={IsParent ? 'col-md-6':'col-md-12'}>
         <div  style={{backgroundColor:'#F5F5F5',border:'1px solid #ced4da'}}>
                 <div className="mb-2" style={{backgroundColor:'#0D6EFD',color:'white',paddingLeft:'10px'}}>

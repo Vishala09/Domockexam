@@ -29,9 +29,7 @@ function Header() {
         <div>
             <SearchBar openSideNav={openSideNav} closeSideNav={closeSideNav} view='desktop' />
             <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'8vh',left:0,right:0,
-            width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:3000}}>
-                
-                {/* <div  id="bar"  onClick={()=>openSideNav()}><i style={{color:'white',marginLeft:'30px'}}  class="fa fa-bars" aria-hidden="true"></i></div> */}
+            width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:3000}} onClick={()=>closeSideNav()}>
                 <div className="header_center" >
                     <Link to="/home" onClick={()=>setActiveHeader('home')} 
                     className={ActiveHeader=='home'?'header_item activeHeader':'normalHeader header_item'} >
