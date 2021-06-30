@@ -9,6 +9,8 @@ import SearchBar from './Components/Header/SearchBar';
 import Home from './Components/Home/Home';
 import Exams from './Components/Exams/Exams';
 import { useEffect } from 'react';
+import QuestionPaper from './Components/QuestionPaper/QuestionPaper';
+
 function App() {
       
   return (
@@ -18,6 +20,9 @@ function App() {
             
             <Header ></Header>
             <div style={{marginTop:'15vh'}}>
+            <Route exact path="/test">
+                  <QuestionPaper />
+            </Route>
             <Route exact path="/home">
                   <Home />
             </Route>

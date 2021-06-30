@@ -31,19 +31,23 @@ function Header() {
             <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'8vh',left:0,right:0,
             width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:3000}} onClick={()=>closeSideNav()}>
                 <div className="header_center" >
+                    <Link to="/test" onClick={()=>setActiveHeader('test')} 
+                    className={ActiveHeader=='test'?'header_item activeHeader':'normalHeader header_item'}>
+                            Test
+                    </Link>
                     <Link to="/home" onClick={()=>setActiveHeader('home')} 
                     className={ActiveHeader=='home'?'header_item activeHeader':'normalHeader header_item'} >
                             <div >Home</div>
                            
                                 <div type="none"  className="selectedHeaderOptions1">
                                     <div className="subHeader">
-                                            <a className="subHeaderLink">Sub Header 1</a>
+                                            <a className="subHeaderLink">Sub Header 11</a>
                                     </div>  
                                     <div className="subHeader">
-                                            <a className="subHeaderLink">Sub Header 2</a>
+                                            <a className="subHeaderLink">Sub Header 12</a>
                                     </div>  
                                     <div className="subHeader">
-                                            <a className="subHeaderLink">Sub Header 3</a>
+                                            <a className="subHeaderLink">Sub Header 13</a>
                                     </div>         
                                 </div>
                                 
@@ -53,13 +57,13 @@ function Header() {
                             <div >Exams</div>
                             <div type="none"  className="selectedHeaderOptions1">
                                 <div className="subHeader">
-                                        <a className="subHeaderLink">Sub Header 1</a>
+                                        <a className="subHeaderLink">Sub Header 21</a>
                                 </div>  
                                 <div className="subHeader">
-                                        <a className="subHeaderLink">Sub Header 2</a>
+                                        <a className="subHeaderLink">Sub Header 22</a>
                                 </div>  
                                 <div className="subHeader">
-                                        <a className="subHeaderLink">Sub Header 3</a>
+                                        <a className="subHeaderLink">Sub Header 23</a>
                                 </div>         
                             </div>
                     </Link>
