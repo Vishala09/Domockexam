@@ -12,14 +12,13 @@ function Home() {
             <h4  className="d-flex justify-content-center">Company Logo</h4>
             <div style={{height:'80vh'}}>
                     <div className="row">
-                        <img className="col-4" height="250px" src={ExamHall1} />
-                        <img className="col-4" height="250px" src={OnlineExam} />
-                        <img className="col-4" height="250px" src={ExamHall2} />
+                        <img className="col-6" height="250px" src={ExamHall1} />
+                        <img className="col-6" height="250px" src={ExamHall4} />
+                        
                 </div>
                 <div className="row">
-                        <img className="col-4" height="250px" src={ExamHall5} />
-                        <img className="col-4" height="250px" src={ExamHall3} />
-                        <img className="col-4" height="250px" src={ExamHall4} />
+                        <img className="col-6" height="250px" src={OnlineExam} />
+                        <img className="col-6" height="250px" src={ExamHall2} />
                     </div>
             </div>
             <div style={{height:'50vh'}}>
