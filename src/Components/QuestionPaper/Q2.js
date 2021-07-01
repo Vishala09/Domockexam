@@ -13,8 +13,19 @@ function Q2() {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         let element = document.getElementById(data);
-        let newelement = document.createElement('DIV'); newelement.innerText=element.innerHTML;
-        ev.target.appendChild(newelement);
+        let newelement = document.createElement('DIV'); 
+        newelement.innerText=element.innerHTML;
+        //console.log(ev.target.childNodes);
+        if(ev.target.childNodes.length==0)
+        {
+            ev.target.appendChild(newelement);
+        }
+        else
+        {
+            let delchild = ev.target.childNodes[0];
+            ev.target.removeChild(delchild);
+            ev.target.appendChild(newelement);
+        }
       }
     return (
         <div className="">
