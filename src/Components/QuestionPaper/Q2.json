@@ -1,0 +1,40 @@
+[
+    {
+        "questionheading":"Match the following",
+        "question":"Write the letter of most suitable notice in the given box",
+        "type":"match",
+        "match":[
+            {
+                "a":"Handle with care",
+                "q":"On a box full of glassware",
+                "selectedanswer":""
+            },
+            {
+                "a":"Reference only",
+                "q":"At a building site",
+                "selectedanswer":""
+            },
+            {
+                "a":"Take off your shoes",
+                "q":"On a beach",
+                "selectedanswer":""
+            },
+            {
+                "a":"Reserved for pregnant mothers",
+                "q":"In a temple",
+                "selectedanswer":""
+            },
+            {
+                "a":"Caution! Men at work",
+                "q":"At a house",
+                "selectedanswer":""
+            },
+            {
+                "a":"No bathing rough sea",
+                "q":"In a library",
+                "selectedanswer":""
+            }
+        ]
+        
+    }
+]

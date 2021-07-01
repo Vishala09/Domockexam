@@ -38,6 +38,8 @@ function SideBar(props) {
                                 <hr className="colorHr"></hr>
                                     <Link onClick={()=>props.closeSideNav()} to="/exams" className="noLink linkLH">Exams</Link>
                                 <hr className="colorHr"></hr>
+                                    <Link onClick={()=>props.closeSideNav()} to="/test" className="noLink linkLH">Test</Link>
+                                <hr className="colorHr"></hr>
                                     <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Change Password</Link>
                                 <hr className="colorHr"></hr>
                                     <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Log Out</Link>
