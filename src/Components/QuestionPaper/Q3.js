@@ -43,7 +43,7 @@ function Q3() {
                                 }
                         </div>
                         <br></br> 
-                        <div style={{lineHeight:'2.5'}}>
+                        <div style={{lineHeight:window.screen.width>770?2.5:0}}>
                             {
                                 el.q.split("").map((fillq)=>
                                 <>

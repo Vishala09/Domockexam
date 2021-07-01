@@ -51,8 +51,8 @@ function Q2() {
                                 {
                                     el.match.map((m,idx)=>
                                     <div  style={{height:'50px'}} className="row">
-                                        <div className="col-6 col-md-3">{m.q}</div>
-                                        <div className="col-6 col-md-3" style={{border:'2px solid gray',width:'300px',height:'50px',textAlign:'center'}}  id={'div'+el.type+index}
+                                        <div className="col-md-3">{m.q}</div>
+                                        <div className="col-md-3" style={{border:'2px solid gray',width:'300px',height:'50px',textAlign:'center'}}  id={'div'+el.type+index}
                                         onDrop={(event)=>drop(event,index,idx)} onDragOver={(event)=>allowDrop(event)}>
                                             
                                         </div>
