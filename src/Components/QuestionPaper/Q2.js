@@ -8,6 +8,8 @@ function Q2() {
       }
       
       function drag(ev) {
+        // let element = document.getElementById(ev.target.id);
+        // element.style.fontWeight=900;
         ev.dataTransfer.setData("text", ev.target.id);
       }
       
@@ -15,20 +17,24 @@ function Q2() {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         let element = document.getElementById(data);
-        let newelement = document.createElement('DIV'); 
-        newelement.innerText=element.innerHTML;
+        // let newelement = document.createElement('DIV'); 
+        // newelement.innerText=element.innerHTML;
         if(ev.target.childNodes.length==0)
         {
             Ques[index].match[idx].selectedanswer=element.innerHTML;
             setQues([...Ques]);
-            ev.target.appendChild(newelement);
+            //ev.target.appendChild(newelement);
         }
         else
         {
-            let delchild = ev.target.childNodes[0];
-            ev.target.removeChild(delchild);
-            ev.target.appendChild(newelement);
+            // let delchild = ev.target.childNodes[0];
+            // ev.target.removeChild(delchild);
+            // ev.target.appendChild(newelement);
         }
+      }
+      function removeSelectedAnswer(index,idx){
+        Ques[index].match[idx].selectedanswer="";
+        setQues([...Ques]);
       }
     return (
         <div className="">
@@ -38,11 +44,14 @@ function Q2() {
                         <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                         <div style={{marginLeft:'20px'}}>
                             <h5>{el.question}</h5>
-                            <div style={{display:'flex'}} id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                            <div id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                                 {
                                     el.match.map((m,idx)=>
-                                    <span style={{border:'2px solid gray',width:'150px',height:'50px',marginRight:'20px',cursor:'pointer'}} 
+                                    <> 
+                                         <span className="dragelement"
                                     draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{m.a}</span>
+                                         
+                                    </>
                                     )
                                 }
                             </div>
@@ -50,11 +59,17 @@ function Q2() {
                             <div>
                                 {
                                     el.match.map((m,idx)=>
-                                    <div  style={{height:'50px'}} className="row">
-                                        <div className="col-md-3">{m.q}</div>
-                                        <div className="col-md-3" style={{border:'2px solid gray',width:'300px',height:'50px',textAlign:'center'}}  id={'div'+el.type+index}
-                                        onDrop={(event)=>drop(event,index,idx)} onDragOver={(event)=>allowDrop(event)}>
-                                            
+                                    <div  className="row mb-2">
+                                        <div className="col-12 col-md-4">{m.q}</div>
+                                        <div className="col-12 col-md-5 d-flex">
+                                            <div className="dropelement col-11" 
+                                            id={'div'+el.type+index} onDrop={(event)=>drop(event,index,idx)} onDragOver={(event)=>allowDrop(event)}>
+                                                    {Ques[index].match[idx].selectedanswer}
+                                            </div>
+                                            {
+                                            Ques[index].match[idx].selectedanswer!="" &&
+                                            <div onClick={()=>removeSelectedAnswer(index,idx)} className="close">X</div>
+                                            }
                                         </div>
                                     </div>
                                     )

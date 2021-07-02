@@ -7,12 +7,12 @@ import Q3 from './Q3';
 function QuestionPaper() {
     return (
         <div className="container-fluid">
-            <DndProvider backend={HTML5Backend }>
+            {/* <DndProvider backend={HTML5Backend }> */}
             <h1>Question Paper</h1>
             <Q2 />
             
             <Q3 />
-            </DndProvider>
+            {/* </DndProvider> */}
         </div>
     )
 }

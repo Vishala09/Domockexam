@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './Qp.css';
 import Questions from './Q3.json';
 function Q3() {
       function allowDrop(ev) {
@@ -27,20 +28,20 @@ function Q3() {
         }
       }
     return (
-        <div>
+        <div className="container-fluid">
             {
                 Questions.map((el,index)=>
-                <div>
+                <div >
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
-                        <div style={{display:'flex'}} id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-                                {
-                                    el.options.map((op,idx)=>
-                                    <span style={{border:'2px solid gray',width:'150px',height:'30px',marginRight:'20px',cursor:'pointer',textAlign:'center'}} 
-                                    draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{op}</span>
-                                    )
-                                }
+                        <div className="" id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                            {
+                                el.options.map((op,idx)=>
+                                <span className="dragelement"
+                                draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{op+' '}</span>
+                                )
+                            }
                         </div>
                         <br></br> 
                         <div style={{lineHeight:window.screen.width>770?2.5:0}}>
@@ -49,7 +50,7 @@ function Q3() {
                                 <>
                                         {
                                             fillq=='_'?
-                                                <span style={{borderBottom:'2px solid gray',width:'200px',height:'30px',textAlign:'center',display:'inline-block'}}  
+                                                <span className="dropelementfillin"
                                                 id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                                                         
                                                 </span>
