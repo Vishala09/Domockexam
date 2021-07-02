@@ -44,7 +44,7 @@ function Q2() {
                         <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                         <div style={{marginLeft:'20px'}}>
                             <h5>{el.question}</h5>
-                            <div id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                            <div style={{width:'100%'}} id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                                 {
                                     el.match.map((m,idx)=>
                                     <> 
@@ -55,7 +55,6 @@ function Q2() {
                                     )
                                 }
                             </div>
-                            <br></br> <br></br>
                             <div>
                                 {
                                     el.match.map((m,idx)=>
