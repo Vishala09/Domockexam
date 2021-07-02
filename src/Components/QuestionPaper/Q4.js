@@ -2,7 +2,7 @@ import React from 'react';
 import './Qp.css';
 import Questions from './Q3.json';
 import ExamHall4 from '../../images/ExamHall4.jpg'
-function Q3() {
+function Q4() {
       function allowDrop(ev) {
         ev.preventDefault();
       }
@@ -36,13 +36,18 @@ function Q3() {
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
-                        <div className="" id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-                            {
-                                el.options.map((op,idx)=>
-                                <span className="dragelement"
-                                draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{op+' '}</span>
-                                )
-                            }
+                        <div className="row d-flex flex-row">
+                            <div className="col-8">
+                                <img src={ExamHall4} height="300px" width="100%" />
+                            </div>
+                            <div className="col-2 d-flex flex-column" style={{border:'2px solid black'}} id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                                {
+                                    el.options.map((op,idx)=>
+                                    <span className="q4drag" 
+                                    draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{op+' '}</span>
+                                    )
+                                }
+                            </div>
                         </div>
                         <div style={{lineHeight:window.screen.width>770?2.5:1.5}}>
                             
@@ -71,4 +76,4 @@ function Q3() {
     )
 }
 
-export default Q3
+export default Q4

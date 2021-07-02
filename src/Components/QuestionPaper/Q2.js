@@ -4,7 +4,7 @@ import Questions from './Q2.json'
 function Q2() {
     const [Ques, setQues] = useState(Questions);
       function dragEnter(event) {
-          event.target.style.border = "3px dotted red";
+          event.target.style.border = "3px dotted green";
       }
       function dragLeave(event) {
           event.target.style.border = "";
@@ -14,8 +14,6 @@ function Q2() {
       }
       
       function drag(ev) {
-        // let element = document.getElementById(ev.target.id);
-        // element.style.fontWeight=900;
         ev.dataTransfer.setData("text", ev.target.id);
       }
       

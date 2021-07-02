@@ -20,9 +20,7 @@
   min-height: 25px;
 }
 
-.dropelement:hover{
-  background-color: gainsboro;
-}
+
 
 .dropelementfillin{
   border-bottom: 2px solid black;
@@ -44,4 +42,10 @@
   color:white;
   background-color: black;
   margin-left: 3px;
+}
+
+.q4drag{
+  border:1px solid black;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
