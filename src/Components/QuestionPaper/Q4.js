@@ -40,7 +40,7 @@ function Q4() {
                             <div className="col-8">
                                 <img src={ExamHall4} height="300px" width="100%" />
                             </div>
-                            <div className="col-2 d-flex flex-column" style={{border:'2px solid black'}} id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                            <div className="col-4 d-flex flex-column" style={{border:'2px solid black'}} id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                                 {
                                     el.options.map((op,idx)=>
                                     <span className="q4drag" 

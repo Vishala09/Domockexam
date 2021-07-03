@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import './Qp.css';
 import Questions from './Q2.json'
 function Q2() {
-    const [Ques, setQues] = useState(Questions);
       function dragEnter(event) {
+          if(event.target.innerHTML=="")
           event.target.style.border = "3px dotted green";
       }
       function dragLeave(event) {
@@ -16,31 +16,43 @@ function Q2() {
       function drag(ev) {
         ev.dataTransfer.setData("text", ev.target.id);
       }
+      function dragEnd(ev,index,idx){
+           // ev.target.style.background="gray";
+      }
       
       function drop(ev,index,idx) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         let element = document.getElementById(data);
-        ev.target.style.border = "";
-        Ques[index].match[idx].selectedanswer=element.innerHTML;
-        setQues([...Ques]);
-        // let newelement = document.createElement('DIV'); 
-        // newelement.innerText=element.innerHTML;
-        // if(ev.target.childNodes.length==0)
-        // {
-        //     ev.target.appendChild(newelement);
-        // }
-        // else
-        // {
-        //      let delchild = ev.target.childNodes[0];
-        //      ev.target.removeChild(delchild);
-        //      ev.target.appendChild(newelement);
-        // }
+
+        if(ev.target.childNodes.length==0)
+        {
+            ev.target.style.border = "";
+            element.style.background="gray";
+
+            let newelement = document.createElement('DIV');  newelement.innerText=element.innerHTML;
+            newelement.setAttribute("id","div"+element.id);
+            let button = document.createElement('SPAN');
+            button.classList.add('close');
+            button.innerHTML = "X";
+            button.setAttribute("id","but"+element.id);
+            button.onclick = function()
+            {
+                document.getElementById(this.id.toString().slice(3)).style.background="white";
+                document.getElementById("div"+this.id.toString().slice(3)).remove();
+            }
+            
+            newelement.appendChild(button);
+            ev.target.appendChild(newelement);
+        }
+        else
+        {
+            //  let delchild = ev.target.childNodes[0];
+            //  ev.target.removeChild(delchild);
+            //  ev.target.appendChild(newelement);
+        }
       }
-      function removeSelectedAnswer(index,idx){
-        Ques[index].match[idx].selectedanswer="";
-        setQues([...Ques]);
-      }
+     
     return (
         <div className="">
             {
@@ -51,10 +63,11 @@ function Q2() {
                             <h5>{el.question}</h5>
                             <div style={{width:'100%'}} id={'div'+el.type+index} >
                                 {
-                                    el.match.map((m,idx)=>
+                                    el.options.map((m,idx)=>
                                     <> 
-                                         <span className="dragelement"
-                                    draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{m.a}</span>
+                                         <span className="dragelement" 
+                                         draggable={true} onDragStart={(event)=>drag(event)} 
+                                         onDragEnd={(event)=>dragEnd(event,index,idx)} id={'drag'+el.type+index+idx}>{m.a}</span>
                                          
                                     </>
                                     )
@@ -62,19 +75,16 @@ function Q2() {
                             </div>
                             <div>
                                 {
-                                    el.match.map((m,idx)=>
+                                    el.options.map((m,idx)=>
                                     <div  className="row mb-2">
                                         <div className="col-12 col-md-4">{m.q}</div>
                                         <div className="col-12 col-md-5 d-flex">
                                             <div className="dropelement col-11" onDragEnter={(event)=>dragEnter(event)}
                                             id={'div'+el.type+index+idx} onDrop={(event)=>drop(event,index,idx)} 
                                             onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >
-                                                    {Ques[index].match[idx].selectedanswer}
+                                                   
                                             </div>
-                                            {
-                                            Ques[index].match[idx].selectedanswer!="" &&
-                                            <div onClick={()=>removeSelectedAnswer(index,idx)} className="close">X</div>
-                                            }
+                                            
                                         </div>
                                     </div>
                                     )
