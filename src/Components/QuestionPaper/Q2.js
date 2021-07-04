@@ -28,20 +28,27 @@ function Q2() {
         if(ev.target.childNodes.length==0)
         {
             ev.target.style.border = "";
-            element.style.background="gray";
-
+            element.style.background="lightgray";
             let newelement = document.createElement('DIV');  newelement.innerText=element.innerHTML;
-            newelement.setAttribute("id","div"+element.id);
+            let seconds = 's' + new Date().getSeconds();
+            newelement.setAttribute("class","div"+element.id); 
+            newelement.setAttribute("id","div"+element.id+seconds);
             let button = document.createElement('SPAN');
-            button.classList.add('close');
-            button.innerHTML = "X";
-            button.setAttribute("id","but"+element.id);
+            button.classList.add('cp');
+            button.classList.add('fa');
+            button.classList.add('fa-minus-circle');
+            button.setAttribute("id","but"+element.id+seconds);
             button.onclick = function()
             {
-                document.getElementById(this.id.toString().slice(3)).style.background="white";
-                document.getElementById("div"+this.id.toString().slice(3)).remove();
+                let ind=this.id.indexOf('s');
+                // console.log(this.id,this.id.slice(3,ind));
+                // console.log(document.getElementsByClassName("div"+this.id.slice(3,ind)));
+                if(document.getElementsByClassName("div"+this.id.toString().slice(3,ind)).length==1)
+                {
+                    document.getElementById(this.id.slice(3,ind)).style.background="white";
+                }
+                document.getElementById("div"+this.id.slice(3)).remove();
             }
-            
             newelement.appendChild(button);
             ev.target.appendChild(newelement);
         }

@@ -1,5 +1,5 @@
 .dragelement{
-  border: 2px solid black;
+  /* border: 2px solid black; */
   padding: 5px;
   margin-right: 20px;
   margin-bottom: 20px;
@@ -25,17 +25,18 @@
 .dropelementfillin{
   border-bottom: 2px solid black;
   text-align: center;
-  min-width: 200px;
+  min-width: 100px;
   display: inline-block;
   height: 30px;
+  font-style: italic;
 }
 
 .close {
-  width: 15px;
-  height: 15px;
+  /* width: 15px;
+  height: 15px; */
   padding: 2px;
   border-radius: 50%;
-  font-size: 8px;
+  font-size:11px;
   text-align: center;
   font-weight: 900;
   cursor: pointer;
@@ -45,7 +46,13 @@
 }
 
 .q4drag{
-  border:1px solid black;
+  /* border:1px solid black; */
   margin-top: 2px;
   margin-bottom: 2px;
+  cursor: pointer;
+}
+
+.cp{
+  margin-left: 3px;
+  cursor: pointer;
 }

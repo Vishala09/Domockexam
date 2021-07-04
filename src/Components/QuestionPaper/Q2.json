@@ -6,37 +6,27 @@
         "options":[
             {
                 "a":"Handle with care",
-                "q":"On a box full of glassware",
-                "selectedanswer":"",
-                "selected":false
+                "q":"On a box full of glassware"
             },
             {
                 "a":"Reference only",
-                "q":"At a building site",
-                "selectedanswer":"",
-                "selected":false
+                "q":"At a building site"
             },
             {
                 "a":"Take off your shoes",
-                "q":"On a beach",
-                "selectedanswer":"",
-                "selected":false
+                "q":"On a beach"
             },
             {
                 "a":"Reserved for pregnant mothers",
-                "q":"In a temple",
-                "selectedanswer":"",
-                "selected":false
+                "q":"In a temple"
             },
             {
                 "a":"Caution! Men at work",
-                "q":"At a house",
-                "selectedanswer":""
+                "q":"At a house"
             },
             {
                 "a":"No bathing rough sea",
-                "q":"In a library",
-                "selectedanswer":""
+                "q":"In a library"
             }
         ]
         
