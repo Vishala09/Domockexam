@@ -10,17 +10,17 @@ function Q3() {
         }
         function dragLeave(event) {
             event.target.style.border = "";
+        } 
+
+        function allowDrop(ev) {
+        ev.preventDefault();
+        }
+      
+        function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
         }
 
-      function allowDrop(ev) {
-        ev.preventDefault();
-      }
-      
-      function drag(ev) {
-        ev.dataTransfer.setData("text", ev.target.id);
-      }
-
-      function drop(ev) {
+        function drop(ev) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         let element = document.getElementById(data);
@@ -82,7 +82,8 @@ function Q3() {
                                 <>
                                         {
                                             fillq=='_'?
-                                                <span className="dropelementfillin" onDragEnter={(event)=>dragEnter(event)} onDragLeave={(event)=>dragLeave(event)}
+                                                <span className="dropelementfillin" 
+                                                onDragEnter={(event)=>dragEnter(event)} onDragLeave={(event)=>dragLeave(event)}
                                                 onDrop={(event)=>drop(event,index,idx)} onDragOver={(event)=>allowDrop(event)}>
                                                         
                                                 </span>

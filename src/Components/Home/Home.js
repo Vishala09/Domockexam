@@ -43,8 +43,8 @@ function Home() {
             <h4  className="d-flex justify-content-center">Company Logo </h4>
             <div  >
                     <div >
-                            <button onClick={()=>goLeft()} className="btn btn-primary" style={{position:'absolute',top:'50%',left:20}}><i class="fa fa-chevron-left"></i></button>
-                            <button onClick={()=>goRight()} className="btn btn-primary" style={{position:'absolute',top:'50%',right:20}}><i class="fa fa-chevron-right"></i></button>
+                            <button onClick={()=>goLeft()} className="btn btn-primary" style={{position:'absolute',top:'50%',left:20,zIndex:1}}><i class="fa fa-chevron-left"></i></button>
+                            <button onClick={()=>goRight()} className="btn btn-primary" style={{position:'absolute',top:'50%',right:20,zIndex:1}}><i class="fa fa-chevron-right"></i></button>
                             <img height="450px" width="100%" src={images[imageIndex]} />  
                     </div>
             </div>

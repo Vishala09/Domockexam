@@ -3,6 +3,14 @@ import './Qp.css';
 import Questions from './Q3.json';
 import ExamHall4 from '../../images/ExamHall4.jpg'
 function Q4() {
+    function dragEnter(event) {
+        if(event.target.innerHTML=="")
+        event.target.style.borderBottom = "3px dotted green";
+    }
+    function dragLeave(event) {
+        event.target.style.border = "";
+    }
+
       function allowDrop(ev) {
         ev.preventDefault();
       }
@@ -15,17 +23,36 @@ function Q4() {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         let element = document.getElementById(data);
-        let newelement = document.createElement('DIV'); 
-        newelement.innerText=element.innerHTML;
         if(ev.target.childNodes.length==0)
         {
+            ev.target.style.border = "";
+            element.style.background="lightgray";
+            let newelement = document.createElement('DIV');  newelement.innerText=element.innerHTML;
+            let seconds = 's' + new Date().getSeconds();
+            newelement.setAttribute("class","div"+element.id); 
+            newelement.setAttribute("id","div"+element.id+seconds);
+            let button = document.createElement('SPAN');
+            button.classList.add('cp');
+            button.classList.add('fa');
+            button.classList.add('fa-minus-circle');
+            button.setAttribute("id","but"+element.id+seconds);
+            button.onclick = function()
+            {
+                let ind=this.id.indexOf('s');
+                if(document.getElementsByClassName("div"+this.id.toString().slice(3,ind)).length==1)
+                {
+                    document.getElementById(this.id.slice(3,ind)).style.background="white";
+                }
+                document.getElementById("div"+this.id.slice(3)).remove();
+            }
+            newelement.appendChild(button);
             ev.target.appendChild(newelement);
         }
         else
         {
-            let delchild = ev.target.childNodes[0];
-            ev.target.removeChild(delchild);
-            ev.target.appendChild(newelement);
+            // let delchild = ev.target.childNodes[0];
+            // ev.target.removeChild(delchild);
+            // ev.target.appendChild(newelement);
         }
       }
     return (
@@ -56,7 +83,7 @@ function Q4() {
                                 <>
                                         {
                                             fillq=='_'?
-                                                <span className="dropelementfillin"
+                                                <span className="dropelementfillin" onDragEnter={(event)=>dragEnter(event)} onDragLeave={(event)=>dragLeave(event)}
                                                 id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                                                         
                                                 </span>
