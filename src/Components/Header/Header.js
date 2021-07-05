@@ -29,7 +29,7 @@ function Header() {
         <div>
             <SearchBar openSideNav={openSideNav} closeSideNav={closeSideNav} view='desktop' />
             <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'8vh',left:0,right:0,
-            width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:3000}} onClick={()=>closeSideNav()}>
+            width:'100%',alignItems:'center',display:'flex',zIndex:3000}} onClick={()=>closeSideNav()}>
                 <div className="header_center" >
                     <Link to="/test" onClick={()=>setActiveHeader('test')} 
                     className={ActiveHeader=='test'?'header_item activeHeader':'normalHeader header_item'}>

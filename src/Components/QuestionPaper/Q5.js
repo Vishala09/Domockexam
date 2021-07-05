@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Qp.css';
 import Questions from './Q5.json';
+import Parser from 'html-react-parser';
 import ReactHtmlParser from 'react-html-parser'
 function Q5() {
 
@@ -11,11 +12,11 @@ function Q5() {
         {
             if(str[i]=="{")
             {
-                rstr=rstr+'<u style={{textDecorationLine: underline,textDecorationThickness:2px}}>';
+                rstr=rstr+'<span style=" border-bottom:2px solid black " ">';
             }
             else if(str[i]=="}")
             {
-                rstr=rstr+'</u>';
+                rstr=rstr+'</span>';
             }
             else
             {
@@ -36,10 +37,10 @@ function Q5() {
                             el.q.map((question)=>
                             <div className="row mb-2">
                                     <div className="col-6">
-                                            {ReactHtmlParser(formatques(question))}
+                                            {Parser(formatques(question))}
                                     </div>
                                     <div className="col-4" >
-                                            <input type="text" placeholder="Type here" style={{width:'100%'}} />
+                                            <input type="text" placeholder="Type here" style={{width:'100%',border:'none',borderBottom:'2px dotted black',outline:'none',padding:'5px'}} />
                                     </div>
                             </div>  
                             )

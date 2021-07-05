@@ -6,7 +6,7 @@ import Q4 from './Q4';
 import Q5 from './Q5';
 function QuestionPaper() {
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" style={{fontFamily:'"Times New Roman", Times, serif'}}>
             <h1>Question Paper</h1>
             <Q2 />
             <Q3 />
