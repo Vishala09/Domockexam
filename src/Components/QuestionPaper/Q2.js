@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './Qp.css';
-import Questions from './Q2.json'
+import Questions from './Q2.json';
+import Tooltip from '@material-ui/core/Tooltip';
 function Q2() {
       function dragEnter(event) {
           if(event.target.innerHTML=="")
@@ -29,11 +30,15 @@ function Q2() {
         {
             ev.target.style.border = "";
             element.style.background="lightgray";
-            let newelement = document.createElement('DIV');  newelement.innerText=element.innerHTML;
+            let newelement = document.createElement('Tooltip');  
+            newelement.title="Delete";
+            newelement.innerHTML=element.innerHTML;
+            //newelement.classList.add('tooltip')
             let seconds = 's' + new Date().getSeconds();
-            newelement.setAttribute("class","div"+element.id); 
+            newelement.classList.add("div"+element.id);
             newelement.setAttribute("id","div"+element.id+seconds);
             let button = document.createElement('SPAN');
+            //button.classList.add('tooltiptext');
             button.classList.add('cp');
             button.classList.add('fa');
             button.classList.add('fa-minus-circle');
