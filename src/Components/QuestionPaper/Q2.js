@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import './Qp.css';
 import Questions from './Q2.json';
+import { Button } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 function Q2() {
       function dragEnter(event) {
@@ -30,15 +33,26 @@ function Q2() {
         {
             ev.target.style.border = "";
             element.style.background="lightgray";
-            let newelement = document.createElement('Tooltip');  
-            newelement.title="Delete";
+            let newelement = document.createElement('div');  
+            
             newelement.innerHTML=element.innerHTML;
             //newelement.classList.add('tooltip')
             let seconds = 's' + new Date().getSeconds();
             newelement.classList.add("div"+element.id);
             newelement.setAttribute("id","div"+element.id+seconds);
-            let button = document.createElement('SPAN');
-            //button.classList.add('tooltiptext');
+            // let d = document.createElement('button');
+            // d.type="button"; d.tabIndex="0";
+            // d.title="Delete"; d.classList.add('MuiButtonBase-root', 'MuiButton-root', 'MuiButton-text');
+            // let label= document.createElement('SPAN');
+            // label.classList.add('MuiButton-label');
+            // let tip= document.createElement('SPAN');
+            // tip.classList.add('MuiTouchRipple-root');
+            // d.appendChild(label); d.appendChild(tip);
+            // newelement.appendChild(d);
+
+            let button = document.createElement('Tooltip');
+            button.title="Delete";
+            button.classList.add('tooltipdelete');
             button.classList.add('cp');
             button.classList.add('fa');
             button.classList.add('fa-minus-circle');
@@ -46,8 +60,6 @@ function Q2() {
             button.onclick = function()
             {
                 let ind=this.id.indexOf('s');
-                // console.log(this.id,this.id.slice(3,ind));
-                // console.log(document.getElementsByClassName("div"+this.id.slice(3,ind)));
                 if(document.getElementsByClassName("div"+this.id.toString().slice(3,ind)).length==1)
                 {
                     document.getElementById(this.id.slice(3,ind)).style.background="white";
@@ -96,7 +108,6 @@ function Q2() {
                                             onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >
                                                    
                                             </div>
-                                            
                                         </div>
                                     </div>
                                     )

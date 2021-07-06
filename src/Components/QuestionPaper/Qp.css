@@ -14,7 +14,7 @@
 }
 
 .dropelement{
-  border: 2px solid black;
+  border: 2px dotted black;
   padding: 5px;
   text-align: center;
   min-width: 200px;
@@ -25,7 +25,7 @@
 
 
 .dropelementfillin{
-  border-bottom: 2px solid black;
+  border-bottom: 2px dotted black;
   text-align: center;
   min-width: 100px;
   display: inline-block;
@@ -59,6 +59,15 @@
   cursor: pointer;
 }
 
+
+
+.tooltipdelete{
+  color: black;
+}
+
+.tooltipdelete:hover{
+  color: red;
+}
 
 .tooltip {
   position: relative;
