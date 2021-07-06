@@ -25,17 +25,17 @@ function Q3() {
         var data = ev.dataTransfer.getData("text");
         let element = document.getElementById(data);
         
-
         if(ev.target.childNodes.length==0)
         {
-          
             ev.target.style.border = "";
             element.style.background="lightgray";
-            let newelement = document.createElement('DIV');  newelement.innerText=element.innerHTML;
+            let newelement = document.createElement('div');  
+            newelement.innerHTML=element.innerHTML;
             let seconds = 's' + new Date().getSeconds();
-            newelement.setAttribute("class","div"+element.id); 
+            newelement.classList.add("div"+element.id);
             newelement.setAttribute("id","div"+element.id+seconds);
-            let button = document.createElement('SPAN');
+            let button = document.createElement('div');
+            button.classList.add('tooltipp',"tooltipdelete");
             button.classList.add('cp');
             button.classList.add('fa');
             button.classList.add('fa-minus-circle');
@@ -49,6 +49,10 @@ function Q3() {
                 }
                 document.getElementById("div"+this.id.slice(3)).remove();
             }
+            let s = document.createElement('span');
+            s.innerHTML="Delete";
+            s.className="tooltiptext";
+            button.appendChild(s);
             newelement.appendChild(button);
             ev.target.appendChild(newelement);
         }
@@ -67,14 +71,32 @@ function Q3() {
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
-                        <div className="" id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                        {
+                            el.image ? 
+                            <div className="row d-flex flex-row">
+                                <div className="col-8">
+                                    <img src={el.image} height="300px" width="100%" />
+                                </div>
+                                <div className="col-4 d-flex flex-column" style={{border:'2px solid black'}} id={'div'+el.type+index} >
+                                    {
+                                        el.options.map((op,idx)=>
+                                        <span className="q4drag" 
+                                        draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{op+' '}</span>
+                                        )
+                                    }
+                                </div>
+                            </div>
+                            :
+                            <div className="" id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                             {
                                 el.options.map((op,idx)=>
                                 <span className="dragelement"
                                 draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+index+idx}>{op+' '}</span>
                                 )
                             }
-                        </div>
+                            </div>
+                        }
+                        
                         <div style={{lineHeight:window.screen.width>770?2.5:1.5}}>
                             
                             {

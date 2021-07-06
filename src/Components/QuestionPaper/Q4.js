@@ -1,98 +1,64 @@
 import React from 'react';
+import Parser from 'html-react-parser';
 import './Qp.css';
-import Questions from './Q3.json';
-import ExamHall4 from '../../images/ExamHall4.jpg'
+import Questions from './Q4.json';
 function Q4() {
-    function dragEnter(event) {
-        if(event.target.innerHTML=="")
-        event.target.style.borderBottom = "3px dotted green";
-    }
-    function dragLeave(event) {
-        event.target.style.border = "";
-    }
-
-      function allowDrop(ev) {
-        ev.preventDefault();
-      }
-      
-      function drag(ev) {
-        ev.dataTransfer.setData("text", ev.target.id);
-      }
-
-      function drop(ev,index,idx) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        let element = document.getElementById(data);
-        if(ev.target.childNodes.length==0)
+    const formatques = function(str)
+    {
+         let rstr="";
+        for(let i=0;i<str.length;i++)
         {
-            ev.target.style.border = "";
-            element.style.background="lightgray";
-            let newelement = document.createElement('DIV');  newelement.innerText=element.innerHTML;
-            let seconds = 's' + new Date().getSeconds();
-            newelement.setAttribute("class","div"+element.id); 
-            newelement.setAttribute("id","div"+element.id+seconds);
-            let button = document.createElement('SPAN');
-            button.classList.add('cp');
-            button.classList.add('fa');
-            button.classList.add('fa-minus-circle');
-            button.setAttribute("id","but"+element.id+seconds);
-            button.onclick = function()
+            if(str[i]=="{")
             {
-                let ind=this.id.indexOf('s');
-                if(document.getElementsByClassName("div"+this.id.toString().slice(3,ind)).length==1)
+                rstr=rstr+`<span><select  style="display:inline;max-width:20%;">   `
+                let j=i+1;
+                let opts=[];
+                let s="";
+                while(j<str.length)
                 {
-                    document.getElementById(this.id.slice(3,ind)).style.background="white";
+                    if(str[j]=="," || str[j]=="}")
+                    {
+                        opts.push(s);
+                        s="";
+                    }
+                    else
+                    {
+                        s=s+str[j];
+                    }
+                    if(str[j]=="}")
+                    {
+                        break;
+                    }
+                       j++;
                 }
-                document.getElementById("div"+this.id.slice(3)).remove();
+                console.log(opts);
+                for(let k=0;k<opts.length;k++)
+                {
+                    //console.log('s',opts[k])
+                    rstr=rstr+`<option value=`+opts[k]+`>`+opts[k]+`</option>`
+                }
+                rstr=rstr+` </select></span>`;
+
+              i=j;
             }
-            newelement.appendChild(button);
-            ev.target.appendChild(newelement);
+            
+            else
+            {
+                rstr=rstr+str[i];
+            }
         }
-        else
-        {
-            // let delchild = ev.target.childNodes[0];
-            // ev.target.removeChild(delchild);
-            // ev.target.appendChild(newelement);
-        }
-      }
+        return rstr;
+    }
     return (
-        <div className="container-fluid">
+        <div>
             {
                 Questions.map((el,index)=>
-                <div >
+                <div>
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
-                        <div className="row d-flex flex-row">
-                            <div className="col-8">
-                                <img src={ExamHall4} height="300px" width="100%" />
-                            </div>
-                            <div className="col-4 d-flex flex-column" style={{border:'2px solid black'}} id={'div'+el.type+index} >
-                                {
-                                    el.options.map((op,idx)=>
-                                    <span className="q4drag" 
-                                    draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{op+' '}</span>
-                                    )
-                                }
-                            </div>
-                        </div>
-                        <div style={{lineHeight:window.screen.width>770?2.5:1.5}}>
-                            
-                            {
-                                el.q.split("").map((fillq)=>
-                                <>
-                                        {
-                                            fillq=='_'?
-                                                <span className="dropelementfillin" onDragEnter={(event)=>dragEnter(event)} onDragLeave={(event)=>dragLeave(event)}
-                                                id={'div'+el.type+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
-                                                        
-                                                </span>
-                                            :
-                                            fillq
-                                        }
-                                </>
-                                )
-                            }
+                        <div>
+                                {Parser(formatques(el.q))}
                         </div>
                     </div>
                     <hr></hr>

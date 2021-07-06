@@ -5,5 +5,13 @@
         "type":"fillin",
         "options":["friend","bed","curtains","cupboard","umbreeeeeeeeeeeeeella","table","lamp","drawers","books","trousers","wall"],
         "q":"This picture shows Chauntra's room. His _ , Isuru is sitting near him is sitting near him on his _ . There is a _ with three _ in the room. A pile of _ and the _ he uses to study can also be seen here. The _ of the window are partly open. In the _ he has hung a shirt and 2 pairs of _. There is a cap and an _ on the hangers fixed to the _ . There are 2 pairs of cshoe on shoe rack."
+    },
+    {
+        "questionheading":"Fill in the blanks",
+        "question":"Write the letter of correct word in the blank",
+        "type":"fillin",
+        "image":"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+        "options":["friend","bed","curtains","cupboard","umbreeeeeeeeeeeeeella","table","lamp","drawers","books","trousers","wall"],
+        "q":"This picture shows Chauntra's room. His _ , Isuru is sitting near him is sitting near him on his _ . There is a _ with three _ in the room. A pile of _ and the _ he uses to study can also be seen here. The _ of the window are partly open. In the _ he has hung a shirt and 2 pairs of _. There is a cap and an _ on the hangers fixed to the _ . There are 2 pairs of cshoe on shoe rack."
     }
 ]
