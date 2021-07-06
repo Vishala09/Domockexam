@@ -40,7 +40,7 @@ function Q5() {
                                             {Parser(formatques(question))}
                                     </div>
                                     <div className="col-4" >
-                                            <input type="text" placeholder="Type here" style={{width:'100%',border:'none',borderBottom:'2px dotted black',outline:'none',padding:'5px'}} />
+                                            <input type="text" placeholder="Type here" style={{width:'100%',border:'none',borderBottom:'2px dotted black',outline:'none',padding:'5px',fontStyle:'italic'}} />
                                     </div>
                             </div>  
                             )

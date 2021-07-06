@@ -40,19 +40,11 @@ function Q2() {
             let seconds = 's' + new Date().getSeconds();
             newelement.classList.add("div"+element.id);
             newelement.setAttribute("id","div"+element.id+seconds);
-            // let d = document.createElement('button');
-            // d.type="button"; d.tabIndex="0";
-            // d.title="Delete"; d.classList.add('MuiButtonBase-root', 'MuiButton-root', 'MuiButton-text');
-            // let label= document.createElement('SPAN');
-            // label.classList.add('MuiButton-label');
-            // let tip= document.createElement('SPAN');
-            // tip.classList.add('MuiTouchRipple-root');
-            // d.appendChild(label); d.appendChild(tip);
-            // newelement.appendChild(d);
 
-            let button = document.createElement('Tooltip');
-            button.title="Delete";
-            button.classList.add('tooltipdelete');
+            let button = document.createElement('div');
+            //button.title="Delete";
+            button.classList.add('tooltipp',"tooltipdelete");
+            //button.innerHTML="Delete"
             button.classList.add('cp');
             button.classList.add('fa');
             button.classList.add('fa-minus-circle');
@@ -66,6 +58,10 @@ function Q2() {
                 }
                 document.getElementById("div"+this.id.slice(3)).remove();
             }
+            let s = document.createElement('span');
+            s.innerHTML="Delete";
+            s.className="tooltiptext";
+            button.appendChild(s);
             newelement.appendChild(button);
             ev.target.appendChild(newelement);
         }
@@ -108,6 +104,7 @@ function Q2() {
                                             onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >
                                                    
                                             </div>
+                                            
                                         </div>
                                     </div>
                                     )

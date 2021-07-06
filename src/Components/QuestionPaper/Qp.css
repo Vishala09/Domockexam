@@ -69,26 +69,28 @@
   color: red;
 }
 
-.tooltip {
+.tooltipp {
   position: relative;
   display: inline-block;
   opacity: 1;
 }
 
-.tooltip .tooltiptext {
+.tooltipp .tooltiptext {
   visibility: hidden;
-  width: 120px;
-  background-color: black;
+ 
+  background-color: gray;
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
+  padding: 2px 5px;
 
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
+  top: -12px;
+  left: 105%;
 }
 
-.tooltip:hover .tooltiptext {
+.tooltipp:hover .tooltiptext {
   visibility: visible;
 }
