@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Parser from 'html-react-parser';
 import './Qp.css';
 import Questions from './Q4.json';
 function Q4() {
+    
     const formatques = function(str)
     {
          let rstr="";
@@ -12,7 +13,7 @@ function Q4() {
             {
                 rstr=rstr+`<span><select class="mydropdown dropdown-toggle" data-flip="false" 
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" >  
-                <option >Select answer</option> `
+                <option value="selans" class="myoption" >Select answer</option> `
                 let j=i+1;
                 let opts=[];
                 let s="";

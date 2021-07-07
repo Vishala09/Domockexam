@@ -1,0 +1,17 @@
+[
+    {
+        "questionheading":"Choose the correct answer",
+        "question":"Read the following and choose the correct answer",
+        "type":"choose",
+        "q":[
+            {
+                "ques":"How often did the writer and his family visit grandma?",
+                "options":["once a month","once a year","once a week"]
+            },
+            {
+                "ques":"Where was the antique clock?",
+                "options":["high on the wall","in the kitchen","on the cabinet"]
+            }
+        ]
+    }
+]

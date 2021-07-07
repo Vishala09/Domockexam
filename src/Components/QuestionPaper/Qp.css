@@ -13,6 +13,14 @@
   font-weight: 600;
 }
 
+.dragelementright{
+  font-weight: normal;
+}
+
+.dragelementright:hover{
+  font-weight: 600;
+}
+
 .dropelement{
   border: 2px dotted black;
   padding: 5px;
@@ -43,6 +51,14 @@
   padding:5px;font-style:italic; font-weight: 600;
 }
 
+.fillin{
+  min-width:15%;
+  border:none;
+  border-bottom:2px dotted black;
+  outline:none;
+  padding:5px;font-style:italic; font-weight: 600;
+
+}
 
  .mydropdown{
    border:none;
@@ -50,20 +66,18 @@
    display:inline;max-width:20%;
    font-style: italic;
    font-weight: 600;
-   cursor: pointer;
-   
+   cursor: pointer;  
 }
-
-.mydropdown:hover{
+.mydropdown:hover , .myoption:active , .myoption:checked{
   border:2px dotted green;
-  font-size: 20px;
 }
-
+.myoption{
+  font-style: normal;
+}
 .mydropdown .myoption:checked,
 .mydropdown .myoption:hover ,
 .mydropdown .myoption:active {
-    background-color: green;
-    font-style: italic;
+    background-color: lightgray;
 }
 
 

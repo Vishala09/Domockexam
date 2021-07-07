@@ -78,7 +78,7 @@ function Q3() {
                                 <div className="col-4 d-flex flex-column" style={{border:'2px solid black'}} id={'div'+el.type+index} >
                                     {
                                         el.options.map((op,idx)=>
-                                        <span className="q4drag" 
+                                        <span className="dragelementright cp" 
                                         draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{op+' '}</span>
                                         )
                                     }

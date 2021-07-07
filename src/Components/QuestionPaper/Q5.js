@@ -12,7 +12,7 @@ function Q5() {
         {
             if(str[i]=="{")
             {
-                rstr=rstr+'<span style=" border-bottom:2px solid black " ">';
+                rstr=rstr+'<span style=" border-bottom:2px solid black; " ">';
             }
             else if(str[i]=="}")
             {
@@ -36,6 +36,7 @@ function Q5() {
                         {
                             el.q.map((question)=>
                             <div className="row mb-2">
+                                
                                     <div className="col-6">
                                             {Parser(formatques(question))}
                                     </div>
