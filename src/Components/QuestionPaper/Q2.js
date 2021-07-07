@@ -109,9 +109,9 @@ function Q2() {
                                     )
                                 }
                             </div>
-                            <hr></hr>
+                            
                         </div>
-                        
+                        <hr></hr>
                 </div>
                 )
             }
