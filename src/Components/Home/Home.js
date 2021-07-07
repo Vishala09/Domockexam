@@ -6,7 +6,7 @@ import ExamHall4 from '../../images/ExamHall4.jpg'
 import ExamHall5 from '../../images/ExamHall5.jpg';
 import OnlineExam1 from '../../images/OnlineExam.jpg';
 
-import OnlineExam2 from '../../images/OnlineExam2.jpg';
+import OnlineExam2 from '../../images/OnlineExam2.png';
 import ExamHall1p from '../../images/ExamHall1.png';
 import ExamHall2p from '../../images/ExamHall2.png';
 import ExamHall6 from '../../images/ExamHall6.jpg';
@@ -16,7 +16,7 @@ import OnlineTest1 from '../../images/OnlineTest1.jpg';
 import OnlineTest2 from '../../images/OnlineTest2.jpg';
 import OnlineTest3 from '../../images/OnlineTest3.png';
 function Home() {
-    const images = [ExamHall1p,ExamHall2p, ExamHall6,ExamHall7,OnlineExam2,ExamHall1,ExamHall2,OnlineTest1,OnlineTest2,OnlineTest3];
+    const images = [OnlineExam2, ExamHall6,ExamHall7,ExamHall1,ExamHall2,OnlineTest1,ExamHall1p,OnlineTest2,OnlineTest3];
     const [imageIndex, setimageIndex] = useState(0)
     useEffect(() => {
        // loadImages();

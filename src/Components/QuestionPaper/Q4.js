@@ -10,7 +10,9 @@ function Q4() {
         {
             if(str[i]=="{")
             {
-                rstr=rstr+`<span><select  style="display:inline;max-width:20%;">   `
+                rstr=rstr+`<span><select class="mydropdown dropdown-toggle" data-flip="false" 
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" >  
+                <option >Select answer</option> `
                 let j=i+1;
                 let opts=[];
                 let s="";
@@ -34,8 +36,7 @@ function Q4() {
                 console.log(opts);
                 for(let k=0;k<opts.length;k++)
                 {
-                    //console.log('s',opts[k])
-                    rstr=rstr+`<option value=`+opts[k]+`>`+opts[k]+`</option>`
+                    rstr=rstr+`<option class="myoption" value=`+opts[k]+`>`+opts[k]+`</option>`
                 }
                 rstr=rstr+` </select></span>`;
 
@@ -57,7 +58,7 @@ function Q4() {
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
-                        <div>
+                        <div style={{lineHeight:'2.5'}}>
                                 {Parser(formatques(el.q))}
                         </div>
                     </div>

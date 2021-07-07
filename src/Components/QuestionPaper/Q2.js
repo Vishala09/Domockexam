@@ -43,10 +43,9 @@ function Q2() {
 
             let button = document.createElement('div');
             //button.title="Delete";
-            button.classList.add('tooltipp',"tooltipdelete");
+            button.classList.add('mytooltip',"tooltipdelete");
             //button.innerHTML="Delete"
-            button.classList.add('cp');
-            button.classList.add('fa');
+            button.classList.add('cp','fa');
             button.classList.add('fa-minus-circle');
             button.setAttribute("id","but"+element.id+seconds);
             button.onclick = function()

@@ -35,10 +35,8 @@ function Q3() {
             newelement.classList.add("div"+element.id);
             newelement.setAttribute("id","div"+element.id+seconds);
             let button = document.createElement('div');
-            button.classList.add('tooltipp',"tooltipdelete");
-            button.classList.add('cp');
-            button.classList.add('fa');
-            button.classList.add('fa-minus-circle');
+            button.classList.add('mytooltip',"tooltipdelete");
+            button.classList.add('cp','fa','fa-minus-circle');
             button.setAttribute("id","but"+element.id+seconds);
             button.onclick = function()
             {

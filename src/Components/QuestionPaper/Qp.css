@@ -20,6 +20,7 @@
   min-width: 200px;
   min-height: 25px;
   font-style: italic;
+  font-weight: 600;
 }
 
 
@@ -31,28 +32,40 @@
   display: inline-block;
   height: 30px;
   font-style: italic;
+  font-weight: 600;
 }
 
-.close {
-  /* width: 15px;
-  height: 15px; */
-  padding: 2px;
-  border-radius: 50%;
-  font-size:11px;
-  text-align: center;
-  font-weight: 900;
-  cursor: pointer;
-  color:white;
-  background-color: black;
-  margin-left: 3px;
+.typein{
+  width:100%;
+  border:none;
+  border-bottom:2px dotted black;
+  outline:none;
+  padding:5px;font-style:italic; font-weight: 600;
 }
 
-.q4drag{
-  /* border:1px solid black; */
-  margin-top: 2px;
-  margin-bottom: 2px;
-  cursor: pointer;
+
+ .mydropdown{
+   border:none;
+   border-bottom:2px dotted black;
+   display:inline;max-width:20%;
+   font-style: italic;
+   font-weight: 600;
+   cursor: pointer;
+   
 }
+
+.mydropdown:hover{
+  border:2px dotted green;
+  font-size: 20px;
+}
+
+.mydropdown .myoption:checked,
+.mydropdown .myoption:hover ,
+.mydropdown .myoption:active {
+    background-color: green;
+    font-style: italic;
+}
+
 
 .cp{
   margin-left: 3px;
@@ -69,18 +82,18 @@
   color: red;
 }
 
-.tooltipp {
+.mytooltip {
   position: relative;
   display: inline-block;
   opacity: 1;
 }
 
-.tooltipp .tooltiptext {
+.mytooltip .tooltiptext {
   visibility: hidden;
  
   background-color: lightgray;
   color: #fff;
-  color: gray;
+  color: black;
   font-size: 12px;
   text-align: center;
   border-radius: 6px;
@@ -93,6 +106,6 @@
   left: 105%;
 }
 
-.tooltipp:hover .tooltiptext {
+.mytooltip:hover .tooltiptext {
   visibility: visible;
 }
