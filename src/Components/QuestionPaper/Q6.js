@@ -18,7 +18,7 @@ function Q6() {
                                         <div style={{display:'flex',marginLeft:'20px'}} className="row">
                                             {
                                                 q.options.map((op,i) => 
-                                                <span className="col-2">
+                                                <span className="col-2 choose">
                                                     <div className="form-check" >
                                                         <input className="form-check-input cp" type="radio" name={''+index+ind} id={el.type+'radio'+index+''+ind+''+i} />
                                                         <label className="form-check-label cp" for={el.type+'radio'+index+''+ind+''+i}>
