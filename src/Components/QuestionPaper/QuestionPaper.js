@@ -5,6 +5,7 @@ import Q3 from './Q3';
 import Q4 from './Q4';
 import Q5 from './Q5';
 import Q6 from './Q6';
+import 'bootstrap/dist/css/bootstrap.css';
 function QuestionPaper() {
     return (
         <div className="container-fluid" style={{fontFamily:'"Times New Roman", Times, serif'}}>

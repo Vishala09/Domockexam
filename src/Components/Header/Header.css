@@ -136,7 +136,7 @@
     border-bottom: 5px solid #4CAF50;
     height: 100%;
     padding: 10px;
-    background-image: linear-gradient(to bottom,#4CAF50,#232F3E);
+    background-image: linear-gradient(to bottom,#4CAF50,#232F3E,#232F3E,#232F3E);
 }
 .activeHeader:hover{
     color:white;

@@ -48,7 +48,7 @@
   border:none;
   border-bottom:2px dotted black;
   outline:none;
-  padding:5px;font-style:italic; font-weight: 600;
+  font-style:italic; font-weight: 600;
 }
 
 .fillin{
@@ -56,7 +56,7 @@
   border:none;
   border-bottom:2px dotted black;
   outline:none;
-  padding:5px;font-style:italic; font-weight: 600;
+  font-style:italic; font-weight: 600;
 
 }
 
@@ -67,6 +67,7 @@
    font-style: italic;
    font-weight: 600;
    cursor: pointer;  
+   overflow: hidden; 
 }
 .mydropdown:hover , .myoption:active , .myoption:checked{
   border:2px dotted green;
@@ -74,12 +75,12 @@
 .myoption{
   font-style: normal;
 }
-.mydropdown .myoption:checked,
+ .mydropdown .myoption:checked,
 .mydropdown .myoption:hover ,
 .mydropdown .myoption:active {
     background-color: lightgray;
-}
-
+    font-weight: 900;
+} 
 
 .choose{
    font-style:normal;

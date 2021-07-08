@@ -42,10 +42,11 @@ function Q1() {
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
-                        <div>
+                        <div >
                                 {Parser(formatques(el.q))}
                         </div>
                     </div>
+                    
                     <hr></hr>
                 </div>
                 )

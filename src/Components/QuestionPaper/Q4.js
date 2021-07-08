@@ -11,7 +11,8 @@ function Q4() {
         {
             if(str[i]=="{")
             {
-                rstr=rstr+`<span><select class="mydropdown dropdown-toggle" data-flip="false" 
+                
+                rstr=rstr+`<span><select  class="mydropdown dropdown-toggle" data-flip="false" 
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" >  
                 <option value="selans" class="myoption" >Select answer</option> `
                 let j=i+1;
@@ -63,7 +64,9 @@ function Q4() {
                                 {Parser(formatques(el.q))}
                         </div>
                     </div>
+                    
                     <hr></hr>
+                    
                 </div>
                 )
             }
