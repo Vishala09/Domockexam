@@ -16,7 +16,7 @@ import OnlineTest1 from '../../images/OnlineTest1.jpg';
 import OnlineTest2 from '../../images/OnlineTest2.jpg';
 import OnlineTest3 from '../../images/OnlineTest3.png';
 function Home() {
-    const images = [OnlineExam2, ExamHall6,ExamHall7,ExamHall1,ExamHall2,OnlineTest1,ExamHall1p,OnlineTest2,OnlineTest3];
+    const images = [OnlineExam2, ExamHall6,ExamHall7,ExamHall1,ExamHall2,OnlineTest1,ExamHall1p,OnlineTest2];
     const [imageIndex, setimageIndex] = useState(0)
     useEffect(() => {
        // loadImages();
