@@ -6,9 +6,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 function Q2() {
+        const [dragged, setDragged] = useState(false);
       function dragEnter(event) {
-          if(event.target.innerHTML=="")
-          event.target.style.border = "3px dotted green";
+         if(event.target.innerHTML=="")
+         {
+            event.target.style.border = "3px dotted #0D6EFD";
+         } 
       }
       function dragLeave(event) {
           event.target.style.border = "";
@@ -18,10 +21,15 @@ function Q2() {
       }
       
       function drag(ev) {
+        setDragged(false);
+          ev.target.style.background="#0D6EFD";
         ev.dataTransfer.setData("text", ev.target.id);
       }
-      function dragEnd(ev,index,idx){
-           // ev.target.style.background="gray";
+      function dragEnd(ev){
+          if(dragged==false)
+          {
+            ev.target.style.background='white';
+          }
       }
       
       function drop(ev,index,idx) {
@@ -31,6 +39,8 @@ function Q2() {
 
         if(ev.target.childNodes.length==0)
         {
+            
+            setDragged(true);
             ev.target.style.border = "";
             element.style.background="lightgray";
             let newelement = document.createElement('div');  
@@ -86,7 +96,7 @@ function Q2() {
                                     <> 
                                          <span className="dragelement" 
                                          draggable={true} onDragStart={(event)=>drag(event)} 
-                                         onDragEnd={(event)=>dragEnd(event,index,idx)} id={'drag'+el.type+index+idx}>{m.a}</span>
+                                         onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+idx}>{m.a}</span>
                                          
                                     </>
                                     )

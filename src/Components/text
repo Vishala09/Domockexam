@@ -1,29 +1,14 @@
-rstr=rstr+`<span><select  class="mydropdown dropdown-toggle" data-flip="false" 
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" >  
-                <option value="selans" class="myoption" >Select answer</option> `
-                let j=i+1;
-                let opts=[];
-                let s="";
-                while(j<str.length)
-                {
-                    if(str[j]=="," || str[j]=="}")
-                    {
-                        opts.push(s);
-                        s="";
-                    }
-                    else
-                    {
-                        s=s+str[j];
-                    }
-                    if(str[j]=="}")
-                    {
-                        break;
-                    }
-                       j++;
-                }
-                console.log(opts);
-                for(let k=0;k<opts.length;k++)
-                {
-                    rstr=rstr+`<option class="myoption" value=`+opts[k]+`>`+opts[k]+`</option>`
-                }
-                rstr=rstr+` </select></span>`;
+                                        <div style={{marginLeft:'20px'}} className="row">
+                                            {
+                                                q.options.map((op,i) => 
+                                                <div className="col-3 choose">
+                                                    <div className="form-check" >
+                                                        <input className="form-check-input cp" type="radio" name={''+index+ind} id={el.type+'radio'+index+''+ind+''+i} />
+                                                        <label className="form-check-label cp" for={el.type+'radio'+index+''+ind+''+i}>
+                                                            {op}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                )
+                                            }
+                                        </div>

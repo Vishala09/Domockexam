@@ -36,7 +36,7 @@ function Header() {
                             Test
                     </Link>
                     <Link to="/home" onClick={()=>setActiveHeader('home')} 
-                    className={ActiveHeader=='home'?'header_item activeHeader':'normalHeader header_item'} >
+                    className={ActiveHeader=='home'?'header_item activeHeaderDemo':'normalHeader header_item'} >
                             <div >Home</div>
                            
                                 <div type="none"  className="selectedHeaderOptions1">

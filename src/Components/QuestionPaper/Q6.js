@@ -15,17 +15,18 @@ function Q6() {
                                  el.q.map((q,ind)=>
                                  <div style={{marginTop:'10px'}}>
                                         <div>{q.ques}</div>
-                                        <div style={{display:'flex',marginLeft:'20px'}} className="row">
+                                        <div className="d-flex flex-row flex-wrap " >
+                                        {/* minWidth:'20%',marginLeft:'10px' */}
                                             {
                                                 q.options.map((op,i) => 
-                                                <span className="col-md-2 col-6 choose">
+                                                <div className="col-3 choose" style={{}} >
                                                     <div className="form-check" >
                                                         <input className="form-check-input cp" type="radio" name={''+index+ind} id={el.type+'radio'+index+''+ind+''+i} />
                                                         <label className="form-check-label cp" for={el.type+'radio'+index+''+ind+''+i}>
                                                             {op}
                                                         </label>
                                                     </div>
-                                                </span>
+                                                </div>
                                                 )
                                             }
                                         </div>

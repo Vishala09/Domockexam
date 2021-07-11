@@ -55,7 +55,7 @@ function Home() {
                     <div style={{display:'flex',justifyContent:'center',alignItems:'center'}} >
                         <button onClick={()=>goLeft()} className="btn btn-primary" style={{position:'absolute',top:'50%',left:20,zIndex:1}}><i class="fa fa-chevron-left"></i></button>
                         <button onClick={()=>goRight()} className="btn btn-primary" style={{position:'absolute',top:'50%',right:20,zIndex:1}}><i class="fa fa-chevron-right"></i></button>
-                        <img height="450px" width="80%" src={images[imageIndex]} />  
+                        <img height="450px" width="" src={images[imageIndex]} />  
                     </div>
             </div>
             <div style={{position:'relative',marginTop:'50px'}}>

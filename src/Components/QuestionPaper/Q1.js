@@ -24,7 +24,7 @@ function Q1() {
                 }
                 
               i=j;
-              console.log(i,rstr);
+              
             }
             
             else

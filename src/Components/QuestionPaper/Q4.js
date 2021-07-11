@@ -3,18 +3,44 @@ import Parser from 'html-react-parser';
 import './Qp.css';
 import Questions from './Q4.json';
 function Q4() {
-    
-    const formatques = function(str)
+    useEffect(() => {
+      let elems =  document.getElementsByClassName('mydropdown');
+      for(let i=0;i<elems.length;i++)
+      {
+          elems[i].addEventListener("change", checkSelection)
+      }
+    }, [])
+    let checkSelection = function()
+    {
+        console.log('selans');
+        let elems=document.getElementsByClassName('selans');
+        for(let i=0;i<elems.length;i++)
+        {
+            console.log('elems[i]',elems[i]);
+            if(elems[i].selected)
+            {
+                elems[i].parentElement.style.background="black";
+                elems[i].parentElement.style.color="#0D6EFD";
+                
+            }
+            else
+            {
+                elems[i].parentElement.style.background="white";
+                elems[i].parentElement.style.color="black";
+            }
+        }
+    }
+    const formatques = function(str,index)
     {
          let rstr="";
         for(let i=0;i<str.length;i++)
         {
             if(str[i]=="{")
             {
-                
+               
                 rstr=rstr+`<span><select  class="mydropdown dropdown-toggle" data-flip="false" 
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" >  
-                <option value="selans" class="myoption" >Select answer</option> `
+                <option  value="selans"  class="selans" style="font-style:normal;background:black;color:#0D6EFD" > Select answer </option> `
                 let j=i+1;
                 let opts=[];
                 let s="";
@@ -35,7 +61,7 @@ function Q4() {
                     }
                        j++;
                 }
-                console.log(opts);
+              //  console.log(opts);
                 for(let k=0;k<opts.length;k++)
                 {
                     rstr=rstr+`<option class="myoption" value=`+opts[k]+`>`+opts[k]+`</option>`
@@ -61,10 +87,9 @@ function Q4() {
                     <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
                         <div style={{lineHeight:'2.5'}}>
-                                {Parser(formatques(el.q))}
+                                {Parser(formatques(el.q,index))}
                         </div>
                     </div>
-                    
                     <hr></hr>
                     
                 </div>

@@ -4,7 +4,7 @@ function SearchBar(props) {
     
     return (
             <div style={{position:'fixed',background:'black',height:'8vh',textAlign:'center',top:props.view=='mobile'?'7vh':'0',left:0,right:0,
-        width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',color:'white'}}>
+        width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',color:'white',zIndex:3000}}>
                 {
                     props.view=='desktop' &&
                     <div className="header_left" >
@@ -21,12 +21,7 @@ function SearchBar(props) {
                                                                 <option value="1">Category 1</option>
                                                                 <option value="2">Category 2</option>
                         </select>
-                        {/* <select class="form-select" style={{width:props.view=='mobile'?'20%':'10%',height:'5vh',border:'2px solid #ff8000',background:'whitesmoke',padding:'2px',zIndex:'-1'}} aria-label="Default select example">
-                            <option selected>All</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select> */}
+                    
                         <input type="text" style={{width:props.view=='mobile'?'70%':'50%',height:'5vh',border:'2px solid #ff8000'}} />
                         <button style={{width:props.view=='mobile'?'15%':'5%',background:'#ff9933',height:'5vh',border:'2px solid #ff8000'}}>
                         <i class="fa fa-search" ></i></button>

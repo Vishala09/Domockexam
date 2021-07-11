@@ -3,10 +3,10 @@ import './Qp.css';
 import Questions from './Q3.json';
  
 function Q3() {
-
+    const [dragged, setDragged] = useState(false);
         function dragEnter(event) {
             if(event.target.innerHTML=="")
-            event.target.style.borderBottom = "3px dotted green";
+            event.target.style.borderBottom = "3px dotted #0D6EFD";
         }
         function dragLeave(event) {
             event.target.style.border = "";
@@ -17,9 +17,16 @@ function Q3() {
         }
       
         function drag(ev) {
+            setDragged(false);
+          ev.target.style.background="#0D6EFD";
         ev.dataTransfer.setData("text", ev.target.id);
         }
-
+        function dragEnd(ev){
+            if(dragged==false)
+            {
+              ev.target.style.background='white';
+            }
+        }
         function drop(ev) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
@@ -27,6 +34,7 @@ function Q3() {
         
         if(ev.target.childNodes.length==0)
         {
+            setDragged(true);
             ev.target.style.border = "";
             element.style.background="lightgray";
             let newelement = document.createElement('div');  
@@ -75,11 +83,13 @@ function Q3() {
                                 <div className="col-8">
                                     <img src={el.image} height="300px" width="100%" />
                                 </div>
-                                <div className="col-4 d-flex flex-column" style={{border:'2px solid black'}} id={'div'+el.type+index} >
+                                <div className="col-4 " style={{border:'2px solid black'}} id={'div'+el.type+index} >
                                     {
                                         el.options.map((op,idx)=>
-                                        <span className="dragelementright cp" 
-                                        draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{op+' '}</span>
+                                        <div>
+                                            <span className="dragelementright cp " onDragEnd={(event)=>dragEnd(event)}
+                                            draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+el.type+index+idx}>{op+' '}</span>
+                                        </div>
                                         )
                                     }
                                 </div>

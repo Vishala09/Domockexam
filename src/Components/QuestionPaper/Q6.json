@@ -6,11 +6,16 @@
         "q":[
             {
                 "ques":"How often did the writer and his family visit grandma?",
-                "options":["once a month","once a year","once a week"]
+                "options":["once a month","once a year","once a week","once a while",
+                    "once a century","once a decade   ","once a minute","once a second", "once a century","once a while","once a minute"]
             },
             {
                 "ques":"Where was the antique clock?",
                 "options":["high on the wall","in the kitchen","on the cabinet"]
+            },
+            {
+                "ques":"Where was the antique clock?",
+                "options":["high on the wall","in the kitchen","on the cabinet","in the kitchen","on the cabinet"]
             }
         ]
     }
