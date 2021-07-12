@@ -22,9 +22,11 @@ function Q3() {
         ev.dataTransfer.setData("text", ev.target.id);
         }
         function dragEnd(ev){
+            console.log('d',dragged);
             if(dragged==false)
             {
               ev.target.style.background='white';
+              
             }
         }
         function drop(ev) {
@@ -98,7 +100,7 @@ function Q3() {
                             <div className="" id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                             {
                                 el.options.map((op,idx)=>
-                                <span className="dragelement"
+                                <span className="dragelement" onDragEnd={(event)=>dragEnd(event)}
                                 draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+index+idx}>{op+' '}</span>
                                 )
                             }

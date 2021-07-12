@@ -7,10 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 function Q2() {
         const [dragged, setDragged] = useState(false);
-        useEffect(() => {
-           
-            
-        }, [])
+        
       function dragEnter(event) {
          if(event.target.innerHTML=="")
          {
@@ -26,11 +23,7 @@ function Q2() {
       
       function drag(ev) {
         setDragged(false);
-          ev.target.style.background="#0D6EFD";
-          ev.target.style.fontWeight="900";
-          ev.target.style.fontColor="black";
-          ev.target.style.opacity="1";
-          ev.target.style.filter  = 'alpha(opacity=90)'; 
+          ev.target.style.background="#0D6EFD"; 
         ev.dataTransfer.setData("text", ev.target.id);
       }
       function dragEnd(ev){
