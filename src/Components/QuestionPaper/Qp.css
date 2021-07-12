@@ -95,7 +95,7 @@
 } */
 
 .mydropdown:hover , .myoption:active , .myoption:checked{
-  border:2px dotted green;
+  border:2px dotted #0D6EFD;
 }
 .myoption{
   font-style: normal;
