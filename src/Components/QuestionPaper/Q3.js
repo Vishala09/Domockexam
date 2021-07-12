@@ -38,7 +38,7 @@ function Q3() {
         {
             setDragged(true);
             ev.target.style.border = "";
-            element.style.background="lightgray";
+            element.style.background="lightgray";element.style.fontWeight="bold";
             let newelement = document.createElement('div');  
             newelement.innerHTML=element.innerHTML;
             let seconds = 's' + new Date().getSeconds();
@@ -54,6 +54,7 @@ function Q3() {
                 if(document.getElementsByClassName("div"+this.id.toString().slice(3,ind)).length==1)
                 {
                     document.getElementById(this.id.slice(3,ind)).style.background="white";
+                    document.getElementById(this.id.slice(3,ind)).style.fontWeight="normal";
                 }
                 document.getElementById("div"+this.id.slice(3)).remove();
             }

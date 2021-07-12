@@ -79,11 +79,10 @@
 
 
  .mydropdown{
-  
-  
-    border:none;
+   border:none;
    border-bottom:2px dotted black;
-   display:inline;max-width:20%;
+   display:inline;
+   min-width:200px;
    font-style: italic;
    font-weight: 600;
    cursor: pointer;  
@@ -119,7 +118,7 @@
    background-color: lightgray;
 }
 
-.choose input[type="radio"]:checked+label {
+.choose input[type="radio"]:checked+label,input[type="checkbox"]:checked+label {
   font-style: italic;
   font-weight: 600;
 }
