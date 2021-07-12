@@ -4,7 +4,7 @@ function SearchBar(props) {
     
     return (
             <div style={{position:'fixed',background:'black',height:'8vh',textAlign:'center',top:props.view=='mobile'?'7vh':'0',left:0,right:0,
-        width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',color:'white',zIndex:3000}}>
+        width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',color:'white',zIndex:10}}>
                 {
                     props.view=='desktop' &&
                     <div className="header_left" >

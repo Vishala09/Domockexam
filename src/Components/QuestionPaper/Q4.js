@@ -19,14 +19,12 @@ function Q4() {
             console.log('elems[i]',elems[i]);
             if(elems[i].selected)
             {
-                elems[i].parentElement.style.background="black";
-                elems[i].parentElement.style.color="#0D6EFD";
+                elems[i].parentElement.style.background="lightgray";
                 
             }
             else
             {
                 elems[i].parentElement.style.background="white";
-                elems[i].parentElement.style.color="black";
             }
         }
     }
@@ -40,7 +38,7 @@ function Q4() {
                
                 rstr=rstr+`<span><select  class="mydropdown dropdown-toggle" data-flip="false" 
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" >  
-                <option  value="selans"  class="selans" style="font-style:normal;background:black;color:#0D6EFD" > Select answer </option> `
+                <option  value="selans"  class="selans" style="font-style:normal;" > Select answer </option> `
                 let j=i+1;
                 let opts=[];
                 let s="";

@@ -18,10 +18,22 @@ function Q6() {
                                         <div className="d-flex flex-row flex-wrap " >
                                         {/* minWidth:'20%',marginLeft:'10px' */}
                                             {
+                                                el.type=='radio' ?
                                                 q.options.map((op,i) => 
-                                                <div className="col-3 choose" style={{}} >
+                                                <div className="col-6 col-md-3 choose" style={{}} >
                                                     <div className="form-check" >
                                                         <input className="form-check-input cp" type="radio" name={''+index+ind} id={el.type+'radio'+index+''+ind+''+i} />
+                                                        <label className="form-check-label cp" for={el.type+'radio'+index+''+ind+''+i}>
+                                                            {op}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                )
+                                                :
+                                                q.options.map((op,i) => 
+                                                <div className="col-6 col-md-3 choose" style={{}} >
+                                                    <div className="form-check" >
+                                                        <input className="form-check-input cp" type="checkbox" name={''+index+ind} id={el.type+'radio'+index+''+ind+''+i} />
                                                         <label className="form-check-label cp" for={el.type+'radio'+index+''+ind+''+i}>
                                                             {op}
                                                         </label>
