@@ -98,7 +98,7 @@ function Q3() {
                                 <div className="col-8">
                                     <img src={el.image} height="300px" width="100%" />
                                 </div>
-                                <div className="col-4 " style={{border:'2px solid black'}} id={'div'+el.type+index} >
+                                <div className="col-4 " style={{border:'2px solid black',borderRadius:'5px'}} id={'div'+el.type+index} >
                                     {
                                         el.options.map((op,idx)=>
                                         <div>
@@ -110,7 +110,7 @@ function Q3() {
                                 </div>
                             </div> :
                             el.type=='singledragbox' ? 
-                            <div style={{border:'2px solid black',padding:'5px',display:'flex',justifyContent:'space-between',borderRadius:'15px'}} id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                            <div style={{border:'2px solid black',padding:'5px',display:'flex',justifyContent:'space-between',borderRadius:'5px'}} id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                             {
                                 el.options.map((op,idx)=>
                                 <span className="dragelementnoborder cp" onDragEnd={(event)=>dragEnd(event)}
