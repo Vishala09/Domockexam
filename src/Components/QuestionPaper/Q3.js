@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Qp.css';
-import Questions from './Q3.json';
+import Q from './Q3.json';
  
 function Q3() {
     const [dragged, setDragged] = useState(false);
+    const [Questions, setQuestions] = useState(Q);
+    useEffect(() => {
+        for(let i=0;i<Q.length;i++){
+            let str=Q[i].q; //[^A-Za-z0-9]
+            const regex = /{[^\s]+}/ig;
+            str = str.replace(regex, '_');
+            Questions[i].q=str;
+        }
+        
+         setQuestions([...Questions])
+    }, [])
         function dragEnter(event) {
             if(event.target.innerHTML=="")
             event.target.style.borderBottom = "3px dotted #0D6EFD";
@@ -22,11 +33,12 @@ function Q3() {
         ev.dataTransfer.setData("text", ev.target.id);
         }
         function dragEnd(ev){
-            console.log('d',dragged);
             if(dragged==false)
             {
-              ev.target.style.background='white';
-              
+                if(ev.target.style.fontWeight=="bold")
+                    ev.target.style.background='lightgray';
+                else
+                    ev.target.style.background='white';
             }
         }
         function drop(ev) {
@@ -96,6 +108,15 @@ function Q3() {
                                         )
                                     }
                                 </div>
+                            </div> :
+                            el.type=='singledragbox' ? 
+                            <div style={{border:'2px solid black',padding:'5px',display:'flex',justifyContent:'space-between',borderRadius:'15px'}} id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                            {
+                                el.options.map((op,idx)=>
+                                <span className="dragelementnoborder cp" onDragEnd={(event)=>dragEnd(event)}
+                                draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+index+idx}>{op+' '}</span>
+                                )
+                            }
                             </div>
                             :
                             <div className="" id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>

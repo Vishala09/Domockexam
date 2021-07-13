@@ -29,7 +29,10 @@ function Q2() {
       function dragEnd(ev){
           if(dragged==false)
           {
-            ev.target.style.background='white';
+            if(ev.target.style.fontWeight=="bold")
+                ev.target.style.background='lightgray';
+            else
+                ev.target.style.background='white';
             
           }
       }
@@ -94,11 +97,11 @@ function Q2() {
                         <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                         <div style={{marginLeft:'20px'}}>
                             <h5>{el.question}</h5>
-                            <div style={{width:'100%',border:'2px solid black',borderRadius:'25px',marginBottom:'10px'}} id={'div'+el.type+index} >
+                            <div id={'div'+el.type+index} >
                                 {
                                     el.options.map((m,idx)=>
                                     <> 
-                                         <span className="cp" style={{marginLeft:'25px'}}
+                                         <span className="dragelement cp" 
                                          draggable={true} onDragStart={(event)=>drag(event)} 
                                          onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+idx}>{m.a}</span>
                                          

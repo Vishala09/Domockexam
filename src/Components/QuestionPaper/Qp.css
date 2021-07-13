@@ -25,6 +25,14 @@
   font-weight: 600;
 }
 
+.dragelementnoborder{
+
+}
+
+.dragelementnoborder:hover{
+  font-weight: 600;
+}
+
 .dropelement{
   border: 2px dotted black;
   padding: 5px;
