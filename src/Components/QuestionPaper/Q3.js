@@ -110,7 +110,7 @@ function Q3() {
                                 </div>
                             </div> :
                             el.type=='singledragbox' ? 
-                            <div style={{border:'2px solid black',padding:'5px',display:'flex',justifyContent:'space-between',borderRadius:'5px'}} id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                            <div style={{border:'2px solid black',padding:'5px',display:'flex',justifyContent:'space-between',borderRadius:'5px',flexWrap:'wrap'}} id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                             {
                                 el.options.map((op,idx)=>
                                 <span className="dragelementnoborder cp" onDragEnd={(event)=>dragEnd(event)}
