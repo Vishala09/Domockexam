@@ -36,7 +36,7 @@ function Header() {
                             Test
                     </Link>
                     <Link to="/home" onClick={()=>setActiveHeader('home')} 
-                    className={ActiveHeader=='home'?'header_item activeHeaderDemo':'normalHeader header_item'} >
+                    className={ActiveHeader=='home'?'header_item activeHeader':'normalHeader header_item'} >
                             <div >Home</div>
                            
                                 <div type="none"  className="selectedHeaderOptions1">
@@ -53,7 +53,8 @@ function Header() {
                                 
                            
                     </Link>
-                    <Link to="/exams" onClick={()=>setActiveHeader('exams')} className={ActiveHeader=='exams'?'header_item activeHeader':'normalHeader header_item'} >
+                    <Link to="/exams" onClick={()=>setActiveHeader('exams')} 
+                    className={ActiveHeader=='exams'?'header_item activeHeader':'normalHeader header_item'} >
                             <div >Exams</div>
                             <div type="none"  className="selectedHeaderOptions1">
                                 <div className="subHeader">

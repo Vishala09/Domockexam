@@ -6,6 +6,7 @@ import Q4 from './Q4';
 import Q5 from './Q5';
 import Q6 from './Q6';
 import 'bootstrap/dist/css/bootstrap.css';
+import Q7 from './Q7';
 function QuestionPaper() {
     return (
         <div className="container-fluid" style={{fontFamily:'"Times New Roman", Times, serif'}}>
@@ -17,6 +18,7 @@ function QuestionPaper() {
             <Q4 />
             <Q1 />
             <Q6 />
+            <Q7 />
         </div>
     )
 }
