@@ -1,8 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Parser from 'html-react-parser';
 import './Qp.css';
-import Questions from './Q4.json';
+import Q from './Q4.json';
 function Q4() {
+    const [Questions, setQuestions] = useState(Q);
+    // useEffect(() => {
+    //     for(let i=0;i<Q.length;i++){
+    //         let str=Q[i].q; //[^A-Za-z0-9]
+    //         const regex = /{[^\s]+}/ig;
+    //         str = str.replace(regex, '_');
+    //         Questions[i].q=str;
+    //     }
+    //      setQuestions([...Questions])
+    //     }, [])
+
     useEffect(() => {
       let elems =  document.getElementsByClassName('mydropdown');
       for(let i=0;i<elems.length;i++)
@@ -30,12 +41,11 @@ function Q4() {
     }
     const formatques = function(str,index)
     {
-         let rstr="";
+         let rstr=""; let r="";
         for(let i=0;i<str.length;i++)
         {
             if(str[i]=="{")
             {
-               
                 rstr=rstr+`<span><select  class="mydropdown dropdown-toggle" data-flip="false" 
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" >  
                 <option  value="selans"  class="selans" style="font-style:normal;" > Select answer </option> `
@@ -86,7 +96,15 @@ function Q4() {
                         <h5>{el.question}</h5>
                         <div style={{lineHeight:'2.5'}}>
                                 {Parser(formatques(el.q,index))}
+                                
                         </div>
+                        <select>
+                            <option style={{background:'red'}}>Select answer</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                        </select>
                     </div>
                     <hr></hr>
                     

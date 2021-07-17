@@ -35,9 +35,10 @@ function Q7() {
                         <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                         <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
-                        <em style={{color:'red'}}>Remaining words : {Remaining}</em>
-                        <textarea id={"textarea"+index} rows="10" value={EssayAnswer} style={{overflow:'hidden',display:'block',resize:'none',width:'100%'}} 
-                        onChange={(e)=>{validateAnswer(e);autoResize("textarea"+index)}} >
+                        {/* <em style={{color:'red'}}>Remaining words : {Remaining}</em> */}
+                        <textarea id={"textarea"+index} rows="10" value={EssayAnswer} 
+                        style={{overflow:'hidden',display:'block',resize:'none',width:'100%'}} 
+                        onChange={(e)=>{setEssayAnswer(e.target.value);autoResize("textarea"+index)}} >
 
                         </textarea>
                     </div>

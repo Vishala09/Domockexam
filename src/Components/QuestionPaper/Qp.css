@@ -98,11 +98,6 @@
    overflow: hidden; 
    background-color: lightgray;
 }
-
-/* .mydropdown:valid ~ .selans {
-  background-color: red;
-} */
-
 .mydropdown:hover , .myoption:active , .myoption:checked{
   border:2px dotted #0D6EFD;
 }
@@ -110,7 +105,7 @@
   font-style: normal;
   background-color: white;
 }
- .mydropdown .myoption:checked,
+.mydropdown .myoption:checked,
 .mydropdown .myoption:hover ,
 .mydropdown .myoption:active {
     background-color: lightgray;
@@ -180,3 +175,10 @@
   visibility: visible;
 }
 
+textarea {
+  text-decoration: underline;
+  margin-bottom: 2px;
+  /* line-height: 4ch;
+  background-image: linear-gradient(transparent, transparent calc(4ch), #E7EFF8 0px);
+  background-size: 100% 4ch; */
+}

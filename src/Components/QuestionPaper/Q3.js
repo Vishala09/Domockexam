@@ -14,7 +14,7 @@ function Q3() {
         }
         
          setQuestions([...Questions])
-    }, [])
+        }, [])
         function dragEnter(event) {
             if(event.target.innerHTML=="")
             event.target.style.borderBottom = "3px dotted #0D6EFD";
