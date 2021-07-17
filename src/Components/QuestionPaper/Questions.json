@@ -38,6 +38,44 @@
         
     },
     {
+        "questionheading":"Match the following",
+        "question":"Write the letter of most suitable notice in the given box",
+        "type":"match",
+        "options":[
+            {
+                "a":"Handle with care",
+                "q":"On a box full of glassware",
+                "img":"https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg"
+            },
+            {
+                "a":"Reference only",
+                "q":"At a building site",
+                "img":"https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg"
+            },
+            {
+                "a":"Take off your shoes",
+                "q":"On a beach",
+                "img":"https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg"
+            },
+            {
+                "a":"Reserved for pregnant mothers",
+                "q":"In a temple",
+                "img":"https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg"
+            },
+            {
+                "a":"Caution! Men at work",
+                "q":"At a house",
+                "img":"https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg"
+            },
+            {
+                "a":"No bathing rough sea",
+                "q":"In a library",
+                "img":"https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg"
+            }
+        ]
+        
+    },
+    {
         "questionheading":"Fill in the blanks",
         "question":"Write the letter of correct word in the blank",
         "type":"dragin",
@@ -121,5 +159,17 @@
         "questionheading":"Write essay on following topic",
         "question":"How you feel about celebrations",
         "type":"essay"
+    },
+    {
+        "questionheading":"True or False",
+        "question":"Select true or false",
+        "type":"trueorfalse",
+        "q":["Peter was born in London.","Some people in farms migratedto cities","Working in factories became a tiresome experience for people"]
+    },
+    {
+        "questionheading":"Rearrange",
+        "question":"Rearrange",
+        "type":"rearrange",
+        "q":["Krishnan","interested","to swim","in learning","seem","does not"]
     }
 ]

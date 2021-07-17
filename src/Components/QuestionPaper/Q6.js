@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Qp.css';import './CustomCheckBox.css'
-import Questions from './Q6.json';
+
 
 function Q6({el,index}) {
     let deSelect = (e,id) => {

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './Qp.css';
-import Questions from './Q5.json';
 import Parser from 'html-react-parser';
-import ReactHtmlParser from 'react-html-parser'
 function Q5({el,index}) {
 
     const formatques = function(str)
@@ -40,7 +38,7 @@ function Q5({el,index}) {
                                     <div className="col-6">
                                             {Parser(formatques(question))}
                                     </div>
-                                    <div className="col-4" >
+                                    <div className="col-6" >
                                             <input type="text" className="typein" placeholder="Type here" />
                                     </div>
                             </div>  

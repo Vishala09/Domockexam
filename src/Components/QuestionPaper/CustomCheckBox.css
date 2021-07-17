@@ -55,4 +55,74 @@
     background-color: white;
   }
 
+/* True or False */
   
+/* The customchecktf */
+.customchecktf {
+  display: block;
+  text-align: center;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  margin-top: 2px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.customchecktf input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmarktf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: lightgray;
+}
+
+/* On mouse-over, add a grey background color */
+.customchecktf:hover input ~ .checkmarktf {
+  background-color: darkgray;
+}
+
+/* When the checkbox is checked, add a blue background */
+.customchecktf input:checked ~ .checkmarktf {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmarktf:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.customchecktf input:checked ~ .checkmarktf:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.customchecktf .checkmarktf:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

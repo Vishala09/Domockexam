@@ -84,10 +84,8 @@ function Q4({el,index}) {
                     <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
                         <div style={{lineHeight:'2.5'}}>
-                                {Parser(formatques(el.q))}
-                                
+                                {Parser(formatques(el.q))}  
                         </div>
-                        
                     </div>
                     <hr></hr>
                 </div>

@@ -46,6 +46,16 @@
   font-weight: 600;
 }
 
+.dropelementrearrange{
+  border-bottom: 2px dotted black;
+  padding: 5px;
+  text-align: center;
+  min-width: 200px;
+  min-height: 25px;
+  font-style: italic;
+  font-weight: 600;
+}
+
 
 
 .dropelementfillin{
@@ -88,18 +98,18 @@
   space: 0;
 }
 
-
  .mydropdown{
    border:none;
    border-bottom:2px dotted black;
    display:inline;
    min-width:200px;
    font-style: italic;
-   font-weight: 600;
+   font-weight: 900;
    cursor: pointer;  
    overflow: hidden; 
    background-color: lightgray;
-   border-radius: 5px;
+   padding: 2px;
+   /* border-radius: 5px; */
 }
 .mydropdown:hover , .myoption:active , .myoption:checked{
   border:2px dotted #0D6EFD;
@@ -178,10 +188,3 @@
   visibility: visible;
 }
 
-textarea {
-  text-decoration: underline;
-  margin-bottom: 2px;
-  /* line-height: 4ch;
-  background-image: linear-gradient(transparent, transparent calc(4ch), #E7EFF8 0px);
-  background-size: 100% 4ch; */
-}

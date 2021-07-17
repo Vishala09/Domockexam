@@ -8,6 +8,8 @@ import Q6 from './Q6';
 import Questions from './Questions.json';
 import 'bootstrap/dist/css/bootstrap.css';
 import Q7 from './Q7';
+import Q8 from './Q8';
+import Q9 from './Q9';
 function QuestionPaper() {
     return (
         <div className="container-fluid" style={{fontFamily:'"Times New Roman", Times, serif'}}>
@@ -23,6 +25,9 @@ function QuestionPaper() {
                     {el.type=="typein" && <Q5 el={el} index={index} />}
                     {(el.type=="radio" || el.type=="check") && <Q6 el={el} index={index} />}
                     {el.type=="essay" && <Q7 el={el} index={index} />}
+                    {el.type=="trueorfalse" && <Q8 el={el} index={index} />}
+                    {el.type=="rearrange" && <Q9 el={el} index={index} />}
+
                 </>
                 )
             }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './Qp.css';
-import Questions from './Q2.json';
 
 function Q2({el,index}) {
       const [dragged, setDragged] = useState(false);
@@ -38,12 +37,13 @@ function Q2({el,index}) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         let element = document.getElementById(data);
-
+        console.log(data);
         if(ev.target.childNodes.length==0)
         {
             
             setDragged(true);
             ev.target.style.border = "";
+            ev.target.style.padding="0px";
             element.style.background="lightgray"; 
             element.style.fontWeight="bold";
             let newelement = document.createElement('div');  
@@ -100,7 +100,12 @@ function Q2({el,index}) {
                                     <> 
                                          <span className="dragelement cp" 
                                          draggable={true} onDragStart={(event)=>drag(event)} 
-                                         onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+idx}>{m.a}</span>
+                                         onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+idx}>
+                                           <span>{m.a}</span> 
+                                           
+                                          
+                                            {m.img && <> <br></br>  <img draggable={false} src={m.img} height="70px" width="100px" /> </> } 
+                                        </span>
                                          
                                     </>
                                     )
