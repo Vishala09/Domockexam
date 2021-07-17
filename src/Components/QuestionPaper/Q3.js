@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './Qp.css';
-import Q from './Q3.json';
  
-function Q3() {
+function Q3({el,index}) {
     const [dragged, setDragged] = useState(false);
-    const [Questions, setQuestions] = useState(Q);
+    const [Questions, setQuestions] = useState(el);
     useEffect(() => {
-        for(let i=0;i<Q.length;i++){
-            let str=Q[i].q; //[^A-Za-z0-9]
+        //for(let i=0;i<Questions.length;i++){
+            let str=Questions.q; //[^A-Za-z0-9]
             const regex = /{[^\s]+}/ig;
             str = str.replace(regex, '_');
-            Questions[i].q=str;
-        }
+            Questions.q=str;
+       // }
         
-         setQuestions([...Questions])
+         setQuestions({...Questions})
         }, [])
         function dragEnter(event) {
             if(event.target.innerHTML=="")
@@ -85,9 +84,9 @@ function Q3() {
         }
       }
     return (
-        <div className="container-fluid">
-            {
-                Questions.map((el,index)=>
+        <div>
+            {/* {
+                Questions.map((el,index)=> */}
                 <div >
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px'}}>
@@ -96,9 +95,10 @@ function Q3() {
                             el.image ? 
                             <div className="row d-flex flex-row">
                                 <div className="col-8">
-                                    <img src={el.image} height="300px" width="100%" />
+                                    <img src={el.image} height="350px" width="100%" />
                                 </div>
-                                <div className="col-4 " style={{border:'2px solid black',borderRadius:'5px'}} id={'div'+el.type+index} >
+                                <div className="col-4 " style={{border:'2px solid black',borderRadius:'5px',display:'flex',flexDirection:'column'}} 
+                                id={'div'+el.type+index} >
                                     {
                                         el.options.map((op,idx)=>
                                         <div>
@@ -113,7 +113,7 @@ function Q3() {
                             <div style={{border:'2px solid black',padding:'5px',display:'flex',justifyContent:'space-between',borderRadius:'5px',flexWrap:'wrap'}} id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                             {
                                 el.options.map((op,idx)=>
-                                <span className="dragelementnoborder cp" onDragEnd={(event)=>dragEnd(event)}
+                                <span className="dragelementright cp" onDragEnd={(event)=>dragEnd(event)}
                                 draggable={true} onDragStart={(event)=>drag(event)} id={'drag'+index+idx}>{op+' '}</span>
                                 )
                             }
@@ -151,8 +151,8 @@ function Q3() {
                     </div>
                     <hr></hr>
                 </div>
-                )
-            }
+                {/* )
+            } */}
         </div>
     )
 }

@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Qp.css';import './CustomCheckBox.css'
 import Questions from './Q6.json';
-import Parser from 'html-react-parser';
 
-function Q6() {
+function Q6({el,index}) {
+    let deSelect = (e,id) => {
+        if(e.target.checked)
+        {
+            let radios = document.getElementsByName(e.target.name);
+            for(let i=0;i<radios.length;i++)
+            {
+                radios[i].checked=false;
+            }
+            document.getElementById(id).checked=true;
+        }
+    }
     return (
         <div>
-            {
-                Questions.map((el,index) => 
+            {/* {
+                Questions.map((el,index) =>  */}
                 <div>
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     
@@ -18,16 +28,15 @@ function Q6() {
                                  el.q.map((q,ind)=>
                                  <div style={{marginTop:'10px'}}>
                                         <div>{q.ques}</div>
-                                        
                                         <div className="d-flex flex-row flex-wrap " >
-                                        {/* minWidth:'20%',marginLeft:'10px' */}
                                             {
                                                 el.type=='radio' ?
                                                 q.options.map((op,i) => 
-                                                <div className="col-6 col-md-3 choose" style={{}} >
+                                                <div  className="col-6 col-md-3 choose" style={{}} >
                                                     <div  className="mb-1">
                                                         <label class="customcheck">{op}
-                                                            <input type="radio" name={''+index+ind} />
+                                                            <input onClick={(e)=>deSelect(e,''+index+ind+i)} type="checkbox"
+                                                             name={''+index+ind} id={''+index+ind+i}  />
                                                             <span class="checkmark"></span>
                                                         </label>
                                                     </div>
@@ -47,7 +56,7 @@ function Q6() {
                                                         <input type="checkbox" name={''+index+ind} />
                                                         <span class="checkmark"></span>
                                                     </label>
-                                                        {/* <input className="form-check-input cp" type="checkbox" name={''+index+ind} id={el.type+'radio'+index+''+ind+''+i} />
+                                                    {/* <input className="form-check-input cp" type="checkbox" name={''+index+ind} id={el.type+'radio'+index+''+ind+''+i} />
                                                         <label className="form-check-label cp" for={el.type+'radio'+index+''+ind+''+i}>
                                                             {op}
                                                         </label> */}
@@ -64,8 +73,8 @@ function Q6() {
                     </div>
                     <hr></hr>
                 </div>
-                )
-            }
+                {/* )
+            } */}
         </div>
     )
 }

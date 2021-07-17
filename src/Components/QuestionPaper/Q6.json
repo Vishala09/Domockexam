@@ -38,5 +38,10 @@
                 "options":["high on the wall","in the kitchen","on the cabinet","in the kitchen","on the cabinet"]
             }
         ]
+    },
+    {
+        "questionheading":"Write essay on following topic",
+        "question":"How you feel about celebrations",
+        "type":"essay"
     }
 ]

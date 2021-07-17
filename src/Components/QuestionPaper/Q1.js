@@ -3,10 +3,9 @@ import Questions from './Q1.json';
 import './Qp.css';
 import Parser from 'html-react-parser';
 
-function Q1() {
+function Q1({el,index}) {
     const formatques = function(str)
     {
-        console.log('st',str)
          let rstr="";
         for(let i=0;i<str.length;i++)
         {
@@ -36,8 +35,8 @@ function Q1() {
     }
     return (
         <div>
-            {
-                Questions.map((el,index)=> 
+            {/* {
+                Questions.map((el,index)=>  */}
                 <div>
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px'}}>
@@ -49,8 +48,8 @@ function Q1() {
                     
                     <hr></hr>
                 </div>
-                )
-            }
+                {/* )
+            } */}
              
         </div>
     )

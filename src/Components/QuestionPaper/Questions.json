@@ -1,0 +1,125 @@
+[
+    {
+        "questionheading":"Write the correct answer",
+        "question":"Fill in the blank",
+        "type":"fillin",
+        "q":"The discussion is about a trip to {Kandy}. The student's one and only {yyy} is Kandy. The most attractive place for students is {xxx}. A few will also join the trip. Students will not have to spend as much as the {zzz} per person."
+    },
+    {
+        "questionheading":"Match the following",
+        "question":"Write the letter of most suitable notice in the given box",
+        "type":"match",
+        "options":[
+            {
+                "a":"Handle with care",
+                "q":"On a box full of glassware"
+            },
+            {
+                "a":"Reference only",
+                "q":"At a building site"
+            },
+            {
+                "a":"Take off your shoes",
+                "q":"On a beach"
+            },
+            {
+                "a":"Reserved for pregnant mothers",
+                "q":"In a temple"
+            },
+            {
+                "a":"Caution! Men at work",
+                "q":"At a house"
+            },
+            {
+                "a":"No bathing rough sea",
+                "q":"In a library"
+            }
+        ]
+        
+    },
+    {
+        "questionheading":"Fill in the blanks",
+        "question":"Write the letter of correct word in the blank",
+        "type":"dragin",
+        "options":["friend","bed","curtains","cupboard","umbreeeeeeeeeeeeeella","table","lamp","drawers","books","trousers","wall"],
+        "q":"This picture shows Chauntra's room. His {aaa} , Isuru is sitting near him is sitting near him on his {aaa} . There is a {aaa} with three {aaa} in the room. A pile of {aaa} and the {aaa} he uses to study can also be seen here. The {aaa} of the window are partly open. In the {aaa} he has hung a shirt and 2 pairs of {aaa}. There is a cap and an {bbb} on the hangers fixed to the {aaa} . There are 2 pairs of cshoe on shoe rack."
+    },
+    {
+        "questionheading":"Fill in the blanks",
+        "question":"Write the letter of correct word in the blank",
+        "type":"dragin",
+        "image":"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+        "options":["friend","bed","curtains","cupboard","umbreeeeeeeeeeeeeella","table","lamp","drawers","books","trousers","wall"],
+        "q":"This picture shows Chauntra's room. His {aaa} , Isuru is sitting near him is sitting near him on his {aaa} . There is a {aaa} with three {aaa} in the room. A pile of {aaa} and the {aaa} he uses to study can also be seen here. The {aaa} of the window are partly open. In the {aaa} he has hung a shirt and 2 pairs of {aaa}. There is a cap and an {aaa} on the hangers fixed to the {aaa} . There are 2 pairs of cshoe on shoe rack."
+    },
+    {
+        "questionheading":"Fill in the blanks",
+        "question":"Write the letter of correct word in the blank",
+        "type":"singledragbox",
+        "options":["friend","bed","curtains","cupboard","umbreeeeeeeeeeeeeella","table","lamp","drawers","books","trousers","wall"],
+        "q":"This picture shows Chauntra's room. His {aaa} , Isuru is sitting near him is sitting near him on his {aaa} . There is a {aaa} with three {aaa} in the room. A pile of {aaa} and the {aaa} he uses to study can also be seen here. The {aaa} of the window are partly open. In the {aaa} he has hung a shirt and 2 pairs of {aaa}. There is a cap and an {aaa} on the hangers fixed to the {aaa} . There are 2 pairs of cshoe on shoe rack."
+    },
+
+    {
+        "questionheading":"Fill in the blanks",
+        "question":"Select the most suitable word to fill in the blank",
+        "type":"dropdown",
+        "options":[],
+        "q":"Why do people keep cats as pets? {you,your,yours,you're} would agree that cats are excellent companions. {Them,They,Their,These,Those} are playful, intelligent and loving animals. Cats let {them,they,their,this,that} owners know that they are happy by rewarding {them,they,their,thus,those} with a loud rumbling purr or  alick on the arm."
+    },
+    {
+        "questionheading":"Write the correct answer",
+        "question":"Each underlined word in the following text is incorrect. Write the correct word in the space provided.",
+        "type":"typein",
+        "q":["The grade nine students of our school {have} planned","to play a cricket match yesterday. Everyone {were}",
+            "present in time. However, just before {a} match, it","started raining. They waited at least {of} two hours,",
+            "but the rain did not {stopped}. They were very","{sadly}. At the end, they decided to play cricket on the following day."
+            ]
+    },
+
+    {
+        "questionheading":"Choose the correct answer",
+        "question":"Read the following and choose the correct answer",
+        "type":"radio",
+        "q":[
+            {
+                "ques":"How often did the writer and his family visit grandma?",
+                "options":["once a month","once a year","once a week","once a while",
+                    "once a century","once a decade   ","once a minute","once a second", "once a century","once a while","once a minute"]
+            },
+            {
+                "ques":"Where was the antique clock?",
+                "options":["high on the wall","in the kitchen","on the cabinet"]
+            },
+            {
+                "ques":"Where was the antique clock?",
+                "options":["high on the wall","in the kitchen","on the cabinet","in the kitchen","on the cabinet"]
+            }
+        ]
+    },
+    {
+        "questionheading":"Choose the correct answer",
+        "question":"Read the following and choose the correct answer",
+        "type":"check",
+        "q":[
+            {
+                "ques":"How often did the writer and his family visit grandma?",
+                "options":["once a month","once a year","once a week","once a while",
+                    "once a century","once a decade   ","once a minute","once a second", "once a century","once a while","once a minute"]
+            },
+            {
+                "ques":"Where was the antique clock?",
+                "options":["high on the wall","in the kitchen","on the cabinet"]
+            },
+            {
+                "ques":"Where was the antique clock?",
+                "options":["high on the wall","in the kitchen","on the cabinet","in the kitchen","on the cabinet"]
+            }
+        ]
+    },
+    {
+        "questionheading":"Write essay on following topic",
+        "question":"How you feel about celebrations",
+        "type":"essay"
+    }
+]

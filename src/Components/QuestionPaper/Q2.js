@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './Qp.css';
 import Questions from './Q2.json';
-import { Button } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-function Q2() {
-        const [dragged, setDragged] = useState(false);
+
+function Q2({el,index}) {
+      const [dragged, setDragged] = useState(false);
         
       function dragEnter(event) {
          if(event.target.innerHTML=="")
@@ -91,8 +88,8 @@ function Q2() {
      
     return (
         <div className="">
-            {
-                Questions.map((el,index)=>
+            {/* {
+                Questions.map((el,index)=> */}
                 <div>
                         <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                         <div style={{marginLeft:'20px'}}>
@@ -130,8 +127,8 @@ function Q2() {
                         </div>
                         <hr></hr>
                 </div>
-                )
-            }
+                {/* )
+            } */}
         </div>
     )
 }

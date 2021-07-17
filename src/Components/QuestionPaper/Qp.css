@@ -16,9 +16,11 @@
 .dragelementright{
   font-weight: normal;
   display: inline-block;
-  margin-top: 1px;
-  margin-bottom: 1px;
+  /* margin-top: 1px;
+  margin-bottom: 1px; */
+  padding: 3px;
   flex-wrap: wrap;
+  border-radius: 5px;
   /* border:2px solid black; */
 }
 
@@ -62,12 +64,12 @@
   border-bottom:2px dotted black;
   outline:none;
   font-style:italic; font-weight: 600;
-
   border-collapse: collapse;
   border-spacing: 0;
-  height: 14pt;
+  height: 17pt;
   margin: 0;
   padding: 0;
+  padding-left: 2px;
   space: 0;
 }
 
@@ -77,12 +79,12 @@
   border-bottom:2px dotted black;
   outline:none;
   font-style:italic; font-weight: 600;
-   /* border: 0.5pt solid #000000; */
   border-collapse: collapse;
   border-spacing: 0;
-  height: 14pt;
+  height: 17pt;
   margin: 0;
   padding: 0px;
+  padding-left: 2px;
   space: 0;
 }
 
@@ -97,21 +99,19 @@
    cursor: pointer;  
    overflow: hidden; 
    background-color: lightgray;
-   -webkit-appearance:none;
+   border-radius: 5px;
 }
 .mydropdown:hover , .myoption:active , .myoption:checked{
   border:2px dotted #0D6EFD;
 }
 .myoption{
   font-style: normal;
-  background-color: yellow;
-  -webkit-appearance:none;
+  background-color: white;
 }
 .mydropdown .myoption:checked,
 .mydropdown .myoption:hover ,
 .mydropdown .myoption:active {
     background-color: lightgray;
-    -webkit-appearance:none;
     font-weight: 900;
 } 
 

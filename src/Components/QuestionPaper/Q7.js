@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Questions from './Q7.json';
-function Q7() {
+function Q7({el,index}) {
     const [EssayAnswer, setEssayAnswer] = useState("");
     const [Remaining, setRemaining] = useState(100);
     function validateAnswer(e)
@@ -28,9 +28,9 @@ function Q7() {
         document.getElementById(id).style.height = document.getElementById(id).scrollHeight + 'px';
     }
     return (
-        <div className="container-fluid">
-            {
-                Questions.map((el,index)=>
+        <div>
+            {/* {
+                Questions.map((el,index)=> */}
                 <div>
                         <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                         <div style={{marginLeft:'20px'}}>
@@ -44,8 +44,8 @@ function Q7() {
                     </div>
                     <hr></hr>
                 </div>
-                )
-            }
+                {/* )
+            } */}
         </div>
     )
 }

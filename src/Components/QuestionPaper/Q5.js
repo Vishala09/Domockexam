@@ -3,7 +3,7 @@ import './Qp.css';
 import Questions from './Q5.json';
 import Parser from 'html-react-parser';
 import ReactHtmlParser from 'react-html-parser'
-function Q5() {
+function Q5({el,index}) {
 
     const formatques = function(str)
     {
@@ -27,8 +27,8 @@ function Q5() {
     }
     return (
         <div className="container-fluid">
-            {
-                Questions.map((el,index)=>
+            {/* {
+                Questions.map((el,index)=> */}
                 <div >
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px'}}>
@@ -49,8 +49,8 @@ function Q5() {
                     </div>
                     <hr></hr>
                 </div>
-                )
-            }
+                {/* )
+            } */}
         </div>
     )
 }
