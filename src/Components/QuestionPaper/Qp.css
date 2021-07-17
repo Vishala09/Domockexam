@@ -97,18 +97,21 @@
    cursor: pointer;  
    overflow: hidden; 
    background-color: lightgray;
+   -webkit-appearance:none;
 }
 .mydropdown:hover , .myoption:active , .myoption:checked{
   border:2px dotted #0D6EFD;
 }
 .myoption{
   font-style: normal;
-  background-color: white;
+  background-color: yellow;
+  -webkit-appearance:none;
 }
 .mydropdown .myoption:checked,
 .mydropdown .myoption:hover ,
 .mydropdown .myoption:active {
     background-color: lightgray;
+    -webkit-appearance:none;
     font-weight: 900;
 } 
 
