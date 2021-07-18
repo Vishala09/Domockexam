@@ -127,7 +127,7 @@
    
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
 .choose:hover{
    font-weight:600;
    background-color: lightgray;
