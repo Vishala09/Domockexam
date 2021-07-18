@@ -171,5 +171,11 @@
         "question":"Rearrange",
         "type":"rearrange",
         "q":["Krishnan","interested","to swim","in learning","seem","does not"]
+    },
+    {
+        "questionheading":"Rearrange",
+        "question":"Rearrange",
+        "type":"rearrange",
+        "q":["Raman","likes","icecream","better than","chocolate","But","Sita","likes","icecream","more"]
     }
 ]

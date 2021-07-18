@@ -43,7 +43,7 @@ function Q2({el,index}) {
             
             setDragged(true);
             ev.target.style.border = "";
-            ev.target.style.padding="0px";
+            ev.target.style.padding="2px";
             element.style.background="lightgray"; 
             element.style.fontWeight="bold";
             let newelement = document.createElement('div');  

@@ -49,6 +49,7 @@ function Q3({el,index}) {
         {
             setDragged(true);
             ev.target.style.border = "";
+            // ev.target.style.padding="5px";
             element.style.background="lightgray";element.style.fontWeight="bold";
             let newelement = document.createElement('div');  
             newelement.innerHTML=element.innerHTML;

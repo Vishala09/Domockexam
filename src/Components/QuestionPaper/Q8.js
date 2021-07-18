@@ -50,7 +50,7 @@ function Q8({el,index}) {
                                                 <input  type="checkbox" onClick={(e)=>deSelect(e,'true'+index+ind)} name={index+ind} id={'true'+index+ind} />
                                                 <span class="checkmark"></span>
                                             </label> */}
-                                            <div class="form-check">
+                                            <div class="form-check ">
                                                 <input class="form-check-input" onClick={(e)=>deSelect(e,'true'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'true'+index+ind} />
                                             </div>
                                       </div>
@@ -59,7 +59,7 @@ function Q8({el,index}) {
                                                 <input  type="checkbox" onClick={(e)=>deSelect(e,'false'+index+ind)} name={index+ind}id={'false'+index+ind}  />
                                                 <span class="checkmark"></span>
                                             </label> */}
-                                            <div class="form-check">
+                                            <div class="form-check ">
                                                 <input class="form-check-input" onClick={(e)=>deSelect(e,'false'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'false'+index+ind} />
                                             </div>
                                       </div>
@@ -68,7 +68,7 @@ function Q8({el,index}) {
                                                 <input  type="checkbox" onClick={(e)=>deSelect(e,'na'+index+ind)} name={index+ind} id={'na'+index+ind} />
                                                 <span class="checkmark"></span>
                                             </label> */}
-                                            <div class="form-check">
+                                            <div class="form-check ">
                                                 <input class="form-check-input" onClick={(e)=>deSelect(e,'na'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'na'+index+ind} />
                                             </div>
                                       </div>
