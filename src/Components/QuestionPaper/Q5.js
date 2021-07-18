@@ -39,7 +39,7 @@ function Q5({el,index}) {
                                             {Parser(formatques(question))}
                                     </div>
                                     <div className="col-6" >
-                                            <input type="text" className="typein" placeholder="Type here" />
+                                            <input type="text" spellCheck={false} className="typein" placeholder="Type here" />
                                     </div>
                             </div>  
                             )

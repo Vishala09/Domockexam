@@ -32,7 +32,7 @@ function Q7({el,index}) {
                     <div style={{marginLeft:'20px'}}>
                         <h5>{el.question}</h5>
                         <em>Words count : {Remaining}</em>
-                        <textarea id={"textarea"+index} rows="10" value={EssayAnswer} 
+                        <textarea id={"textarea"+index} rows="10" value={EssayAnswer} spellCheck={false}
                         style={{overflow:'hidden',display:'block',resize:'none',width:'100%'}} 
                         onChange={(e)=>{validateAnswer(e);autoResize("textarea"+index)}} >
 

@@ -114,9 +114,11 @@ function Q2({el,index}) {
                             <div>
                                 {
                                     el.options.map((m,idx)=>
-                                    <div  className="row mb-2">
-                                        <div className="col-12 col-md-4">{m.q}</div>
-                                        <div className="col-12 col-md-5 d-flex">
+                                    <div  className="row d-flex align-items-center mb-2">
+                                        <div className="col-12 col-md-4" >
+                                            <div>{m.q}</div>
+                                        </div>
+                                        <div className="col-12 col-md-5 d-flex" >
                                             <div className="dropelement col-11" onDragEnter={(event)=>dragEnter(event)}
                                             id={'div'+el.type+index+idx} onDrop={(event)=>drop(event,index,idx)} 
                                             onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >

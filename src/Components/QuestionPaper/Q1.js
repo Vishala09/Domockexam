@@ -11,7 +11,7 @@ function Q1({el,index}) {
         {
             if(str[i]=="{")
             {
-                rstr=rstr+`<span> <input class="fillin" type="text" /> </span> `
+                rstr=rstr+`<span style="display:inline-block"> <input spellcheck="false" class="fillin" type="text" /> </span> `
                 let j=i+1;
                 while(j<str.length)
                 {
