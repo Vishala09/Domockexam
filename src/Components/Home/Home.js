@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import ExamHall1 from '../../images/ExamHall1.jpeg';
-import ExamHall2 from '../../images/ExamHall2.jpg';
-import ExamHall3p from '../../images/ExamHall3.png'
-import ExamHall4 from '../../images/ExamHall4.jpg'
-import ExamHall5 from '../../images/ExamHall5.jpg';
-import OnlineExam1 from '../../images/OnlineExam.jpg';
+import home1 from '../../images/home1.jpg';
+import home2 from '../../images/home2.jpeg';
+import home3 from '../../images/home3.jpg'
+import home4 from '../../images/home4.png'
+import home5 from '../../images/home5.png';
+import home6 from '../../images/home6.png';
 
-import OnlineExam2 from '../../images/OnlineExam2.png';
-import OnlineExam3 from '../../images/OnlineExam3.png';
-import ExamHall1p from '../../images/ExamHall1.png';
-import ExamHall2p from '../../images/ExamHall2.png';
-import ExamHall6 from '../../images/ExamHall6.jpg';
-import ExamHall7 from '../../images/ExamHall7.jpg';
+import home7 from '../../images/home7.png';
+import home8 from '../../images/home8.jpg'
+import home9 from '../../images/home9.jpg'
+import home10 from '../../images/home10.jpg';
+import home11 from '../../images/home11.jpg';
 
-import OnlineTest1 from '../../images/OnlineTest1.jpg';
-import OnlineTest2 from '../../images/OnlineTest2.jpg';
-import OnlineTest3 from '../../images/OnlineTest3.png';
 function Home() {
-    const images = [OnlineExam2, ExamHall6,ExamHall7,ExamHall1,OnlineExam3,ExamHall2,OnlineTest1,ExamHall1p,OnlineTest2];
+    const images = [home1,home2,home3,home4,home5,home6,home7,home8,home9,home10,home11];
     const [imageIndex, setimageIndex] = useState(0)
     useEffect(() => {
        // loadImages();

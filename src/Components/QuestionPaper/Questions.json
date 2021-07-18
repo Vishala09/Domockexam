@@ -167,6 +167,12 @@
         "q":["Peter was born in London.","Some people in farms migratedto cities","Working in factories became a tiresome experience for people"]
     },
     {
+        "questionheading":"True or False",
+        "question":"Select true or false",
+        "type":"trueorfalsednd",
+        "q":["Peter was born in London.","Some people in farms migratedto cities","Working in factories became a tiresome experience for people"]
+    },
+    {
         "questionheading":"Rearrange",
         "question":"Rearrange",
         "type":"rearrange",
