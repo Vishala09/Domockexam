@@ -1,5 +1,4 @@
 import React from 'react'
-import Questions from './Q1.json';
 import './Qp.css';
 import Parser from 'html-react-parser';
 

@@ -6,7 +6,8 @@ function Q8({el,index}) {
         if(document.getElementById(id).classList.contains('imChecked'+index+ind))
         {
             document.getElementById(id).checked=false;
-            document.getElementById(id).classList.remove("imChecked"+index+ind)
+            document.getElementById(id).style.background='darkgrey';
+            document.getElementById(id).classList.remove("imChecked"+index+ind);
         }
         else
         {
@@ -47,22 +48,31 @@ function Q8({el,index}) {
                                             {q}
                                       </div>
                                       <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                            
-                                            <div class="form-check ">
-                                                <input class="form-check-input" onClick={(e)=>deSelect(e,'true'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'true'+index+ind} />
-                                            </div>
+                                            <label class="customcheck">
+                                                <input  onClick={(e)=>deSelect(e,'true'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'true'+index+ind} />
+                                                <span style={{marginTop:'-15px'}} class="checkmark"></span>
+                                            </label>
+                                            {/* <div class="form-check">
+                                                <input class="form-check-input cp" onClick={(e)=>deSelect(e,'true'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'true'+index+ind} />
+                                            </div> */}
                                       </div>
                                       <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}} >
-                                            
-                                            <div class="form-check ">
-                                                <input class="form-check-input" onClick={(e)=>deSelect(e,'false'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'false'+index+ind} />
-                                            </div>
+                                            <label class="customcheck">
+                                                <input  onClick={(e)=>deSelect(e,'false'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'false'+index+ind} />
+                                                <span style={{marginTop:'-15px'}} class="checkmark"></span>
+                                            </label>
+                                            {/* <div class="form-check">
+                                                <input class="form-check-input cp" onClick={(e)=>deSelect(e,'false'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'false'+index+ind} />
+                                            </div> */}
                                       </div>
                                       <div className="col-2 col-md-1" style={{borderWidth:'0px 2px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}} >
-                                            
-                                            <div class="form-check ">
-                                                <input class="form-check-input" onClick={(e)=>deSelect(e,'na'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'na'+index+ind} />
-                                            </div>
+                                            <label class="customcheck">
+                                                <input  onClick={(e)=>deSelect(e,'na'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'na'+index+ind} />
+                                                <span style={{marginTop:'-15px'}} class="checkmark"></span>
+                                            </label>
+                                            {/* <div class="form-check">
+                                                <input class="form-check-input cp" onClick={(e)=>deSelect(e,'na'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'na'+index+ind} />
+                                            </div> */}
                                       </div>
                                   </div>
                                   ) :
@@ -82,7 +92,7 @@ function Q8({el,index}) {
                                       <div className="row">
                                             <div style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black',}} className="col-4 col-md-9">{q}</div>
                                             <div className="col-8 col-md-3" style={{borderWidth:'0px 2px 2px 2px',borderStyle:'solid',borderColor:'black',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center',padding:'5px'}}>
-                                            <select  className="mydropdown dropdown-toggle" data-flip="false" 
+                                            <select style={{fontSize:'15px'}} className="mydropdown dropdown-toggle" data-flip="false" 
                                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" >  
                                                 <option  value="selans"  class="selans" style={{fontStyle:'normal'}} > Select true or false </option>
                                                 <option class="myoption" value={true}>True</option>

@@ -56,10 +56,6 @@ function Q6({el,index}) {
                                                         <input type="checkbox" name={''+index+ind} />
                                                         <span class="checkmark"></span>
                                                     </label>
-                                                    {/* <input className="form-check-input cp" type="checkbox" name={''+index+ind} id={el.type+'radio'+index+''+ind+''+i} />
-                                                        <label className="form-check-label cp" for={el.type+'radio'+index+''+ind+''+i}>
-                                                            {op}
-                                                        </label> */}
                                                     </div>
                                                 </div>
                                                 )
