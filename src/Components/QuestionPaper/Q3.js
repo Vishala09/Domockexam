@@ -49,7 +49,7 @@ function Q3({el,index}) {
         {
             setDragged(true);
             ev.target.style.border = "";
-            // ev.target.style.padding="5px";
+            ev.target.style.padding="0px";
             element.style.background="lightgray";element.style.fontWeight="bold";
             let newelement = document.createElement('div');  
             newelement.innerHTML=element.innerHTML;
@@ -137,7 +137,7 @@ function Q3({el,index}) {
                                 <>
                                         {
                                             fillq=='_'?
-                                                <span className="dropelementfillin" 
+                                                <span className="dropelementdragin" 
                                                 onDragEnter={(event)=>dragEnter(event)} onDragLeave={(event)=>dragLeave(event)}
                                                 onDrop={(event)=>drop(event,index,idx)} onDragOver={(event)=>allowDrop(event)}>
                                                         
