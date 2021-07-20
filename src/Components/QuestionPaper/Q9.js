@@ -92,8 +92,8 @@ function Q9({el,index}) {
                     <div className="d-flex flex-row flex-wrap">
                         { el.q.map((q,ind)=>
                         <>
-                            {ind==0?<span className="" style={{marginRight:"10px"}}>{q}</span>:
-                            <span  className="" style={{marginRight:"10px"}}>
+                            {ind==0?<span style={{marginRight:"10px"}}>{q}</span>:
+                            <span  style={{marginRight:"10px"}}>
                                  <div className="dropelementrearrange" onDragEnter={(event)=>dragEnter(event)}
                                             id={'div'+el.type+index+ind} onDrop={(event)=>drop(event,index,ind)} 
                                             onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >

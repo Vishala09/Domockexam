@@ -130,7 +130,7 @@ function Q3({el,index}) {
                             </div>
                         }
                         
-                        <div style={{lineHeight:window.screen.width>770?2.5:1.5}}>
+                        <div style={{}} className="">
                             
                             {
                                 el.q.split("").map((fillq,idx)=>
