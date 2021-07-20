@@ -181,7 +181,7 @@
     {
         "questionheading":"Rearrange",
         "question":"Rearrange",
-        "type":"rearrange",
-        "q":["Raman","likes","icecream","better than","chocolate","But","Sita","likes","icecream","more"]
+        "type":"rearrangebw",
+        "q":["Krishnan","interested","to swim","in learning","seem","does not"]
     }
 ]

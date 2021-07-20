@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 function Q9({el,index}) {
     const [dragged, setDragged] = useState(false);
         
-    function dragEnter(event) {
-       if(event.target.innerHTML=="")
+    function dragEnter(event,type) {
+       if((event.target.innerHTML=="" && type=="rearrange") || type=="rearrangebw")
        {
           event.target.style.border = "3px dotted #0D6EFD";
        } 
@@ -13,6 +13,7 @@ function Q9({el,index}) {
         event.target.style.border = "";
     }
     function allowDrop(ev) {
+       
       ev.preventDefault();
     }
     
@@ -32,12 +33,12 @@ function Q9({el,index}) {
         }
     }
     
-    function drop(ev,index,idx) {
+    function drop(ev,type,id) {
       ev.preventDefault();
       var data = ev.dataTransfer.getData("text");
       let element = document.getElementById(data);
       console.log(data);
-      if(ev.target.childNodes.length==0)
+      if((ev.target.childNodes.length==0 && type=="rearrange") || type!="rearrange")
       {
           
           setDragged(true);
@@ -50,8 +51,16 @@ function Q9({el,index}) {
           newelement.innerHTML=element.innerHTML;
           //newelement.classList.add('tooltip')
           let seconds = 's' + new Date().getSeconds();
-          newelement.classList.add("div"+element.id);
+          newelement.classList.add("div"+element.id,"mr-10");
           newelement.setAttribute("id","div"+element.id+seconds);
+          newelement.ondragover = function()
+          {
+              return false;
+          }
+          newelement.ondrop = function()
+          {
+              return false;
+          }
 
           let button = document.createElement('div');
           //button.title="Delete";
@@ -77,25 +86,22 @@ function Q9({el,index}) {
           newelement.appendChild(button);
           ev.target.appendChild(newelement);
       }
-      else
-      {
-          //  let delchild = ev.target.childNodes[0];
-          //  ev.target.removeChild(delchild);
-          //  ev.target.appendChild(newelement);
-      }
     }
     return (
         <div>
              <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                 <div style={{marginLeft:'20px',marginRight:'20px'}}>
                     <h5>{el.question}</h5>
+                    {
+                        el.type=="rearrange" ?
+                        <>
                     <div className="d-flex flex-row flex-wrap">
                         { el.q.map((q,ind)=>
                         <>
                             {ind==0?<span style={{marginRight:"10px"}}>{q}</span>:
                             <span  style={{marginRight:"10px"}}>
-                                 <div className="dropelementrearrange" onDragEnter={(event)=>dragEnter(event)}
-                                            id={'div'+el.type+index+ind} onDrop={(event)=>drop(event,index,ind)} 
+                                 <div className="dropelementrearrange" onDragEnter={(event)=>dragEnter(event,"rearrange")}
+                                            id={'div'+el.type+index+ind} onDrop={(event)=>drop(event,"rearrange")} 
                                             onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >
                                                    
                                  </div>
@@ -120,7 +126,46 @@ function Q9({el,index}) {
                         </>
                         ) }
                     </div>
+                    </>
+                    :
+                    <>
+                     <div className="d-flex flex-row flex-wrap">
+                        { el.q.map((q,ind)=>
+                        <>
+                            {
+                            <span  className="">
+                               <span className="dragelement cp" 
+                                         draggable={true} onDragStart={(event)=>drag(event)} 
+                                         onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+ind}>
+                                           <span>{q}</span>  
+                                </span> 
+                            </span>
+                            }
+                        </>
+                        ) }
+                    </div>
+                    <p></p>
+                    <div className="d-flex flex-row flex-wrap">
+                        
+                        <>
+                            {
+                            <span  >
+                                 <div className="dropelementrearrangebw" onDragEnter={(event)=>dragEnter(event,"rearrangebw")}
+                                            id={'div'+el.type+index} onDrop={(event)=>drop(event,"rearrangebw",'div'+el.type+index)} 
+                                            onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >
+                                                   
+                                 </div>
+                            </span>
+                            }
+                        </>
+                      
+                    </div>
+                    <p></p>
+                   
+                    </>
+                }
                 </div>
+                
             <hr></hr>
         </div>
     )

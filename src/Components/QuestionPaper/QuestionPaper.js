@@ -26,7 +26,7 @@ function QuestionPaper() {
                     {(el.type=="radio" || el.type=="check") && <Q6 el={el} index={index} />}
                     {el.type=="essay" && <Q7 el={el} index={index} />}
                     {(el.type=="trueorfalse" || el.type=="trueorfalsednd") && <Q8 el={el} index={index} />}
-                    {el.type=="rearrange" && <Q9 el={el} index={index} />}
+                    {(el.type=="rearrange" || el.type=="rearrangebw") && <Q9 el={el} index={index} />}
                     
                 </>
                 )

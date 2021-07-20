@@ -32,7 +32,7 @@ function Q6({el,index}) {
                                             {
                                                 el.type=='radio' ?
                                                 q.options.map((op,i) => 
-                                                <div  className="col-6 col-md-3 choose" style={{}} >
+                                                <div  className="col-6 col-lg-2 col-md-3 choose" style={{}} >
                                                     <div  className="mb-1">
                                                         <label class="customcheck">{op}
                                                             <input onClick={(e)=>deSelect(e,''+index+ind+i)} type="checkbox"
@@ -50,7 +50,7 @@ function Q6({el,index}) {
                                                 )
                                                 :
                                                 q.options.map((op,i) => 
-                                                <div className="col-6 col-md-3 choose" style={{}} >
+                                                <div className="col-6 col-lg-2 col-md-3 choose" style={{}} >
                                                     <div  className="mb-1">
                                                     <label class="customcheck">{op}
                                                         <input type="checkbox" name={''+index+ind} />
