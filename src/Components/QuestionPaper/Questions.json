@@ -182,6 +182,7 @@
         "questionheading":"Rearrange",
         "question":"Rearrange",
         "type":"rearrangebw",
-        "q":["Krishnan","interested","to swim","in learning","seem","does not"]
+        "q":["It rained yesterday","The match stopped"],
+        "choose":["As","If","So","Since"]
     }
 ]
