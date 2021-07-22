@@ -154,27 +154,22 @@ function Q9({el,index}) {
                         { el.q.map((q,ind)=>
                         <>
                             {
-                            <span  className="">
                                <span className="dragelement cp" 
                                          draggable={true} onDragStart={(event)=>drag(event)} 
                                          onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+ind}>
                                            <span>{q}</span>  
                                 </span> 
-                            </span>
                             }
                         </>
                         ) }
-                        <span className="dragelement" >
+                        <span className="dragelementchooseouter" >
                             { el.choose.map((q,ind)=>
-                            <>
-                                {
-                                <span style={{marginRight:"10px",padding:'4px'}} className={" cp dragchoose"+index} 
+                                <span style={{marginRight:"10px",padding:'4px',borderRadius:'5px'}} className={" cp dragchoose"+index+""} 
                                             draggable={true} onDragStart={(event)=>drag(event)} id={'choo'+el.type+index+ind}
                                             onDragEnd={(event)=>dragEnd(event)} >
-                                        <span>{q}</span>  
+                                     <span className="dragelementchoose">  {q} </span>
                                 </span> 
-                                }
-                            </>
+                                
                             ) }
                         </span>
                     </div>
