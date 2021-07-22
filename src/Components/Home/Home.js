@@ -61,17 +61,17 @@ function Home() {
                 <div style={{minHeight:'50vh'}}>
                         <h1>About Us</h1>
                         <div className="homediv">
-                    <p>   &nbsp; &nbsp; &nbsp;  We are a digital platform committed to helping students and teachers achieve their academic goals. </p>
+                    <p>     We are a digital platform committed to helping students and teachers achieve their academic goals. </p>
 
-<p> &nbsp; &nbsp; &nbsp;  The platform offers FREE as well as paid practice exams, at reasonable and affordable prices, for students to try out under real exam like time duration to better prepare them for the real exam. The platform analyses each student’s performance on every exam attempted and provides a detail report highlighting for students and teachers area/s for improvements before attempting further exams. The iterative process helps the student build confidence and face the real exam reassured.</p>
+<p>   The platform offers FREE as well as paid practice exams, at reasonable and affordable prices, for students to try out under real exam like time duration to better prepare them for the real exam. The platform analyses each student’s performance on every exam attempted and provides a detail report highlighting for students and teachers area/s for improvements before attempting further exams. The iterative process helps the student build confidence and face the real exam reassured.</p>
 
-<p> &nbsp; &nbsp; &nbsp;  We offer practice exams created by a panel of highly qualified and experienced and well-trained examiners who have been preparing and marking exam for various exams for years. There will be regular and continuous new practice exams added to the pool of practice exams.</p>
+<p>   We offer practice exams created by a panel of highly qualified and experienced and well-trained examiners who have been preparing and marking exam for various exams for years. There will be regular and continuous new practice exams added to the pool of practice exams.</p>
 
-<p> &nbsp; &nbsp; &nbsp;  The platform also offers the feature for teachers to create customized practice exams for FREE. It helps teachers easily and quickly create paper less practice exams and share with their students instantly with a click. The platform takes care of marking these papers, sparing the teachers the effort and enables them to focus their precious time more on teaching.</p>
+<p>  The platform also offers the feature for teachers to create customized practice exams for FREE. It helps teachers easily and quickly create paper less practice exams and share with their students instantly with a click. The platform takes care of marking these papers, sparing the teachers the effort and enables them to focus their precious time more on teaching.</p>
 
-<p>  &nbsp; &nbsp; &nbsp; Our vision is to be a leader in making every student successful in their academic goals</p>
+<p>   Our vision is to be a leader in making every student successful in their academic goals</p>
 
-<p>  &nbsp; &nbsp; &nbsp;  Our mission is to provide as many quality practice exams as possible for students to attempt and be best at their real examination and for every teacher making and marking of the online exams, they create quick and easy.</p>
+<p>   Our mission is to provide as many quality practice exams as possible for students to attempt and be best at their real examination and for every teacher making and marking of the online exams, they create quick and easy.</p>
                         </div>
                 </div>
                 <hr></hr>

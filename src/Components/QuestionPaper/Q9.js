@@ -168,7 +168,7 @@ function Q9({el,index}) {
                             { el.choose.map((q,ind)=>
                             <>
                                 {
-                                <span style={{border:'2px solid black',borderRadius:'5px',padding:'4px'}} className={" cp dragchoose"+index} 
+                                <span style={{marginRight:"10px",padding:'4px'}} className={" cp dragchoose"+index} 
                                             draggable={true} onDragStart={(event)=>drag(event)} id={'choo'+el.type+index+ind}
                                             onDragEnd={(event)=>dragEnd(event)} >
                                         <span>{q}</span>  
@@ -183,7 +183,7 @@ function Q9({el,index}) {
                         
                         { el.q.map((q,ind)=>
                             
-                            <span  style={{marginRight:"2px"}}>
+                            <span  style={{marginRight:"10px"}}>
                                  <div className="dropelementrearrange" onDragEnter={(event)=>dragEnter(event,"rearrangebw")}
                                             id={'div'+el.type+index+ind} onDrop={(event)=>drop(event,"rearrangebw")} 
                                             onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >
@@ -192,7 +192,7 @@ function Q9({el,index}) {
                             </span>
                             
                         ) }
-                            <span  style={{marginRight:"2px"}}>
+                            <span  style={{marginRight:"10px"}}>
                                  <div className="dropelementrearrange" onDragEnter={(event)=>dragEnter(event,"rearrangebw")}
                                             id={'div'+el.type+index} onDrop={(event)=>drop(event,"rearrangebw")} 
                                             onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >
