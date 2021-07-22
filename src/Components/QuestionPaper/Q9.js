@@ -54,9 +54,12 @@ function Q9({el,index}) {
           var elems = document.querySelectorAll(".dragchoose"+index);
             if(element.id.includes("choo")){
                 [].forEach.call(elems, function(el) {
-                    el.style.fontWeight="normal";
-                    el.style.background="#808080";
-                   // el.style.opacity=0.8;
+                    if(el.id!=element.id){
+                            el.style.fontWeight="normal";
+                            el.style.background="#808080";
+                        // el.style.opacity=0.8;
+                    
+                    }
                     el.draggable=false;
                 });
             }
@@ -95,7 +98,6 @@ function Q9({el,index}) {
                 [].forEach.call(elems, function(el) {
                     el.style.fontWeight="normal";
                     el.style.background="white";
-                    el.style.opacity=1;
                     el.draggable=true;
                 });
               }
@@ -152,22 +154,21 @@ function Q9({el,index}) {
                     <>
                      <div >
                         { el.q.map((q,ind)=>
-                        <>
-                            {
+                        
                                <span className="dragelement cp" 
                                          draggable={true} onDragStart={(event)=>drag(event)} 
                                          onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+ind}>
-                                           <span>{q}</span>  
+                                           {q}
                                 </span> 
-                            }
-                        </>
+                            
                         ) }
                         <span className="dragelementchooseouter" >
                             { el.choose.map((q,ind)=>
-                                <span style={{marginRight:"10px",padding:'4px',borderRadius:'5px'}} className={" cp dragchoose"+index+""} 
+                                <span  style={{marginRight:"10px",padding:'4px',borderRadius:'5px'}}
+                                className={" cp dragchoose"+index+" dragelementchoose cp"} 
                                             draggable={true} onDragStart={(event)=>drag(event)} id={'choo'+el.type+index+ind}
                                             onDragEnd={(event)=>dragEnd(event)} >
-                                     <span className="dragelementchoose">  {q} </span>
+                                       {q} 
                                 </span> 
                                 
                             ) }

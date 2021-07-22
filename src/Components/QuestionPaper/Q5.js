@@ -24,12 +24,12 @@ function Q5({el,index}) {
         return rstr;
     }
     return (
-        <div className="container-fluid">
+        <div >
             {/* {
                 Questions.map((el,index)=> */}
                 <div >
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
-                    <div style={{marginLeft:'20px'}}>
+                    <div style={{marginLeft:'20px',marginRight:'20px'}}>
                         <h5>{el.question}</h5>
                         {
                             el.q.map((question)=>

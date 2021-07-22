@@ -24,8 +24,10 @@ function Q8({el,index}) {
             <div>
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px',marginRight:'20px'}}>
+                        <div className="container-fluid">
                         <h5>{el.question}</h5>
-                        {el.type=="trueorfalse" &&      <div className="row">
+                        {el.type=="trueorfalse" &&      
+                        <div className="row">
                             <div className="col-6 col-md-9" style={{borderWidth:'2px 0px 2px 2px',borderStyle:'solid',borderColor:'black',fontWeight:'bold',background:'darkgrey',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}}>
                                            
                             </div>
@@ -104,6 +106,7 @@ function Q8({el,index}) {
                                   )}
                                   </div>
                               }  
+                        </div>
                         </div>
                     </div>
                     

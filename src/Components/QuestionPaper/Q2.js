@@ -92,7 +92,7 @@ function Q2({el,index}) {
                 Questions.map((el,index)=> */}
                 <div>
                         <h4>{index+1}.&nbsp;{el.questionheading} </h4>
-                        <div style={{marginLeft:'20px'}}>
+                        <div style={{marginLeft:'20px',marginRight:'20px'}}>
                             <h5>{el.question}</h5>
                             <div id={'div'+el.type+index} >
                                 {

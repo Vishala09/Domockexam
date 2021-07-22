@@ -90,11 +90,11 @@ function Q3({el,index}) {
                 Questions.map((el,index)=> */}
                 <div >
                     <h4>{index+1}.&nbsp;{el.questionheading} </h4>
-                    <div style={{marginLeft:'20px'}}>
+                    <div style={{marginLeft:'20px',marginRight:'20px'}}>
                         <h5>{el.question}</h5>
                         {
                             el.image ? 
-                            <div className="row d-flex flex-row">
+                            <div className=" row d-flex flex-row flex-wrap">
                                 <div className="col-8">
                                     <img src={el.image} height="350px" width="100%" />
                                 </div>
