@@ -58,7 +58,7 @@ function Home() {
                     </div>
             </div>
             <div style={{position:'relative',marginTop:'50px'}}>
-                <div style={{height:'50vh'}}>
+                <div style={{minHeight:'50vh'}}>
                         <h1>About Us</h1>
                         <div className="homediv"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         We are a digital platform committed to helping students and teachers achieve their academic goals.
@@ -75,11 +75,11 @@ Our mission is to provide as many quality practice exams as possible for student
                         </div>
                 </div>
                 <hr></hr>
-                <div style={{height:'50vh'}}>
+                <div style={{minHeight:'50vh'}}>
                         <h1>Our Speciality</h1>
                 </div>
                 <hr></hr>
-                <div style={{height:'50vh'}}>
+                <div style={{minHeight:'50vh'}}>
                         <h1>Contact Us</h1>
                 </div>
                 <hr></hr>
