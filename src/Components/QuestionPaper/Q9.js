@@ -164,11 +164,11 @@ function Q9({el,index}) {
                             }
                         </>
                         ) }
-                        <span style={{border:'2px solid black',padding:'12px'}} >
+                        <span className="dragelement" >
                             { el.choose.map((q,ind)=>
                             <>
                                 {
-                                <span className={"dragelement cp dragchoose"+index} 
+                                <span style={{border:'2px solid black',borderRadius:'5px',padding:'4px'}} className={" cp dragchoose"+index} 
                                             draggable={true} onDragStart={(event)=>drag(event)} id={'choo'+el.type+index+ind}
                                             onDragEnd={(event)=>dragEnd(event)} >
                                         <span>{q}</span>  
