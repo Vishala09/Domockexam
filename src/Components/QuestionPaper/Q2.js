@@ -101,9 +101,7 @@ function Q2({el,index}) {
                                          <span className="dragelement cp" 
                                          draggable={true} onDragStart={(event)=>drag(event)} 
                                          onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+idx}>
-                                           <span>{m.a}</span> 
-                                           
-                                          
+                                            <span>{m.a}</span> 
                                             {m.img && <> <br></br>  <img draggable={false} src={m.img} height="70px" width="100px" /> </> } 
                                         </span>
                                          

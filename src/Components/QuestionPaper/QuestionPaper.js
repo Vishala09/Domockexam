@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Q1 from './Q1';
 import Q2 from './Q2';
 import Q3 from './Q3';
@@ -10,9 +10,39 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Q7 from './Q7';
 import Q8 from './Q8';
 import Q9 from './Q9';
+import Toast from 'react-bootstrap/Toast'
+import ToastContainer from 'react-bootstrap/ToastContainer'
+
 function QuestionPaper() {
+    const [showA, setShowA] = useState(false);
+    const toggleShowA = () => setShowA(!showA);
+
     return (
-        <div className="container-fluid" style={{fontFamily:'"Times New Roman", Times, serif'}}>
+        <div className="container-fluid" 
+        onPaste={(e)=>{
+            toggleShowA()
+            e.preventDefault()
+            return false;
+          }} onCopy={(e)=>{
+            toggleShowA()
+            e.preventDefault()
+            return false;
+          }} 
+        style={{fontFamily:'"Times New Roman", Times, serif'}}>
+            <ToastContainer position="top-end" className="p-3" style={{marginTop:'100px'}}>
+                <Toast show={showA} onClose={toggleShowA} delay={2000} animation={true} bg="danger" autohide >
+                    <Toast.Header>
+                        <img
+                        src="holder.js/20x20?text=%20"
+                        className="rounded me-2"
+                        alt=""
+                        />
+                        <strong className="me-auto">Alert</strong>
+                    </Toast.Header>
+                    <Toast.Body>Please do not copy/paste</Toast.Body>
+                </Toast>
+                
+            </ToastContainer>
             <h1>Question Paper</h1>
             {
                 Questions.map((el,index)=>
@@ -31,7 +61,7 @@ function QuestionPaper() {
                 </>
                 )
             }
-            
+          
         </div>
     )
 }

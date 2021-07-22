@@ -183,6 +183,6 @@
         "question":"Rearrange",
         "type":"rearrangebw",
         "q":["It rained yesterday","The match stopped"],
-        "choose":["The match stopped","As","If","So","Since"]
+        "choose":["As","If","So","Since"]
     }
 ]
