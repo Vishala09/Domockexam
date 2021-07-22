@@ -56,7 +56,7 @@ function Q9({el,index}) {
                 [].forEach.call(elems, function(el) {
                     el.style.fontWeight="normal";
                     el.style.background="#808080";
-                    el.style.opacity=0.8;
+                   // el.style.opacity=0.8;
                     el.draggable=false;
                 });
             }
@@ -150,7 +150,7 @@ function Q9({el,index}) {
                     </>
                     :
                     <>
-                     <div style={{border:'2px solid black'}}>
+                     <div >
                         { el.q.map((q,ind)=>
                         <>
                             {
