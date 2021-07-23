@@ -3,7 +3,15 @@ import './Qp.css';
 
 function Q2({el,index}) {
       const [dragged, setDragged] = useState(false);
-        
+      function touchMove(event,id){
+            if (event.targetTouches.length == 1) {
+                //console.log('evetouch',event.target)
+            var touch = event.targetTouches[0];
+           // console.log(touch);
+            document.getElementById(id).style.left = touch.pageX + 'px';
+            document.getElementById(id).style.top = touch.pageY + 'px';
+          }
+      }
       function dragEnter(event) {
          if(event.target.innerHTML=="")
          {
@@ -37,7 +45,6 @@ function Q2({el,index}) {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         let element = document.getElementById(data);
-        console.log(data);
         if(ev.target.childNodes.length==0)
         {
             
@@ -98,9 +105,11 @@ function Q2({el,index}) {
                                 {
                                     el.options.map((m,idx)=>
                                     <> 
-                                         <span className="dragelement cp" 
+                                         <span className="dragelement cp" style={{position:'relative'}}
                                          draggable={true} onDragStart={(event)=>drag(event)} 
-                                         onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+idx}>
+                                        //  onTouchStart={(event)=>drag(event)}
+                                         onDragEnd={(event)=>dragEnd(event)} onTouchMove={(event)=>touchMove(event,'drag'+el.type+index+idx)}
+                                         id={'drag'+el.type+index+idx}>
                                             <span>{m.a}</span> 
                                             {m.img && <> <br></br>  <img draggable={false} src={m.img} height="70px" width="100px" /> </> } 
                                         </span>
@@ -118,8 +127,12 @@ function Q2({el,index}) {
                                         </div>
                                         <div className="col-12 col-md-5 d-flex" >
                                             <div className="dropelement col-11" onDragEnter={(event)=>dragEnter(event)}
-                                            id={'div'+el.type+index+idx} onDrop={(event)=>drop(event,index,idx)} 
-                                            onDragOver={(event)=>allowDrop(event)} onDragLeave={(event)=>dragLeave(event)} >
+                                            id={'div'+el.type+index+idx} 
+                                            onDrop={(event)=>drop(event,index,idx)} onTouchEnd={(event)=>drop(event,index,idx)}
+                                            onDragOver={(event)=>allowDrop(event)} 
+                                            onDragLeave={(event)=>dragLeave(event)} onTouchCancel={(event)=>dragLeave(event)}
+                                            
+                                            >
                                                    
                                             </div>
                                             
