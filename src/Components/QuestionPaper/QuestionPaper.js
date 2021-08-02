@@ -11,7 +11,12 @@ import Q7 from './Q7';
 import Q8 from './Q8';
 import Q9 from './Q9';
 import Toast from 'react-bootstrap/Toast'
-import ToastContainer from 'react-bootstrap/ToastContainer'
+import ToastContainer from 'react-bootstrap/ToastContainer';
+
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import Q2drag from './Q2drag';
+import Q2dnd from './Q2dnd';
 
 function QuestionPaper() {
     const [showA, setShowA] = useState(false);
@@ -44,7 +49,20 @@ function QuestionPaper() {
                 
             </ToastContainer>
             <h1>Question Paper</h1>
-            {
+            <DndProvider backend={HTML5Backend}>
+                {
+                    Questions.map((el)=>
+                    <>
+                        {
+                            el.type=='match' &&
+                                <Q2dnd el={el} />
+                            }
+                    </>
+                    )
+                }
+           
+            </DndProvider>
+            {/* {
                 Questions.map((el,index)=>
                 <>
                 <h5>Question Type : {el.type}</h5>
@@ -60,7 +78,7 @@ function QuestionPaper() {
                     
                 </>
                 )
-            }
+            } */}
           
         </div>
     )

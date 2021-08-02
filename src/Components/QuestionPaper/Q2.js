@@ -3,15 +3,7 @@ import './Qp.css';
 
 function Q2({el,index}) {
       const [dragged, setDragged] = useState(false);
-      function touchMove(event,id){
-            if (event.targetTouches.length == 1) {
-                //console.log('evetouch',event.target)
-            var touch = event.targetTouches[0];
-           // console.log(touch);
-            document.getElementById(id).style.left = touch.pageX + 'px';
-            document.getElementById(id).style.top = touch.pageY + 'px';
-          }
-      }
+           
       function dragEnter(event) {
          if(event.target.innerHTML=="")
          {
@@ -106,10 +98,8 @@ function Q2({el,index}) {
                                     el.options.map((m,idx)=>
                                     <> 
                                          <span className="dragelement cp" style={{position:'relative'}}
-                                         draggable={true} onDragStart={(event)=>drag(event)} 
-                                        //  onTouchStart={(event)=>drag(event)}
-                                         onDragEnd={(event)=>dragEnd(event)} onTouchMove={(event)=>touchMove(event,'drag'+el.type+index+idx)}
-                                         id={'drag'+el.type+index+idx}>
+                                         draggable={true}  onDragStart={(event)=>drag(event)} 
+                                         onDragEnd={(event)=>dragEnd(event)} id={'drag'+el.type+index+idx}>
                                             <span>{m.a}</span> 
                                             {m.img && <> <br></br>  <img draggable={false} src={m.img} height="70px" width="100px" /> </> } 
                                         </span>
