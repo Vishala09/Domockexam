@@ -17,6 +17,7 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import Q2drag from './Q2drag';
 import Q2dnd from './Q2dnd';
+import { TouchBackend } from 'react-dnd-touch-backend'
 
 function QuestionPaper() {
     const [showA, setShowA] = useState(false);
@@ -49,7 +50,7 @@ function QuestionPaper() {
                 
             </ToastContainer>
             <h1>Question Paper</h1>
-            <DndProvider backend={HTML5Backend}>
+            <DndProvider backend={TouchBackend}>
                 {
                     Questions.map((el)=>
                     <>
