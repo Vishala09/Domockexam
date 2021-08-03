@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDrag } from 'react-dnd';
 
-function Q2drag({dragElement,type, isDropped , onDropped,Selected}) {
+function Q2drag({dragElement,type, isDropped , onDropped,Selected,qindex}) {
     const [bg, setbg] = useState('white')
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: 'box',
+        type: 'box'+qindex,
         item: { 'dragElement':dragElement },
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
@@ -36,7 +36,11 @@ function Q2drag({dragElement,type, isDropped , onDropped,Selected}) {
       };
     return (
         <div ref={drag} role="Box" className="dragelement" style={{ ...style,background:bg }}>
-            {dragElement}
+            {dragElement.q}
+            <br></br>
+            {
+                dragElement.img && <img src={dragElement.img} height="70" width="100" />
+            }
         </div>
     )
 }

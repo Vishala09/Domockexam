@@ -23,30 +23,7 @@ import { TouchBackend } from 'react-dnd-touch-backend'
 function QuestionPaper() {
     const [showA, setShowA] = useState(false);
     const toggleShowA = () => setShowA(!showA);
-    function is_touch_enabled() {
-        return ( 'ontouchstart' in window ) || 
-               ( navigator.maxTouchPoints > 0 ) || 
-               ( navigator.msMaxTouchPoints > 0 );
-    }
-    const hasNative =
-    document && (document.elementsFromPoint || document.msElementsFromPoint)
-
-    function getDropTargetElementsAtPoint(x, y, dropTargets) {
-    return dropTargets.filter(t => {
-    const rect = t.getBoundingClientRect()
-    return (
-        x >= rect.left &&
-        x <= rect.right &&
-        y <= rect.bottom &&
-        y >= rect.top
-    )
-    })
-    }
-
-    // use custom function only if elementsFromPoint is not supported
-    const backendOptions = {
-    getDropTargetElementsAtPoint: !hasNative && getDropTargetElementsAtPoint,
-    }
+    
     return (
         <div className="container-fluid" 
         onPaste={(e)=>{
@@ -75,7 +52,7 @@ function QuestionPaper() {
             </ToastContainer>
             <h1>Question Paper</h1>
             { window.matchMedia("(pointer: coarse)").matches &&
-            <DndProvider backend={TouchBackend} options={backendOptions}>
+            <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }} >
                 {
                     Questions.map((el)=>
                     <>
@@ -92,11 +69,11 @@ function QuestionPaper() {
             { !window.matchMedia("(pointer: coarse)").matches && 
             <DndProvider backend={HTML5Backend}>
                 {
-                    Questions.map((el)=>
+                    Questions.map((el,index)=>
                     <>
                         {
                             el.type=='match' &&
-                                <Q2dnd el={el} />
+                                <Q2dnd qindex={index} el={el} />
                             }
                     </>
                     )

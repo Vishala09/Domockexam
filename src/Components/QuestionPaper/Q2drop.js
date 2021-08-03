@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-function Q2drop({droppedElement,onDrop,onRemoveHandler}) {
+function Q2drop({droppedElement,onDrop,onRemoveHandler,qindex}) {
     const [state, setstate] = useState('')
     const style = {
         border:'2px solid black',
@@ -12,7 +12,7 @@ function Q2drop({droppedElement,onDrop,onRemoveHandler}) {
         lineHeight: 'normal',
     };
     const [{ isOver, canDrop }, drop] = useDrop({
-        accept:'box',
+        accept:'box'+qindex,
         drop: (droppedElem)=>{ setstate(droppedElem.dragElement) },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
@@ -38,7 +38,8 @@ function Q2drop({droppedElement,onDrop,onRemoveHandler}) {
     }
     return (
         <div ref={drop} className="dropelement col-11" style={{ ...style, border }}>
-            {state}
+            {state.q}
+            
             {
                 state!="" &&
                 <OverlayTrigger
@@ -49,7 +50,10 @@ function Q2drop({droppedElement,onDrop,onRemoveHandler}) {
                     <i onClick={()=>remove()} class="fa fa-minus-circle mytooltip tooltipdelete cp"></i>
                 </OverlayTrigger>
             }
-            
+            <br></br>
+            {
+                state.img && <img src={state.img} height="70" width="100" />
+            }
         </div>
     )
 }

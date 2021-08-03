@@ -1,26 +1,22 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Q2drag from './Q2drag';
 import Q2drop from './Q2drop';
 import Questions from './Questions.json';
-function Q2dnd({el}) {
+function Q2dnd({el,qindex}) {
     const [Selected, setSelected] = useState([])
     const handleDrop = useCallback((item) => {
        
     }, []);
-    const onDropped = (item) => {
-        let sel=Selected;
-        sel.push(String(item))
-        setSelected([...sel]);
+    const onDropped = (item) => {  
+          setSelected(Selected => [...Selected,item]);  
     }
     const onRemoved = (item) => {
-        let sel=Selected;
-        let ind=sel.indexOf(item)
-        sel = sel.filter(checkAdult)    
-        function checkAdult(s,index) {
-            return index!=ind;
-        }
-        setSelected([...sel])
+        let index=Selected.indexOf(item);
+        setSelected(Selected.filter((e,i)=>(i !== index)));
     }
+    useEffect(() => {
+        console.log('Selected elems ',Selected)
+    }, [Selected])
     return (
         <div>
             <div>
@@ -33,7 +29,7 @@ function Q2dnd({el}) {
                                         <ul>
                                             {
                                                 el.options.map((op)=>
-                                                    <Q2drag Selected={Selected} onDropped={(item) => onDropped(item)} dragElement={op.q}></Q2drag>
+                                                    <Q2drag qindex={qindex} Selected={Selected} onDropped={(item) => onDropped(item)} dragElement={op}></Q2drag>
                                             
                                                 )
                                             }
@@ -49,7 +45,7 @@ function Q2dnd({el}) {
                                             <div>{m.q}</div>
                                         </div>
                                         <div className="col-12 col-md-5 d-flex" >
-                                               <Q2drop  onRemoveHandler={(item) => onRemoved(item)} />    
+                                               <Q2drop qindex={qindex}  onRemoveHandler={(item) => onRemoved(item)} />    
                                             
                                         </div>
                                     </div>
