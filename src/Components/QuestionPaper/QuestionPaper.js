@@ -42,7 +42,25 @@ function QuestionPaper() {
       };
     const [showA, setShowA] = useState(false);
     const toggleShowA = () => setShowA(!showA);
-    
+    const hasNative =
+document && (document.elementsFromPoint || document.msElementsFromPoint)
+
+    function getDropTargetElementsAtPoint(x, y, dropTargets) {
+        return dropTargets.filter(t => {
+          const rect = t.getBoundingClientRect()
+          return (
+            x >= rect.left &&
+            x <= rect.right &&
+            y <= rect.bottom &&
+            y >= rect.top
+          )
+        })
+        }
+        
+        // use custom function only if elementsFromPoint is not supported
+        const backendOptions = {
+        getDropTargetElementsAtPoint: !hasNative && getDropTargetElementsAtPoint,
+        }
     return (
         <div className="container-fluid" 
         onPaste={(e)=>{
@@ -71,7 +89,7 @@ function QuestionPaper() {
             </ToastContainer>
             <h1>Question Paper</h1>
             { window.matchMedia("(pointer: coarse)").matches &&
-            <DndProvider backend={MultiBackend} options={HTML5toTouch} >
+            <DndProvider backend={TouchBackend} options={backendOptions} >
                 {
                     Questions.map((el)=>
                     <div style={{background:'green'}}>
@@ -122,4 +140,4 @@ function QuestionPaper() {
     )
 }
 
-export default QuestionPaper
+export default  QuestionPaper;
