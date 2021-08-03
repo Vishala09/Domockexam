@@ -19,8 +19,26 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import Q2drag from './Q2drag';
 import Q2dnd from './Q2dnd';
 import { TouchBackend } from 'react-dnd-touch-backend'
+import MultiBackend, { TouchTransition, MouseTransition } from "react-dnd-multi-backend";
 
 function QuestionPaper() {
+    const CustomHTML5toTouch = {
+        backends: [
+          {
+            backend: HTML5Backend,
+            transition: MouseTransition
+            // by default, will dispatch a duplicate `mousedown` event when this backend is activated
+          },
+          {
+            backend: TouchBackend,
+            // Note that you can call your backends with options
+            options: { enableMouseEvents: true },
+            transition: TouchTransition,
+            // will not dispatch a duplicate `touchstart` event when this backend is activated
+            skipDispatchOnTransition: true
+          }
+        ]
+      };
     const [showA, setShowA] = useState(false);
     const toggleShowA = () => setShowA(!showA);
     
@@ -51,8 +69,8 @@ function QuestionPaper() {
                 
             </ToastContainer>
             <h1>Question Paper</h1>
-            {/* { window.matchMedia("(pointer: coarse)").matches &&
-            <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }} >
+            { window.matchMedia("(pointer: coarse)").matches &&
+            <DndProvider backend={MultiBackend} options={CustomHTML5toTouch} >
                 {
                     Questions.map((el)=>
                     <div style={{background:'green'}}>
@@ -64,10 +82,9 @@ function QuestionPaper() {
                     )
                 }
             </DndProvider>
-             } */}
+             }
             
-            {
-            /* { !window.matchMedia("(pointer: coarse)").matches &&  */
+            { !window.matchMedia("(pointer: coarse)").matches && 
             <DndProvider backend={HTML5Backend}>
                 {
                     Questions.map((el,index)=>

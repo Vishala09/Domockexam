@@ -16,7 +16,8 @@ function Q2dnd({el,qindex}) {
     }
     useEffect(() => {
         console.log('Selected elems ',Selected)
-    }, [Selected])
+    }, [Selected]);
+    
     return (
         <div>
             <div>
