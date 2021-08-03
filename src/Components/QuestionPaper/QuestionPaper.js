@@ -55,12 +55,12 @@ function QuestionPaper() {
             <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }} >
                 {
                     Questions.map((el)=>
-                    <>
+                    <div style={{background:'green'}}>
                         {
                             el.type=='match' &&
                                 <Q2dnd el={el} />
                             }
-                    </>
+                    </div>
                     )
                 }
             </DndProvider>
