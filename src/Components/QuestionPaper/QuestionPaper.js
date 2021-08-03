@@ -51,7 +51,7 @@ function QuestionPaper() {
                 
             </ToastContainer>
             <h1>Question Paper</h1>
-            { window.matchMedia("(pointer: coarse)").matches &&
+            {/* { window.matchMedia("(pointer: coarse)").matches &&
             <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }} >
                 {
                     Questions.map((el)=>
@@ -64,9 +64,10 @@ function QuestionPaper() {
                     )
                 }
             </DndProvider>
-             }
+             } */}
             
-            { !window.matchMedia("(pointer: coarse)").matches && 
+            {
+            /* { !window.matchMedia("(pointer: coarse)").matches &&  */
             <DndProvider backend={HTML5Backend}>
                 {
                     Questions.map((el,index)=>
