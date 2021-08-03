@@ -13,6 +13,7 @@ import Q9 from './Q9';
 import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
+
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import Q2drag from './Q2drag';
@@ -22,7 +23,30 @@ import { TouchBackend } from 'react-dnd-touch-backend'
 function QuestionPaper() {
     const [showA, setShowA] = useState(false);
     const toggleShowA = () => setShowA(!showA);
+    function is_touch_enabled() {
+        return ( 'ontouchstart' in window ) || 
+               ( navigator.maxTouchPoints > 0 ) || 
+               ( navigator.msMaxTouchPoints > 0 );
+    }
+    const hasNative =
+    document && (document.elementsFromPoint || document.msElementsFromPoint)
 
+    function getDropTargetElementsAtPoint(x, y, dropTargets) {
+    return dropTargets.filter(t => {
+    const rect = t.getBoundingClientRect()
+    return (
+        x >= rect.left &&
+        x <= rect.right &&
+        y <= rect.bottom &&
+        y >= rect.top
+    )
+    })
+    }
+
+    // use custom function only if elementsFromPoint is not supported
+    const backendOptions = {
+    getDropTargetElementsAtPoint: !hasNative && getDropTargetElementsAtPoint,
+    }
     return (
         <div className="container-fluid" 
         onPaste={(e)=>{
@@ -50,7 +74,23 @@ function QuestionPaper() {
                 
             </ToastContainer>
             <h1>Question Paper</h1>
-            <DndProvider backend={TouchBackend}>
+            { window.matchMedia("(pointer: coarse)").matches &&
+            <DndProvider backend={TouchBackend} options={backendOptions}>
+                {
+                    Questions.map((el)=>
+                    <>
+                        {
+                            el.type=='match' &&
+                                <Q2dnd el={el} />
+                            }
+                    </>
+                    )
+                }
+            </DndProvider>
+             }
+            
+            { !window.matchMedia("(pointer: coarse)").matches && 
+            <DndProvider backend={HTML5Backend}>
                 {
                     Questions.map((el)=>
                     <>
@@ -63,6 +103,7 @@ function QuestionPaper() {
                 }
            
             </DndProvider>
+            }
             {/* {
                 Questions.map((el,index)=>
                 <>
