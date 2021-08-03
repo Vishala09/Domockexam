@@ -20,6 +20,7 @@ import Q2drag from './Q2drag';
 import Q2dnd from './Q2dnd';
 import { TouchBackend } from 'react-dnd-touch-backend'
 import MultiBackend, { TouchTransition, MouseTransition } from "react-dnd-multi-backend";
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'; // or any other pipeline
 
 function QuestionPaper() {
     const CustomHTML5toTouch = {
@@ -70,7 +71,7 @@ function QuestionPaper() {
             </ToastContainer>
             <h1>Question Paper</h1>
             { window.matchMedia("(pointer: coarse)").matches &&
-            <DndProvider backend={MultiBackend} options={CustomHTML5toTouch} >
+            <DndProvider backend={MultiBackend} options={HTML5toTouch} >
                 {
                     Questions.map((el)=>
                     <div style={{background:'green'}}>
