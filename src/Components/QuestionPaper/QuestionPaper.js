@@ -18,49 +18,16 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import Q2drag from './Q2drag';
 import Q2dnd from './Q2dnd';
-import { TouchBackend } from 'react-dnd-touch-backend'
-import MultiBackend, { TouchTransition, MouseTransition } from "react-dnd-multi-backend";
-import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch'; // or any other pipeline
+import { TouchBackend } from 'react-dnd-touch-backend';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import Q2bdnd from './Q2bdnd';
+import Match from './Match';
 
 function QuestionPaper() {
-    const CustomHTML5toTouch = {
-        backends: [
-          {
-            backend: HTML5Backend,
-            transition: MouseTransition
-            // by default, will dispatch a duplicate `mousedown` event when this backend is activated
-          },
-          {
-            backend: TouchBackend,
-            // Note that you can call your backends with options
-            options: { enableMouseEvents: true },
-            transition: TouchTransition,
-            // will not dispatch a duplicate `touchstart` event when this backend is activated
-            skipDispatchOnTransition: true
-          }
-        ]
-      };
+   
     const [showA, setShowA] = useState(false);
     const toggleShowA = () => setShowA(!showA);
-    const hasNative =
-document && (document.elementsFromPoint || document.msElementsFromPoint)
 
-    function getDropTargetElementsAtPoint(x, y, dropTargets) {
-        return dropTargets.filter(t => {
-          const rect = t.getBoundingClientRect()
-          return (
-            x >= rect.left &&
-            x <= rect.right &&
-            y <= rect.bottom &&
-            y >= rect.top
-          )
-        })
-        }
-        
-        // use custom function only if elementsFromPoint is not supported
-        const backendOptions = {
-        getDropTargetElementsAtPoint: !hasNative && getDropTargetElementsAtPoint,
-        }
     return (
         <div className="container-fluid" 
         onPaste={(e)=>{
@@ -88,36 +55,19 @@ document && (document.elementsFromPoint || document.msElementsFromPoint)
                 
             </ToastContainer>
             <h1>Question Paper</h1>
-            { window.matchMedia("(pointer: coarse)").matches &&
-            <DndProvider backend={TouchBackend} options={backendOptions} >
+            <Q2bdnd />
                 {
-                    Questions.map((el)=>
-                    <div style={{background:'green'}}>
+                    Questions.map((el,index)=>
+                    <div >
                         {
                             el.type=='match' &&
-                                <Q2dnd el={el} />
+                                <Match el={el} index={index} />
                             }
                     </div>
                     )
                 }
-            </DndProvider>
-             }
             
-            { !window.matchMedia("(pointer: coarse)").matches && 
-            <DndProvider backend={HTML5Backend}>
-                {
-                    Questions.map((el,index)=>
-                    <>
-                        {
-                            el.type=='match' &&
-                                <Q2dnd qindex={index} el={el} />
-                            }
-                    </>
-                    )
-                }
-           
-            </DndProvider>
-            }
+            
             {/* {
                 Questions.map((el,index)=>
                 <>

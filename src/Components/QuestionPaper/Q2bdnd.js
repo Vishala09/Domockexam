@@ -73,11 +73,11 @@ function Q2bdnd() {
   
     return (
       <DragDropContext onDragEnd={onDragEnd} >
-        {
-            columns.map((col) => 
-        <div>
-          <h2>{col}</h2>
-        <Droppable droppableId={col}>
+        {/* {
+            columns.map((col) =>  */}
+        <div style={{display:'flex',flexDirection:'row'}}>
+          <h2>{'todo'}</h2>
+        <Droppable droppableId={'todo'}>
          
           {(provided, snapshot) => (
             <div
@@ -85,7 +85,38 @@ function Q2bdnd() {
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
             >
-                {items[col].map((item, index) => (
+                {items['todo'].map((item, index) => (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )}
+                    >
+                      {item.content}
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+
+        <h2>{'done'}</h2>
+        <Droppable droppableId={'done'}>
+         
+          {(provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              style={getListStyle(snapshot.isDraggingOver)}
+            >
+                {items['done'].map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
                     <div
@@ -107,8 +138,8 @@ function Q2bdnd() {
           )}
         </Droppable>
         </div> 
-         )
-        }
+         {/* )
+        } */}
         
       </DragDropContext>
     );

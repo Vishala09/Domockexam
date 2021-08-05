@@ -249,3 +249,6 @@
 } */
 
 
+.dndcopy ~ div {
+  transform: none !important;
+}
