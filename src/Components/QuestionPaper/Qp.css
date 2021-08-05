@@ -250,5 +250,6 @@
 
 
 .dndcopy ~ div {
-  transform: none !important;
+  display: none !important;
 }
+

@@ -10,7 +10,9 @@ const jsonarr = {
      {id:'item 3',content:'item 3'},
      {id:'item 4',content:'item 4'}],
 
-     "done" : []
+     "done" : [
+       {},{},{},{},{}
+     ]
 }
 
 const reorder = (list, startIndex, endIndex) => {
@@ -44,7 +46,7 @@ function Q2bdnd() {
   const [items, setitems] = useState(jsonarr);
   const [columns, setcolumns] = useState(['todo','done']);
   useEffect(() => {
-    console.log(items,items['todo']);
+    console.log(items);
   }, [items])
   function onDragEnd(result) {
     // let itemstemp = reorder(
@@ -62,7 +64,8 @@ function Q2bdnd() {
     let itemstemp = items;
     let sourceelem = itemstemp[source.droppableId][source.index];
     itemstemp[source.droppableId].splice(source.index,1);
-    itemstemp[destination.droppableId].push(sourceelem)
+    
+    itemstemp['done'][destination.droppableId]=sourceelem
 
     setitems({...itemstemp})
   }
@@ -73,8 +76,7 @@ function Q2bdnd() {
             columns.map((col) =>  */}
         <div style={{display:'flex',flexDirection:'row'}}>
           <h2>{'todo'}</h2>
-        <Droppable droppableId={'todo'}>
-         
+        <Droppable droppableId={'todo'} >
           {(provided, snapshot) => (
             <div
               {...provided.droppableProps}
@@ -82,7 +84,7 @@ function Q2bdnd() {
               style={getListStyle(snapshot.isDraggingOver)}
             >
                 {items['todo'].map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
+                <Draggable key={item.id+1} draggableId={'col'+item.id+1} index={index+1}>
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
@@ -104,35 +106,38 @@ function Q2bdnd() {
         </Droppable>
 
         <h2>{'done'}</h2>
-        <Droppable droppableId={'done'}>
+       
+        {
+        items['done'].map((item, index) => (
+                  <Droppable droppableId={'done'+index}>
          
-          {(provided, snapshot) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-                {items['done'].map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided, snapshot) => (
                     <div
+                      {...provided.droppableProps}
                       ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
+                      style={getListStyle(snapshot.isDraggingOver)}
                     >
-                      {item.content}
+                      <Draggable key={item.id} draggableId={item.id} index={index+'d'}>
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            style={getItemStyle(
+                              snapshot.isDragging,
+                              provided.draggableProps.style
+                            )}
+                          >
+                            {item.content}
+                          </div>
+                        )}
+                      </Draggable>
+                      {provided.placeholder}
                     </div>
                   )}
-                </Draggable>
+                </Droppable>
               ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+              
         </div> 
          {/* )
         } */}

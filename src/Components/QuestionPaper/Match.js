@@ -1,16 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import styled from 'styled-components';
 
 function Match({el,index}) {
+    const grid = 2;
+    
+    const Item = styled.div `
+    userSelect: none;
+    padding: grid;
+    margin: 1px;
+    border : 2px solid black;
+    background: ${props => (props.isDragging ? 'grey' : 'white')};
+    
+`;
+//border: 1px ${props => (props.isDragging ? 'dashed #4099ff' : 'solid #ddd')};
+const Clone = styled(Item)`
+    + div {
+        display: none !important;
+    }
+`;
     const [answers, setanswers] = useState([]);
     useEffect(() => {
-        for(let i=0;i<el.options.length;i++)
+        for(let i=0;i<el.options.length+1;i++)
         {
           answers[i]='';
         }
         setanswers([...answers])
+        el.options.unshift({q:'',a:''})
     }, [])
-    const grid = 2;
+
 
 const getItemStyle = (isDragging, draggableStyle,place) => ({
     userSelect: 'none',
@@ -18,16 +36,19 @@ const getItemStyle = (isDragging, draggableStyle,place) => ({
     margin: '1px',
     background: isDragging ? 'lightgreen' :' ',
     border : place=='top' ? '2px solid black':'',
-    minHeight:'50px',
-    minWidth:'100px',
+    transform: isDragging ? 'none':'inline',
     ...draggableStyle
 });
+
 
 const getListStyle = (isDraggingOver,place) => ({
     background: isDraggingOver && place=='down' ? 'lightblue' : 'lightgrey',
     padding: grid,
     border:isDraggingOver && place=='down' ? '2px solid yellow' : '2px solid black',
-   
+    minWidth: 250,
+    minHeight:place=='down' ? '20px':'25px',
+    display:'flex',
+    margin:'2px'
 });
 
       function onDragEnd(result) {
@@ -49,28 +70,31 @@ const getListStyle = (isDraggingOver,place) => ({
                             <h5>{el.question}</h5>
                             <div >
                             <DragDropContext onDragEnd={onDragEnd} >
-                                    <Droppable droppableId={index+'top'}>
+                                    <Droppable droppableId={index+'top'} isDropDisabled={true}>
                                     {(provided, snapshot) => (
                                         <div
                                         {...provided.droppableProps}
                                         ref={provided.innerRef}
-                                        style={getListStyle(snapshot.isDraggingOver)}
+                                        style={{border:'2px solid black',display:'flex',flexWrap:'wrap'}}
+                                        // style={getListStyle(snapshot.isDraggingOver)}
                                         >
-                                            {el.options.map((item, ind) => (
-                                            <Draggable key={ind} draggableId={ind} index={ind}>
+                                            {el.options.map((item, ind) => (  ind!=0 &&
+                                            <Draggable key={ind} draggableId={item.a} index={ind}  >
                                             {(provided, snapshot) => (
+                                            <>
                                                 <div 
-                                                
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
-                                                style={getItemStyle(
-                                                    snapshot.isDragging,
-                                                    provided.draggableProps.style,'top'
-                                                )}
+                                                style={getItemStyle(snapshot.isDragging, provided.draggableProps.style,'top' )}
                                                 >
-                                                {item.a}
+                                                     {item.a} 
                                                 </div>
+                                               
+                                                {snapshot.isDragging && (
+                                                <div style={getItemStyle(snapshot.isDragging,{},'top' )} >{item.a}</div>)}
+                                            
+                                            </>   
                                             )}
                                             </Draggable>
                                         ))}
@@ -79,9 +103,9 @@ const getListStyle = (isDraggingOver,place) => ({
                                     )}
                                     </Droppable>
                                    
-                                    <div style={{marginTop:'20px',padding:'20px'}}>
+                                    <div style={{marginTop:'20px'}}>
                                         {
-                                            el.options.map((m,ind)=>
+                                            el.options.map((m,ind)=> ( ind!=0 &&
                                             <div  className="row d-flex align-items-center mb-2">
                                                 <div className="col-12 col-md-4" >
                                                     <div>{m.q}</div>
@@ -95,8 +119,8 @@ const getListStyle = (isDraggingOver,place) => ({
                                                             ref={provided.innerRef}
                                                             style={getListStyle(snapshot.isDraggingOver,'down')}
                                                             >
-                                                                <Draggable key={ind+'down'} draggableId={ind+'down'} index={ind+'down'}
-                                                                isDragDisabled={true}
+                                                                <Draggable key={ind} draggableId={ind} index={ind}
+                                                                isDragDisabled={true} isDropDisabled={answers[ind]!=''}
                                                                 >
                                                                 {(provided, snapshot) => (
                                                                     <div 
@@ -121,8 +145,10 @@ const getListStyle = (isDraggingOver,place) => ({
                                                     </div>
                                                     
                                                 </div>
+
                                             </div>
-                                            )
+
+                                            ))
                                         }
                                     </div>
                                 </DragDropContext>

@@ -19,9 +19,11 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import Q2drag from './Q2drag';
 import Q2dnd from './Q2dnd';
 import { TouchBackend } from 'react-dnd-touch-backend';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Q2bdnd from './Q2bdnd';
 import Match from './Match';
+ import MultiBackend from "react-dnd-multi-backend";
+// import { DragDropContext } from "react-dnd";
 
 function QuestionPaper() {
    
@@ -57,22 +59,23 @@ function QuestionPaper() {
             <h1>Question Paper</h1>
             
             {/* <Q2bdnd /> */}
+            {/* <DndProvider backend={TouchBackend}> */}
                 {
                     Questions.map((el,index)=>
                     <div >
                         {
                             el.type=='match' && <>
-                                {/* <Match el={el} index={index} /> */}
-                                <DndProvider backend={HTML5Backend}>
-                                <Q2dnd el={el} />
-                                </DndProvider>
+                                <Match el={el} index={index} />
+                               
+                                {/* <Q2dnd el={el} /> */}
+                               
                                 </>
                             }
 
                     </div>
                     )
                 }
-            
+             {/* </DndProvider> */}
             
             {/* {
                 Questions.map((el,index)=>

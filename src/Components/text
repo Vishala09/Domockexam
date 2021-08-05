@@ -116,3 +116,9 @@ function Q2bdnd() {
 }
 
 export default Q2bdnd
+
+
+"react-dnd": "^14.0.2",
+    "react-dnd-html5-backend": "^14.0.0",
+    "react-dnd-multi-backend": "^6.0.2",
+    "react-dnd-touch-backend": "^14.0.0",
