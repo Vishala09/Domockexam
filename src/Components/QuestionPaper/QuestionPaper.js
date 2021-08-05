@@ -55,14 +55,20 @@ function QuestionPaper() {
                 
             </ToastContainer>
             <h1>Question Paper</h1>
-            <Q2bdnd />
+            
+            {/* <Q2bdnd /> */}
                 {
                     Questions.map((el,index)=>
                     <div >
                         {
-                            el.type=='match' &&
-                                <Match el={el} index={index} />
+                            el.type=='match' && <>
+                                {/* <Match el={el} index={index} /> */}
+                                <DndProvider backend={HTML5Backend}>
+                                <Q2dnd el={el} />
+                                </DndProvider>
+                                </>
                             }
+
                     </div>
                     )
                 }

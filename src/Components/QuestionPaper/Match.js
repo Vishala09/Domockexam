@@ -18,6 +18,8 @@ const getItemStyle = (isDragging, draggableStyle,place) => ({
     margin: '1px',
     background: isDragging ? 'lightgreen' :' ',
     border : place=='top' ? '2px solid black':'',
+    minHeight:'50px',
+    minWidth:'100px',
     ...draggableStyle
 });
 
@@ -25,10 +27,7 @@ const getListStyle = (isDraggingOver,place) => ({
     background: isDraggingOver && place=='down' ? 'lightblue' : 'lightgrey',
     padding: grid,
     border:isDraggingOver && place=='down' ? '2px solid yellow' : '2px solid black',
-    minWidth: 250,
-    minHeight:place=='down' ? '40px':'25px',
-    display:'flex',
-    margin:'2px'
+   
 });
 
       function onDragEnd(result) {
@@ -58,7 +57,7 @@ const getListStyle = (isDraggingOver,place) => ({
                                         style={getListStyle(snapshot.isDraggingOver)}
                                         >
                                             {el.options.map((item, ind) => (
-                                            <Draggable key={ind} draggableId={item.a} index={ind}>
+                                            <Draggable key={ind} draggableId={ind} index={ind}>
                                             {(provided, snapshot) => (
                                                 <div 
                                                 
@@ -96,7 +95,7 @@ const getListStyle = (isDraggingOver,place) => ({
                                                             ref={provided.innerRef}
                                                             style={getListStyle(snapshot.isDraggingOver,'down')}
                                                             >
-                                                                <Draggable key={ind} draggableId={m.a+'down'} index={ind}
+                                                                <Draggable key={ind+'down'} draggableId={ind+'down'} index={ind+'down'}
                                                                 isDragDisabled={true}
                                                                 >
                                                                 {(provided, snapshot) => (
