@@ -1,53 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import styled from 'styled-components';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 function Match({el,index}) {
     const grid = 2;
  
-//     align-items: flex-start;
-// align-content: flex-start;
-
 const Item = styled.div`  
 user-select: none;
-padding: 0.5rem;
-margin: 0 0  0.5rem 0;
 border-radius: 3px;
-background: green;
-border: 1px ${props => (props.isDragging ? 'dashed #000' : 'solid #ddd')};
+border: 1px ${props => (props.isDragging ? 'dashed #000' : 'solid white')};
 `;
-
-const Clone = styled(Item)`
-+ div {
-  display: none!important;
-}
-`;
-
-
 
 const List = styled.div`
 border: 1px ${props => (props.isDraggingOver ? 'dashed #000' : 'solid #ddd')};
 background: #fff;
-padding: 0.5rem 0.5rem 0;
+padding: 2px;
 border-radius: 3px;
 font-family: sans-serif;
-
 `;
 //flex: 0 0 200px;
 const Kiosk = styled(List)`
-    height:60px;
+    height:32px;
     min-width:200px;
 `;
 
     const [answers, setanswers] = useState([]);
     useEffect(() => {
-        for(let i=0;i<el.options.length+1;i++)
+        el.options.unshift({q:'',a:''})
+        for(let i=0;i<el.options.length;i++)
         {
           answers[i]='';
         }
-        setanswers([...answers])
-        el.options.unshift({q:'',a:''})
-        
+        setanswers([...answers]);
     }, [])
 
 
@@ -60,14 +46,13 @@ const getItemStyle = (isDragging, draggableStyle,place) => ({
     ...draggableStyle
 });
 
-
 const getListStyle = (isDraggingOver,place) => ({
+
     background: isDraggingOver && place=='down' ? 'lightblue' : 'lightgrey',
     padding: grid,
-    border:isDraggingOver && place=='down' ? '2px solid yellow' : '2px solid black',
+    border:isDraggingOver && place=='down' ? '2px solid dodgerblue' : '',
     minWidth: 250,
-    minHeight:place=='down' ? '40px':'25px',
-    display:'flex',
+    minHeight:place=='down' ? '35px':'25px',
     margin:'2px'
 });
 
@@ -82,7 +67,15 @@ const getListStyle = (isDraggingOver,place) => ({
          answers[destination.droppableId]=sourceelem.a;
          setanswers([...answers])
       }
-      
+      const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            Delete
+        </Tooltip>
+      );
+      const remove = (ind) => {
+          answers[ind]='';
+          setanswers([...answers])
+      }
     return (
         <div>
             <h4>{index+1}.&nbsp;{el.questionheading} </h4>
@@ -90,36 +83,35 @@ const getListStyle = (isDraggingOver,place) => ({
                             <h5>{el.question}</h5>
                             <div >
                             <DragDropContext onDragEnd={onDragEnd} >
-                                <div className="d-flex flex-row flex-wrap">
+                                <div className="d-flex flex-row flex-wrap" style={{overflow:'hidden'}}>
                             {el.options.map((item, ind) => ( ind!=0 &&
                             <Droppable droppableId={'items'+ind} isDropDisabled={true}>
                     {(provided, snapshot) => (
                         <Kiosk 
                             ref={provided.innerRef}
-                            isDraggingOver={snapshot.isDraggingOver}>
+                            isDraggingOver={snapshot.isDraggingOver}
+                            
+                            >
                             
                                 <Draggable
                                 key={ind} draggableId={item.a} index={ind}>
                                     {(provided, snapshot) => (
-                                        <React.Fragment>
-                                            
-                                            
+                                        <React.Fragment>                            
                                             <Item
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                                 isDragging={snapshot.isDragging}
+                                                className={answers.includes(item.a) && 'selected'}
                                                 >
                                                 {item.a}
                                             </Item>
                                                     {snapshot.isDragging && (
                                                         <Item >
-                                                            {item.a}</Item>
+                                                            {item.a}
+                                                        </Item>
                                                     )}
                                             
-                                            {/* {snapshot.isDragging && (
-                                                 <Clone>{item.a}</Clone>
-                                            )} */}
                                         </React.Fragment>
                                     )}
                                 </Draggable>
@@ -175,7 +167,7 @@ const getListStyle = (isDraggingOver,place) => ({
                                                     <div>{m.q}</div>
                                                 </div>
                                                 <div className="col-12 col-md-5" >
-                                                    <div className="dropelement col-11"  >
+                                                    <div style={{fontStyle:'italic',display:'flex',alignItems:'center'}} className="text-center col-11"  >
                                                       <Droppable droppableId={ind}>
                                                         {(provided, snapshot) => (
                                                             <div
@@ -184,7 +176,7 @@ const getListStyle = (isDraggingOver,place) => ({
                                                             style={getListStyle(snapshot.isDraggingOver,'down')}
                                                             >
                                                                 <Draggable key={ind} draggableId={ind} index={ind}
-                                                                isDragDisabled={true} isDropDisabled={answers[ind]!=''}
+                                                                isDragDisabled={true} 
                                                                 >
                                                                 {(provided, snapshot) => (
                                                                     <div 
@@ -198,6 +190,7 @@ const getListStyle = (isDraggingOver,place) => ({
                                                                     )}
                                                                     >
                                                                         {answers[ind]}
+                                                                       
                                                                     </div>
                                                                 )}
                                                                 </Draggable>
@@ -206,6 +199,16 @@ const getListStyle = (isDraggingOver,place) => ({
                                                             </div>
                                                         )}
                                                         </Droppable>  
+                                                        {
+                                                                            answers[ind]!="" &&
+                                                                            <OverlayTrigger
+                                                                                placement="right"
+                                                                                delay={{ show: 250, hide: 100 }}
+                                                                                overlay={renderTooltip}
+                                                                            >
+                                                                                <i onClick={()=>remove(ind)} class="fa fa-minus-circle mytooltip tooltipdelete cp"></i>
+                                                                            </OverlayTrigger>
+                                                                        }
                                                     </div>
                                                     
                                                 </div>

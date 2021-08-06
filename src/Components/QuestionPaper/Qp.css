@@ -253,3 +253,6 @@
   display: none !important;
 }
 
+.selected{
+  background-color: lightgray;
+}
