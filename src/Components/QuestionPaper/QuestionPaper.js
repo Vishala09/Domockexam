@@ -23,6 +23,7 @@ import { TouchBackend } from 'react-dnd-touch-backend';
 import Q2bdnd from './Q2bdnd';
 import Match from './Match';
  import MultiBackend from "react-dnd-multi-backend";
+import Dnd from './dnd';
 // import { DragDropContext } from "react-dnd";
 
 function QuestionPaper() {
@@ -57,7 +58,7 @@ function QuestionPaper() {
                 
             </ToastContainer>
             <h1>Question Paper</h1>
-            
+            {/* <Dnd /> */}
             {/* <Q2bdnd /> */}
             {/* <DndProvider backend={TouchBackend}> */}
                 {
