@@ -5,19 +5,16 @@ import styled from 'styled-components';
 function Match({el,index}) {
     const grid = 2;
  
-    
-const Item = styled.div`
-  
+//     align-items: flex-start;
+// align-content: flex-start;
+
+const Item = styled.div`  
 user-select: none;
 padding: 0.5rem;
 margin: 0 0  0.5rem 0;
-align-items: flex-start;
-align-content: flex-start;
-line-height: 1.5;
 border-radius: 3px;
-background: #fff;
+background: green;
 border: 1px ${props => (props.isDragging ? 'dashed #000' : 'solid #ddd')};
-
 `;
 
 const Clone = styled(Item)`
@@ -33,14 +30,13 @@ border: 1px ${props => (props.isDraggingOver ? 'dashed #000' : 'solid #ddd')};
 background: #fff;
 padding: 0.5rem 0.5rem 0;
 border-radius: 3px;
-flex: 0 0 150px;
 font-family: sans-serif;
-display:flex;
-flex-wrap:wrap;
-`;
 
+`;
+//flex: 0 0 200px;
 const Kiosk = styled(List)`
-position: relative;
+    height:60px;
+    min-width:200px;
 `;
 
     const [answers, setanswers] = useState([]);
@@ -94,37 +90,45 @@ const getListStyle = (isDraggingOver,place) => ({
                             <h5>{el.question}</h5>
                             <div >
                             <DragDropContext onDragEnd={onDragEnd} >
-                            <Droppable droppableId="ITEMS" isDropDisabled={true}>
+                                <div className="d-flex flex-row flex-wrap">
+                            {el.options.map((item, ind) => ( ind!=0 &&
+                            <Droppable droppableId={'items'+ind} isDropDisabled={true}>
                     {(provided, snapshot) => (
-                        <Kiosk
+                        <Kiosk 
                             ref={provided.innerRef}
                             isDraggingOver={snapshot.isDraggingOver}>
-                            {el.options.map((item, ind) => ( ind!=0 &&
+                            
                                 <Draggable
                                 key={ind} draggableId={item.a} index={ind}>
                                     {(provided, snapshot) => (
                                         <React.Fragment>
+                                            
+                                            
                                             <Item
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                                 isDragging={snapshot.isDragging}
-                                                style={
-                                                    provided.draggableProps
-                                                        .style
-                                                }>
+                                                >
                                                 {item.a}
                                             </Item>
+                                                    {snapshot.isDragging && (
+                                                        <Item >
+                                                            {item.a}</Item>
+                                                    )}
+                                            
                                             {/* {snapshot.isDragging && (
-                                                <Clone>{item.a}</Clone>
+                                                 <Clone>{item.a}</Clone>
                                             )} */}
                                         </React.Fragment>
                                     )}
                                 </Draggable>
-                            ))}
+                           
                         </Kiosk>
                     )}
                 </Droppable>
+                 ))}
+                 </div>
                             {/* <Droppable droppableId={index+'top'} isDropDisabled={true}  >
                                     {(provided, snapshot) => (
                                         <div
