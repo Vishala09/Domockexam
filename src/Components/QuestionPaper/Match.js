@@ -115,9 +115,9 @@ const getListStyle = (isDraggingOver,place) => ({
                                                 }>
                                                 {item.a}
                                             </Item>
-                                            {snapshot.isDragging && (
+                                            {/* {snapshot.isDragging && (
                                                 <Clone>{item.a}</Clone>
-                                            )}
+                                            )} */}
                                         </React.Fragment>
                                     )}
                                 </Draggable>
