@@ -24,6 +24,7 @@ import Q2bdnd from './Q2bdnd';
 import Match from './Match';
  import MultiBackend from "react-dnd-multi-backend";
 import Dnd from './dnd';
+import Fillin from './Fillin';
 // import { DragDropContext } from "react-dnd";
 
 function QuestionPaper() {
@@ -58,43 +59,36 @@ function QuestionPaper() {
                 
             </ToastContainer>
             <h1>Question Paper</h1>
-            {/* <Dnd /> */}
-            {/* <Q2bdnd /> */}
-            {/* <DndProvider backend={TouchBackend}> */}
-                {
+         
+                {/* {
                     Questions.map((el,index)=>
                     <div >
                         {
-                            el.type=='match' && <>
-                                <Match el={el} index={index} />
-                               
-                                {/* <Q2dnd el={el} /> */}
-                               
-                                </>
-                            }
+                            (el.type=="dragin" || el.type=="singledragbox") && <Fillin el={el} index={index} />
+                        }
 
                     </div>
                     )
-                }
-             {/* </DndProvider> */}
+                } */}
+          
             
-            {/* {
+            {
                 Questions.map((el,index)=>
                 <>
-                <h5>Question Type : {el.type}</h5>
-                    {el.type=="fillin" && <Q1 el={el} index={index} />}
-                    {el.type=="match" && <Q2 el={el} index={index} />}
-                    {(el.type=="dragin" || el.type=="singledragbox") && <Q3 el={el} index={index} /> }
-                    {el.type=="dropdown" && <Q4 el={el} index={index} />}
+                {/* <h5>Question Type : {el.type}</h5> */}
+                    {/* {el.type=="fillin" && <Q1 el={el} index={index} />} */}
+                    {el.type=="match" && <Match el={el} index={index} /> }
+                    { (el.type=="dragin" || el.type=="singledragbox") && <Fillin el={el} index={index} />}
+                    {/* {el.type=="dropdown" && <Q4 el={el} index={index} />}
                     {el.type=="typein" && <Q5 el={el} index={index} />}
                     {(el.type=="radio" || el.type=="check") && <Q6 el={el} index={index} />}
                     {el.type=="essay" && <Q7 el={el} index={index} />}
                     {(el.type=="trueorfalse" || el.type=="trueorfalsednd") && <Q8 el={el} index={index} />}
-                    {(el.type=="rearrange" || el.type=="rearrangebw") && <Q9 el={el} index={index} />}
-                    
+                    {(el.type=="rearrange" || el.type=="rearrangebw") && <Q9 el={el} index={index} />} */}
+                    <hr></hr>
                 </>
                 )
-            } */}
+            }
           
         </div>
     )

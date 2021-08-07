@@ -40,7 +40,7 @@
     {
         "questionheading":"Match the following",
         "question":"Write the letter of most suitable notice in the given box",
-        "type":"matchimg",
+        "type":"match",
         "options":[
             {
                 "a":"Handle with care",

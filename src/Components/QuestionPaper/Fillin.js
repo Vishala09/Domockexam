@@ -4,57 +4,64 @@ import styled from 'styled-components';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-function Match({el,index}) {
+function Fillin({el,index}) {
     const grid = 2;
  
 const Item = styled.div`  
 user-select: none;
 border-radius: 3px;
 text-align:center;
-border: 1px ${props => (props.isDragging ? 'dashed #000' : 'solid black')};
+margin-top:2px;
+border: 1px ${props => (el.type!=="singledragbox" ? props.isDragging ? 'dashed #000' : 'solid black' : '')};
 `;
 
 const List = styled.div`
 background: #fff;
-padding: 2px;
 border-radius: 3px;
 font-family: sans-serif;
-`;
-//flex: 0 0 200px;
-const Kiosk = styled(List)`
-    height: ${props => (props.img ? '100px' : '32px')};
-    min-width:200px;
-    margin:5px;
+
 `;
 
-    const [answers, setanswers] = useState([]);
+const Kiosk = styled(List)`
+    height: ${props => (props.img ? '100px' : '30px')};
+    min-width:100px;
+    margin:2px 2px;
+    
+`;
+
+    const [answers, setanswers] = useState({});
+    const [Questions, setQuestions] = useState(el);
+
     useEffect(() => {
         el.options.unshift({q:'',a:''})
-        for(let i=0;i<el.options.length;i++)
-        {
-          answers[i]='';
-        }
-        setanswers([...answers]);
+        
     }, [])
-
+    
+    useEffect(() => {
+            let str=Questions.q; //[^A-Za-z0-9]
+            const regex = /{[^\s]+}/ig;
+            str = str.replace(regex, '_');
+            Questions.q=str;        
+         setQuestions({...Questions})
+        }, [])
 
 const getItemStyle = (isDragging, draggableStyle,place) => ({
     userSelect: 'none',
-    padding: grid,
-    margin: '1px',
-    background: isDragging ? 'lightgreen' :' ',
-    border : place=='top' ? '2px solid black':'',
     ...draggableStyle
 });
 
 const getListStyle = (isDraggingOver,place) => ({
 
     background: isDraggingOver && place=='down' ? 'lightblue' : '',
-    padding: grid,
-    border:isDraggingOver && place=='down' ? '2px solid dodgerblue' : '2px dotted black',
-    minWidth: 250,
-    minHeight:place=='down' ? '35px':'25px',
-    margin:'2px'
+    
+    //border:isDraggingOver && place=='down' ? '2px solid dodgerblue' : '',
+    borderBottom:isDraggingOver && place=='down' ? '2px solid dodgerblue' : '2px dotted black',
+    minWidth: '200px',
+    minHeight:place=='down' ? '25px':'25px',
+    textAlign: 'center',
+    display: 'inline-block',
+    fontStyle: 'italic',
+    fontWeight: 600
 });
 
       function onDragEnd(result) {
@@ -66,7 +73,8 @@ const getListStyle = (isDraggingOver,place) => ({
     
          let sourceelem = el.options[source.index];
          answers[destination.droppableId]=sourceelem;
-         setanswers([...answers])
+         console.log(answers);
+         setanswers({...answers})
       }
       const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -74,28 +82,38 @@ const getListStyle = (isDraggingOver,place) => ({
         </Tooltip>
       );
       const remove = (ind) => {
-          answers[ind]='';
-          setanswers([...answers])
+          answers[ind]=undefined;
+          setanswers({...answers})
       }
     return (
         <div>
+       
             <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                         <div style={{marginLeft:'20px',marginRight:'20px'}}>
                             <h5>{el.question}</h5>
                             <div >
                             <DragDropContext onDragEnd={onDragEnd} >
-                                <div className="d-flex flex-row flex-wrap" style={{overflow:'hidden'}}>
+                            <div  >
+                            <div className={el.image?'row':''}>
+                                    {
+                                        el.image && 
+                                        <div className="col-9">
+                                            <img src={el.image} height="350px" width="100%" />
+                                        </div>
+                                    }
+                            <div className={el.image?'col-3':'d-flex flex-row flex-wrap align-items-center'} style={{border:el.type=="singledragbox" && '2px solid black' }}>
                             {el.options.map((item, ind) => ( ind!=0 &&
                             <Droppable droppableId={'items'+ind} isDropDisabled={true}>
-                    {(provided, snapshot) => (
-                        <Kiosk 
-                            ref={provided.innerRef}
-                            isDraggingOver={snapshot.isDraggingOver}
-                            img={item.img?true:false}
-                            >
+                            {(provided, snapshot) => (
+                               
+                                <Kiosk 
+                                    ref={provided.innerRef}
+                                    isDraggingOver={snapshot.isDraggingOver}
+                                    
+                                    >
                             
                                 <Draggable
-                                key={ind} draggableId={item.a} index={ind}>
+                                key={ind} draggableId={item} index={ind}>
                                     {(provided, snapshot) => (
                                         <React.Fragment>                            
                                             <Item
@@ -103,26 +121,16 @@ const getListStyle = (isDraggingOver,place) => ({
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                                 isDragging={snapshot.isDragging}
-                                                
-                                                className={answers.includes(item.a) && 'selected'}
+                                                type={el.type}
+                                                className={Object.values(answers).includes(item) && 'selected'}
                                                 >
-                                                {item.a} 
-                                                {
-                                                    item.img && 
-                                                    <>
-                                                    <img draggable={false} src={item.img} height="70px" width="100px" />
-                                                    </>
-                                                }
+                                                {item} 
+                                                
                                             </Item>
                                                     {snapshot.isDragging && (
                                                         <Item >
-                                                            {item.a}
-                                                            {
-                                                                item.img && 
-                                                                <>
-                                                                <img draggable={false} src={item.img} height="70px" width="100px" />
-                                                                </>
-                                                            }
+                                                            {item}
+                                                            
                                                         </Item>
                                                     )}
                                             
@@ -131,22 +139,23 @@ const getListStyle = (isDraggingOver,place) => ({
                                 </Draggable>
                            
                         </Kiosk>
+                        
                     )}
                 </Droppable>
                  ))}
                  </div>
+                 </div>
+                 </div>
                             
                                    
-                                    <div style={{marginTop:'20px'}} >
-                                        {
-                                            el.options.map((m,ind)=> ( ind!=0 &&
-                                            <div  className="row d-flex align-items-center mb-2">
-                                                <div className="col-12 col-md-4" >
-                                                    <div>{m.q}</div>
-                                                </div>
-                                                <div className="col-12 col-md-5" >
-                                                    <div style={{fontStyle:'italic',display:'flex',alignItems:'center'}} className="text-center col-11"  >
-                                                      <Droppable droppableId={ind}>
+                                    <div style={{marginTop:'20px'}}>
+                                    {
+                                        el.q.split("").map((fillq,ind)=>
+                                        <>
+                                                {
+                                                fillq=='_'?
+                                                <span className=""  >
+                                                    <Droppable droppableId={ind}>
                                                         {(provided, snapshot) => (
                                                             <div
                                                             {...provided.droppableProps}
@@ -167,22 +176,9 @@ const getListStyle = (isDraggingOver,place) => ({
                                                                         provided.draggableProps.style,'down'
                                                                     )}
                                                                     >
-                                                                        {answers[ind] && answers[ind].a}
-                                                                        {answers[ind] && answers[ind].img &&
-                                                                        <>
-                                                                        <img draggable={false} src={answers[ind].img} height="70px" width="100px" />
-                                                                        </>
-                                                                        }
-                                                                    </div>
-                                                                )}
-                                                                </Draggable>
-                                                            
-                                                            {provided.placeholder}
-                                                            </div>
-                                                        )}
-                                                        </Droppable>  
-                                                        {
-                                                                            answers[ind]!="" &&
+                                                                        {answers[ind]}
+                                                                        {
+                                                                            answers[ind]!=undefined &&
                                                                             <OverlayTrigger
                                                                                 placement="right"
                                                                                 delay={{ show: 250, hide: 100 }}
@@ -191,14 +187,22 @@ const getListStyle = (isDraggingOver,place) => ({
                                                                                 <i onClick={()=>remove(ind)} class="fa fa-minus-circle mytooltip tooltipdelete cp"></i>
                                                                             </OverlayTrigger>
                                                                         }
-                                                    </div>
-                                                    
-                                                </div>
-
-                                            </div>
-
-                                            ))
-                                        }
+                                                                    </div>
+                                                                )}
+                                                                </Draggable>
+                                                            
+                                                            {/* {provided.placeholder} */}
+                                                            </div>
+                                                        )}
+                                                        </Droppable>   
+                                                       
+                                                </span>
+                                                    :
+                                                    fillq
+                                                }
+                                        </>
+                                        )
+                                    }
                                     </div>
                                 </DragDropContext>
                                
@@ -208,4 +212,4 @@ const getListStyle = (isDraggingOver,place) => ({
     )
 }
 
-export default Match
+export default Fillin
