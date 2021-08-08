@@ -50,14 +50,12 @@ const getItemStyle = (isDragging, draggableStyle,place) => ({
     ...draggableStyle
 });
 
-const getListStyle = (isDraggingOver,place) => ({
+const getListStyle = (isDraggingOver,item) => ({
 
-    background: isDraggingOver && place=='down' ? 'lightblue' : '',
-    
-    //border:isDraggingOver && place=='down' ? '2px solid dodgerblue' : '',
-    borderBottom:isDraggingOver && place=='down' ? '2px solid dodgerblue' : '2px dotted black',
-    minWidth: '200px',
-    minHeight:place=='down' ? '25px':'25px',
+    background: isDraggingOver ? 'lightblue' : '',
+    borderBottom:isDraggingOver ? '2px solid dodgerblue' : '2px dotted black',
+    minWidth:item!=undefined ? '10px' : '100px',
+    minHeight:'25px',
     textAlign: 'center',
     display: 'inline-block',
     fontStyle: 'italic',
@@ -160,7 +158,7 @@ const getListStyle = (isDraggingOver,place) => ({
                                                             <div
                                                             {...provided.droppableProps}
                                                             ref={provided.innerRef}
-                                                            style={getListStyle(snapshot.isDraggingOver,'down')}
+                                                            style={getListStyle(snapshot.isDraggingOver,answers[ind])}
                                                             >
                                                                 <Draggable key={ind} draggableId={ind} index={ind}
                                                                 isDragDisabled={true} 
@@ -173,9 +171,10 @@ const getListStyle = (isDraggingOver,place) => ({
                                                                     {...provided.dragHandleProps}
                                                                     style={getItemStyle(
                                                                         snapshot.isDragging,
-                                                                        provided.draggableProps.style,'down'
+                                                                        provided.draggableProps.style
                                                                     )}
                                                                     >
+                                                                        
                                                                         {answers[ind]}
                                                                         {
                                                                             answers[ind]!=undefined &&

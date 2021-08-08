@@ -12,6 +12,7 @@ user-select: none;
 border-radius: 3px;
 text-align:center;
 border: 1px ${props => (props.isDragging ? 'dashed #000' : 'solid black')};
+background: ${props => (props.isDragging && props.item=='stay' ? 'lightblue' : '')};
 `;
 
 const List = styled.div`
@@ -54,7 +55,10 @@ const getListStyle = (isDraggingOver,place) => ({
     border:isDraggingOver && place=='down' ? '2px solid dodgerblue' : '2px dotted black',
     minWidth: 250,
     minHeight:place=='down' ? '35px':'25px',
-    margin:'2px'
+    textAlign: 'center',
+    display: 'inline-block',
+    fontStyle: 'italic',
+    fontWeight: 600
 });
 
       function onDragEnd(result) {
@@ -115,7 +119,7 @@ const getListStyle = (isDraggingOver,place) => ({
                                                 }
                                             </Item>
                                                     {snapshot.isDragging && (
-                                                        <Item >
+                                                        <Item isDragging={snapshot.isDragging} item={'stay'} >
                                                             {item.a}
                                                             {
                                                                 item.img && 
