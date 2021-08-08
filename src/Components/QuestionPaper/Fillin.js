@@ -126,7 +126,7 @@ const getListStyle = (isDraggingOver,item) => ({
                                                 
                                             </Item>
                                                     {snapshot.isDragging && (
-                                                        <Item item={'stay'}  >
+                                                        <Item isDragging={snapshot.isDragging} item={'stay'}  >
                                                             {item}
                                                             
                                                         </Item>
