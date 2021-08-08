@@ -99,7 +99,7 @@ const getListStyle = (isDraggingOver,item) => ({
                                             <img src={el.image} height="350px" width="100%" />
                                         </div>
                                     }
-                            <div className={el.image?'col-3':'d-flex flex-row flex-wrap align-items-center'} style={{border:el.type=="singledragbox" && '2px solid black' }}>
+                            <div className={el.image?'col-3':'d-flex flex-row flex-wrap align-items-center justify-content-between'} style={{border:el.type=="singledragbox" && '2px solid black' }}>
                             {el.options.map((item, ind) => ( ind!=0 &&
                             <Droppable droppableId={'items'+ind} isDropDisabled={true}>
                             {(provided, snapshot) => (
