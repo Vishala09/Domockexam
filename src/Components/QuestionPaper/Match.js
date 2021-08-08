@@ -104,7 +104,7 @@ const getListStyle = (isDraggingOver,place) => ({
                                                 {...provided.dragHandleProps}
                                                 isDragging={snapshot.isDragging}
                                                 
-                                                className={answers.includes(item.a) && 'selected'}
+                                                className={answers.includes(item) && 'selected'}
                                                 >
                                                 {item.a} 
                                                 {
