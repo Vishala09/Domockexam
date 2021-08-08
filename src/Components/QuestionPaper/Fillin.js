@@ -13,6 +13,7 @@ border-radius: 3px;
 text-align:center;
 margin-top:2px;
 border: 1px ${props => (el.type!=="singledragbox" ? props.isDragging ? 'dashed #000' : 'solid black' : '')};
+background: ${props => (props.isDragging && props.item=='stay' ? 'lightblue' : '')};
 `;
 
 const List = styled.div`
@@ -25,7 +26,6 @@ font-family: sans-serif;
 const Kiosk = styled(List)`
     height: ${props => (props.img ? '100px' : '30px')};
     min-width:100px;
-    margin:2px 2px;
     
 `;
 
@@ -95,11 +95,11 @@ const getListStyle = (isDraggingOver,item) => ({
                             <div className={el.image?'row':''}>
                                     {
                                         el.image && 
-                                        <div className="col-9">
+                                        <div className="col-md-8 ">
                                             <img src={el.image} height="350px" width="100%" />
                                         </div>
                                     }
-                            <div className={el.image?'col-3':'d-flex flex-row flex-wrap align-items-center justify-content-between'} style={{border:el.type=="singledragbox" && '2px solid black' }}>
+                            <div className={el.image && window.screen.width>=720 ?'col-md-4 ':'d-flex flex-row flex-wrap align-items-center justify-content-between'} style={{border:el.type=="singledragbox" && '2px solid black' }}>
                             {el.options.map((item, ind) => ( ind!=0 &&
                             <Droppable droppableId={'items'+ind} isDropDisabled={true}>
                             {(provided, snapshot) => (
@@ -126,7 +126,7 @@ const getListStyle = (isDraggingOver,item) => ({
                                                 
                                             </Item>
                                                     {snapshot.isDragging && (
-                                                        <Item >
+                                                        <Item item={'stay'}  >
                                                             {item}
                                                             
                                                         </Item>
