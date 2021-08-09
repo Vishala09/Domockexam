@@ -255,3 +255,7 @@
 .selected{
   background-color: lightgray;
 }
+
+.borderdraginright{
+  border:'2px solid black';
+}

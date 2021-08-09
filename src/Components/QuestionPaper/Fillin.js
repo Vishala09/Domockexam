@@ -3,6 +3,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import styled from 'styled-components';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import './Qp.css'
 
 function Fillin({el,index}) {
     const grid = 2;
@@ -12,21 +13,25 @@ user-select: none;
 border-radius: 3px;
 text-align:center;
 margin-top:2px;
-border: 1px ${props => (el.type!=="singledragbox" ? props.isDragging ? 'dashed #000' : 'solid black' : '')};
+border: 1px ${props => (((el.type=="dragin") && !(el.image && window.screen.width>=720) ) ? props.isDragging ?  'dashed #000' : 'solid black' : '' )};
 background: ${props => (props.isDragging && props.item=='stay' ? 'lightblue' : '')};
+padding:${props => ((el.type=="singledragbox" ||(el.image && window.screen.width>=720)) ? '' : '5px' )};
+padding-left:5px; 
+padding-right:5px;
+display:${props => ((el.image && window.screen.width>=720) ? 'inline' : '' )};
 `;
 
 const List = styled.div`
 background: #fff;
 border-radius: 3px;
 font-family: sans-serif;
-
 `;
 
 const Kiosk = styled(List)`
     height: ${props => (props.img ? '100px' : '30px')};
-    min-width:100px;
-    
+   // min-width:100px;
+   text-align:right;
+  
 `;
 
     const [answers, setanswers] = useState({});
@@ -95,11 +100,12 @@ const getListStyle = (isDraggingOver,item) => ({
                             <div className={el.image?'row':''}>
                                     {
                                         el.image && 
-                                        <div className="col-md-8 ">
+                                        <div className="col-md-10 ">
                                             <img src={el.image} height="350px" width="100%" />
                                         </div>
                                     }
-                            <div className={el.image && window.screen.width>=720 ?'col-md-4 ':'d-flex flex-row flex-wrap align-items-center justify-content-between'} style={{border:el.type=="singledragbox" && '2px solid black' }}>
+                            <div className={el.image && window.screen.width>=720 ?'col-md-2 ':'d-flex flex-row flex-wrap align-items-center justify-content-between'} 
+                            style={{border:((el.type=="singledragbox") || (el.image && window.screen.width>=720)) && '2px solid black' }}>
                             {el.options.map((item, ind) => ( ind!=0 &&
                             <Droppable droppableId={'items'+ind} isDropDisabled={true}>
                             {(provided, snapshot) => (

@@ -13,6 +13,7 @@ border-radius: 3px;
 text-align:center;
 border: 1px ${props => (props.isDragging ? 'dashed #000' : 'solid black')};
 background: ${props => (props.isDragging && props.item=='stay' ? 'lightblue' : '')};
+padding:5px;
 `;
 
 const List = styled.div`
@@ -24,8 +25,8 @@ font-family: sans-serif;
 //flex: 0 0 200px;
 const Kiosk = styled(List)`
     height: ${props => (props.img ? '100px' : '32px')};
-    min-width:200px;
-    margin:5px;
+    
+    margin:10px;
 `;
 
     const [answers, setanswers] = useState([]);
@@ -141,7 +142,7 @@ const getListStyle = (isDraggingOver,place) => ({
                  </div>
                             
                                    
-                                    <div style={{marginTop:'20px'}} >
+                                    <div style={{marginTop:'30px'}} >
                                         {
                                             el.options.map((m,ind)=> ( ind!=0 &&
                                             <div  className="row d-flex align-items-center mb-2">

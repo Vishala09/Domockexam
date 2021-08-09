@@ -78,7 +78,7 @@ function QuestionPaper() {
                 {/* <h5>Question Type : {el.type}</h5> */}
                     {/* {el.type=="fillin" && <Q1 el={el} index={index} />} */}
                     {el.type=="match" && <Match el={el} index={index} /> }
-                    { (el.type=="dragin" || el.type=="singledragbox") && <Fillin el={el} index={index} />}
+                    { (el.type=="dragin" || el.type=="singledragbox" ) && <Fillin el={el} index={index} />}
                     {/* {el.type=="dropdown" && <Q4 el={el} index={index} />}
                     {el.type=="typein" && <Q5 el={el} index={index} />}
                     {(el.type=="radio" || el.type=="check") && <Q6 el={el} index={index} />}
