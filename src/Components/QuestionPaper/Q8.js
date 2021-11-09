@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import HtmlParser from 'react-html-parser';
+import { connect } from 'react-redux';
 
 
-function Q8({el,index}) {
+function Q8(props) {
+    const {el,index,qusID,isResult,Results} = props;
+    const [answers, setanswers] = useState([]);
     let deSelect = (e,id,index,ind) => {
         if(document.getElementById(id).classList.contains('imChecked'+index+ind))
         {
@@ -16,17 +20,50 @@ function Q8({el,index}) {
                 el.classList.remove("imChecked"+index+ind);
             });
             document.getElementById(id).classList.add('imChecked'+index+ind);
-            console.log(document.getElementById(id).classList)
+           // console.log(document.getElementById(id).classList)
+            
         }
+        var els = document.querySelectorAll(".imChecked"+index+ind);
+        if(els.length==0)
+        {
+            answers[ind]='';
+            let ans = [...answers]
+            setanswers([...answers])
+            let answer = {index:index,qusId:qusID,selectedAnswer:ans,qusType:'True or False'}  
+            props.saveAnswersToStore(answer);
+        }
+    }
+    useEffect(() => {
+        if(props.answersFromStore[index])
+        {
+            setanswers(props.answersFromStore[index].selectedAnswer)
+        }
+        else
+        {
+            for(let i=0;i<el.options.length;i++)
+            {
+                answers[i]='';
+            }
+            setanswers([...answers])
+        }
+        console.log('res',Results,isResult);
+    }, [])
+    const saveAnswers = (ind,ans,opid) => {
+        var els = document.querySelectorAll(".imChecked"+index+ind);
+        if(els.length==0)
+        return;
+        answers[ind]={id:opid,option:ans};
+        setanswers([...answers])
+        let answer = {index:index,qusId:qusID,selectedAnswer:answers,qusType:'True or False'}  
+        props.saveAnswersToStore(answer);
     }
     return (
         <div>
             <div>
-                    <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px',marginRight:'20px'}}>
                         <div className="container-fluid">
-                        <h5>{el.question}</h5>
-                        {el.type=="trueorfalse" &&      
+                        <div style={{width:'100%',overflow:'auto',lineHeight:'2.5'}}>{HtmlParser(el.questionName)}</div>
+                        {el.qusType=="True or False" &&      
                         <div className="row">
                             <div className="col-6 col-md-9" style={{borderWidth:'2px 0px 2px 2px',borderStyle:'solid',borderColor:'black',fontWeight:'bold',background:'darkgrey',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}}>
                                            
@@ -42,39 +79,36 @@ function Q8({el,index}) {
                             </div>
                         </div>}
                     <div style={{borderCollapse:'collapse'}}>
-                              {     el.type=="trueorfalse" ?
-                                  el.q.map((q,ind)=>
+                              {     el.qusType=="True or False" ?
+                                  el.options.map((q,ind)=>
                                   <div className="row">
                                      
                                       <div className="col-6 col-md-9" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black',}}>
-                                            {q}
+                                            {q.option}
                                       </div>
-                                      <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                            <label class="customcheck">
-                                                <input  onClick={(e)=>deSelect(e,'true'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'true'+index+ind} />
+                                      <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center',
+                                      background:isResult &&Results && Results.length>0 && Results[ind].correct==0 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==0 ?'red' : 'none'}}
+                                     >
+                                            <label className={"customcheck"}>
+                                                <input disabled={isResult} checked={props.answersFromStore[index]?.selectedAnswer[ind]?.option=='true'} onClick={(e)=>{deSelect(e,'true'+index+ind,index,ind);saveAnswers(ind,'true',q.id)}} type="radio" name={''+index+ind} id={'true'+index+ind} />
                                                 <span style={{marginTop:'-14px'}} class="checkmark"></span>
                                             </label>
-                                            {/* <div class="form-check">
-                                                <input class="form-check-input cp" onClick={(e)=>deSelect(e,'true'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'true'+index+ind} />
-                                            </div> */}
                                       </div>
-                                      <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}} >
-                                            <label class="customcheck">
-                                                <input  onClick={(e)=>deSelect(e,'false'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'false'+index+ind} />
+                                      <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'
+                                      ,background:isResult &&Results && Results.length>0 && Results[ind].correct==1 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==1 ?'red' : 'none'}} 
+                                      >
+                                            <label className={"customcheck "}>
+                                                <input disabled={isResult} checked={props.answersFromStore[index]?.selectedAnswer[ind]?.option=='false'}  onClick={(e)=>{deSelect(e,'false'+index+ind,index,ind);saveAnswers(ind,'false',q.id)}} type="radio" name={''+index+ind} id={'false'+index+ind} />
                                                 <span style={{marginTop:'-14px'}} class="checkmark"></span>
                                             </label>
-                                            {/* <div class="form-check">
-                                                <input class="form-check-input cp" onClick={(e)=>deSelect(e,'false'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'false'+index+ind} />
-                                            </div> */}
                                       </div>
-                                      <div className="col-2 col-md-1" style={{borderWidth:'0px 2px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}} >
-                                            <label class="customcheck">
-                                                <input  onClick={(e)=>deSelect(e,'na'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'na'+index+ind} />
+                                      <div className="col-2 col-md-1" style={{borderWidth:'0px 2px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center',
+                                      background:isResult &&Results && Results.length>0 && Results[ind].correct==2 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==2 ?'red' : 'none'}} 
+                                     >
+                                            <label className={"customcheck "}>
+                                                <input disabled={isResult} checked={props.answersFromStore[index]?.selectedAnswer[ind]?.option=='na'}  onClick={(e)=>{deSelect(e,'na'+index+ind,index,ind);saveAnswers(ind,'na',q.id)}} type="radio" name={''+index+ind} id={'na'+index+ind} />
                                                 <span style={{marginTop:'-14px'}} class="checkmark"></span>
                                             </label>
-                                            {/* <div class="form-check">
-                                                <input class="form-check-input cp" onClick={(e)=>deSelect(e,'na'+index+ind,index,ind)} type="radio" name={''+index+ind} id={'na'+index+ind} />
-                                            </div> */}
                                       </div>
                                   </div>
                                   ) :
@@ -88,7 +122,7 @@ function Q8({el,index}) {
                                     </div>
                                     
                                 </div>
-                                  {el.q.map((q,ind)=>
+                                  {el.options.map((q,ind)=>
                                   <div>
                                       
                                       <div className="row">
@@ -107,13 +141,25 @@ function Q8({el,index}) {
                                   </div>
                               }  
                         </div>
-                        </div>
+                    </div>
                     </div>
                     
-                    <hr></hr>
                 </div>
         </div>
     )
 }
 
-export default Q8
+//export default Q8
+
+
+const mapStateToProps = state => {
+    return {
+       answersFromStore:state.AnswersReducer,
+    }
+  }
+  const mapDispatchToProps = dispatch => {
+    return {
+        saveAnswersToStore:(json) => dispatch({type:'SET_ANSWERS',payload:json})
+    }
+  }
+  export default connect(mapStateToProps,mapDispatchToProps)(Q8);

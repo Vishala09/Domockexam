@@ -100,26 +100,18 @@
 }
 
 .typein{
-  /* width:100%;
+  /* min-width: 100px; */
   border:none;
   border-bottom:2px dotted black;
-  outline:none;
-  font-style:italic; font-weight: 600;
-  border-collapse: collapse;
-  border-spacing: 0;
-  height: 17px;
-  margin: 0;
-  padding-bottom: 5px;
-  text-indent: 5px; */
-  min-width: 100px;
-  border:none;
-  border-bottom:2px dotted black;
-  outline:none;
   font-style:italic; 
   font-weight: 600;
-  height: 30px;
   text-indent: 5px;
-  padding: 5px;
+  outline: none;
+  padding: 0px;
+  vertical-align: baseline;
+  margin: 0px;
+  line-height: normal;
+  /* height: 30px; */
 }
 
 .fillin{
@@ -149,13 +141,14 @@
    border:none;
    border-bottom:2px dotted black;
    display:inline;
-   min-width:100px;
+   min-width:150px;
    font-style: italic;
-   font-weight: 900;
    cursor: pointer;  
    overflow: hidden; 
    background-color: lightgray;
    padding: 2px;
+   text-indent: 2px;
+   font-weight: 600;
 }
 .mydropdown:hover , .myoption:active , .myoption:checked{
   border:2px dotted #0D6EFD;
@@ -168,7 +161,7 @@
 .mydropdown .myoption:hover ,
 .mydropdown .myoption:active {
     background-color: lightgray;
-    font-weight: 900;
+    font-weight: 600;
 } 
 
 .choose{
@@ -256,6 +249,25 @@
   background-color: lightgray;
 }
 
+.choosed{
+  background-color: darkgray;
+}
+
 .borderdraginright{
   border:'2px solid black';
+}
+
+
+
+img{
+  max-width:100% !important;
+  max-height: 300px !important;
+}
+
+.bgred{
+  background: red;
+}
+
+.bggreen{
+  background: green;
 }

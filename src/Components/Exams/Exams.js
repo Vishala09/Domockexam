@@ -26,6 +26,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+
+import AllTests from './AllTests';
 function Exams() {
     const useStyles = makeStyles({
         
@@ -187,13 +189,42 @@ var isParentNode = function (subMenuItems, id) {
     setanchor(open);
   };
   const theme = createMuiTheme();
-  
+  const BreadcrumbsComp = () => {
+    return <div className="col-9" style={{marginTop:window.screen.width<770?'7vh':'0'}}>
+    <div style={{marginTop:'10px'}}>
+           
+        <div style={{background:'silver',marginBottom:'20px',width:'100%'}} >
+            <Breadcrumbs separator="›"  aria-label="breadcrumb">
+              {
+                 selectedData.map((el,idx)=>
+                          <>
+                              {
+                                idx==selectedData.length-1 ?
+                                <Typography color="textSecondary" key={idx} >
+                                      { ReactHtmlParser(el.name) }
+                                </Typography>
+                                :
+                                <Link style={{textDecoration:'none'}} key={idx} color="inherit" to="/" 
+                                onClick={(e)=>handleClick(e,el.id)}>
+                                      { ReactHtmlParser(el.name) }
+                                </Link>
+                              }
+                          </>
+                          
+                  )
+              }
+              </Breadcrumbs>
+        </div>
+    </div>
+     
+</div>
+  }
     return (
-        <div style={{top:'20vh'}} >
-            {/* <h4 className="text-center" >Exams</h4> */}
-            <div className="d-flex flex-row">
+        <div style={{top:'20vh'}} className="container-fluid" >
+            <div className="row">
               {
               window.screen.width >=770 ?
+              <>
               <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
                   expanded={expanded}  selected={selected}
                   onNodeToggle={handleToggle}  onNodeSelect={handleSelect}
@@ -207,11 +238,16 @@ var isParentNode = function (subMenuItems, id) {
                       data.map((nodes)=>renderTree(nodes))
                   }   
               </TreeView>
+              <div className="col-10">
+                    <div  > {BreadcrumbsComp()} </div>
+                    <AllTests />
+              </div>
+              </>
               :
               <div>
                   <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'15vh',left:0,right:0,
                   width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',zIndex:2500,padding:'10px'}}> 
-                        <div className="row" style={{fontSize:'18px',paddingLeft:'20px',color:'white',width:'100%'}}>
+                      <div className="row" style={{fontSize:'18px',paddingLeft:'20px',color:'white',width:'100%'}}>
                           <div onClick={toggleDrawer(true)} className="col-1" >
                               <i class="fa fa-chevron-circle-down"></i>
                              
@@ -220,7 +256,7 @@ var isParentNode = function (subMenuItems, id) {
                           <span style={{marginLeft:'3px'}}> Courses</span>
                           </div>
                           
-                        </div>
+                      </div>
                   </div>
                   <Drawer anchor={'left'} open={anchor} style={{zIndex:3000,marginTop:'15vh'}} onClose={toggleDrawer(false)}>
                   <div
@@ -247,36 +283,14 @@ var isParentNode = function (subMenuItems, id) {
                       </TreeView>
                     </div>
                   </Drawer>
+                  <div>
+                        {BreadcrumbsComp()}
+                        <AllTests />
+                  </div>
               </div>
               }
-              <div className="col-9" style={{marginTop:window.screen.width<770?'7vh':'0'}}>
-                  <div style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop:'10px'}}>
-                          {/* {ReactHtmlParser(selectedData)} */}
-                          <div >
-                          <Breadcrumbs separator="›"  aria-label="breadcrumb">
-                            {
-                               selectedData.map((el,idx)=>
-                                        <>
-                                            {
-                                              idx==selectedData.length-1 ?
-                                              <Typography color="textSecondary" key={idx} >
-                                                    { ReactHtmlParser(el.name) }
-                                              </Typography>
-                                              :
-                                              <Link style={{textDecoration:'none'}} key={idx} color="inherit" to="/" 
-                                              onClick={(e)=>handleClick(e,el.id)}>
-                                                    { ReactHtmlParser(el.name) }
-                                              </Link>
-                                            }
-                                        </>
-                                        
-                                )
-                            }
-                            </Breadcrumbs>
-                          </div>
-                  </div>
-                    
-              </div>
+              
+              
             </div>
         </div>
     )

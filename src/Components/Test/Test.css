@@ -1,0 +1,34 @@
+.numberButton{
+    display:block;
+    margin: 5px;;
+    width:100%;
+    background-color: lightgray;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.timeLimit {
+    animation: 15s multicolor;
+}
+
+@keyframes multicolor {
+    0% {
+        background-color: orange;
+    }
+    33% {
+        background-color: goldenrod;
+    }
+    66% {
+        background-color: orangered;
+    }
+    100% {
+        background-color: red;
+    }
+}

@@ -203,7 +203,7 @@ function Q9({el,index}) {
                 }
                 </div>
                 
-            <hr></hr>
+            
         </div>
     )
 }

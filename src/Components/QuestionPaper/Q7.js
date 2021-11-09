@@ -28,7 +28,7 @@ function Q7({el,index}) {
             {/* {
                 Questions.map((el,index)=> */}
                 <div>
-                        <h4>{index+1}.&nbsp;{el.questionheading} </h4>
+                        <h4>{index}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px',marginRight:'20px'}}>
                         <h5>{el.question}</h5>
                         <em>Words count : {Remaining}</em>
@@ -38,7 +38,7 @@ function Q7({el,index}) {
 
                         </textarea>
                     </div>
-                    <hr></hr>
+                   
                 </div>
                 {/* )
             } */}

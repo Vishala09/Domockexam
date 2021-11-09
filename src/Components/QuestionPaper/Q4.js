@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Parser from 'html-react-parser';
 import './Qp.css';
+import { connect } from 'react-redux';
 function Q4({el,index}) {
     useEffect(() => {
       let elems =  document.getElementsByClassName('mydropdown');
@@ -8,14 +9,17 @@ function Q4({el,index}) {
       {
           elems[i].addEventListener("change", checkSelection)
       }
+     
     }, [])
+    function changedValue(){
+        console.log(this.options[this.selectedIndex].value);
+        //e.options[e.selectedIndex].value
+    }
     let checkSelection = function()
     {
-        console.log('selans');
         let elems=document.getElementsByClassName('selans');
         for(let i=0;i<elems.length;i++)
         {
-            console.log('elems[i]',elems[i]);
             if(elems[i].selected)
             {
                 elems[i].parentElement.style.background="lightgray";
@@ -27,45 +31,36 @@ function Q4({el,index}) {
             }
         }
     }
+    
     const formatques = function(str)
     {
-         let rstr=""; 
+         let rstr="";
         for(let i=0;i<str.length;i++)
         {
             if(str[i]=="{")
             {
-                
-                rstr=rstr+`<span><select  class="mydropdown dropdown-toggle" data-flip="false" 
+                rstr=rstr+`
+                <select id=${index+'dropdown'}  class="mydropdown dropdown-toggle" data-flip="false" onchange="changedValue()"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-dropup-auto="false" >  
-                <option  value="selans"  class="selans" style="font-style:normal;" > Select answer </option> `
+                <option  value="selans"  class="selans" style="font-style:normal;" > Select answer </option>
+                `
                 let j=i+1;
-                let opts=[];
-                let s="";
                 while(j<str.length)
                 {
-                    if(str[j]=="," || str[j]=="}")
-                    {
-                        opts.push(s);
-                        s="";
-                    }
-                    else
-                    {
-                        s=s+str[j];
-                    }
                     if(str[j]=="}")
                     {
                         break;
                     }
                        j++;
                 }
-             
-                for(let k=0;k<opts.length;k++)
+                for(let k=0;k<el.options.length;k++)
                 {
-                    rstr=rstr+`<option class="myoption" value=`+opts[k]+`>`+opts[k]+`</option>`
+                    rstr=rstr+`<option  class="myoption" value=`+el.options[k].option+`>`+el.options[k].option+`</option>`
                 }
                 rstr=rstr+` </select></span>`;
-
+                
               i=j;
+              
             }
             
             else
@@ -75,24 +70,55 @@ function Q4({el,index}) {
         }
         return rstr;
     }
+    const [Question, setQuestion] = useState(el);
+
+useEffect(() => {
+    // let str=el.questionName; 
+    //         const regex = /{[^{}]+}/g;
+    //         str = str.replace(regex, '<span style="display:inline-block;"></span>');
+        
+    //         str=str.split('<p>&nbsp;</p>').join("");
+    //         str=str.split('<br />').join("");
+    //         Question.questionName=str;
+    let opts = Question.options;
+    opts = shuffle(opts);
+    Question.options=opts;
+    setQuestion({...Question})
+}, [])   
+
+function shuffle(sourceArray) {
+    for (var i = 0; i < sourceArray.length - 1; i++) {
+        var j = i + Math.floor(Math.random() * (sourceArray.length - i));
+
+        var temp = sourceArray[j];
+        sourceArray[j] = sourceArray[i];
+        sourceArray[i] = temp;
+    }
+    return sourceArray;
+} 
     return (
         <div>
-            {/* {
-                Questions.map((el)=> */}
                 <div>
-                    <h4>{index+1}.&nbsp;{el.questionheading} </h4>
                     <div style={{marginLeft:'20px',marginRight:'20px'}}>
-                        <h5>{el.question}</h5>
-                        <div style={{lineHeight:'2.5'}}>
-                                {Parser(formatques(el.q))}  
+                        <div style={{lineHeight:'2.5',overflow:'auto',width:'100%'}}>
+                                {Parser(formatques(Question.questionName))}
                         </div>
                     </div>
-                    <hr></hr>
+                   
                 </div>
-                {/* )
-            } */}
         </div>
     )
 }
 
-export default Q4
+//export default Q4
+const mapStateToProps = state => {
+    return {
+       answersFromStore:state.AnswersReducer,
+    }
+  }
+  const mapDispatchToProps = dispatch => {
+    return {
+        saveAnswersToStore:(json) => dispatch({type:'SET_ANSWERS',payload:json})
+    }
+  }
+  export default connect(mapStateToProps,mapDispatchToProps)(Q4);

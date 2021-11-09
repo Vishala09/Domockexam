@@ -1,3 +1,5 @@
+// for the first answer box to work in 'down' -> droppableId={index+1} => droppableId !=0
+
 import React, { Component, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -63,9 +65,9 @@ function Q2bdnd() {
 
     let itemstemp = items;
     let sourceelem = itemstemp[source.droppableId][source.index];
-    itemstemp[source.droppableId].splice(source.index,1);
+  ///  itemstemp[source.droppableId].splice(source.index,1);
     
-    itemstemp['done'][destination.droppableId]=sourceelem
+    itemstemp['done'][destination.droppableId-1]=sourceelem
 
     setitems({...itemstemp})
   }
@@ -84,7 +86,7 @@ function Q2bdnd() {
               style={getListStyle(snapshot.isDraggingOver)}
             >
                 {items['todo'].map((item, index) => (
-                <Draggable key={item.id+1} draggableId={'col'+item.id+1} index={index+1}>
+                <Draggable key={item.id+1} draggableId={'col'+item.id+1} index={index}>
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
@@ -109,7 +111,7 @@ function Q2bdnd() {
        
         {
         items['done'].map((item, index) => (
-                  <Droppable droppableId={'done'+index}>
+                  <Droppable droppableId={index+1}  >
          
                   {(provided, snapshot) => (
                     <div

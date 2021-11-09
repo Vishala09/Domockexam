@@ -3,7 +3,8 @@ import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-ro
 import './Header.css'
 import SearchBar from './SearchBar';
 import SideBar from './SideBar';
-function Header() {
+import { useLocation } from 'react-router-dom';
+function Header(props) {
     let closeSideNav = () => {
         document.getElementById("mySidenav").style.left='-1000px'
         document.getElementById("mySidenav").classList.add('mySidenav')
@@ -21,7 +22,32 @@ function Header() {
         document.getElementById('dim').addEventListener('click',function(){
               closeSideNav();
         })
-  }, [])
+  }, []);
+
+  const location = useLocation();
+  const CurrentPath = location.pathname;
+  useEffect(() => {
+        if(location.pathname=='/test')
+        {
+            setActiveHeader('test')
+        }
+        if(location.pathname=='/questionpaper')
+        {
+            setActiveHeader('questionpaper')
+        }
+        if(location.pathname=='/home')
+        {
+            setActiveHeader('home')
+        }
+        if(location.pathname=='/exams')
+        {
+            setActiveHeader('exams')
+        }
+        if(location.pathname=='/report')
+        {
+            setActiveHeader('report')
+        }
+  }, [location])
     return (
         <div>
             
@@ -31,14 +57,18 @@ function Header() {
             <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'8vh',left:0,right:0,
             width:'100%',alignItems:'center',display:'flex',zIndex:3000}} onClick={()=>closeSideNav()}>
                 <div className="header_center" >
-                    <Link to="/test" onClick={()=>setActiveHeader('test')} 
+                    <Link to="/report" 
+                    className={ActiveHeader=='report'?'header_item activeHeader':'normalHeader header_item'}>
+                            My Reports
+                    </Link>
+                    <Link to="/test"  
                     className={ActiveHeader=='test'?'header_item activeHeader':'normalHeader header_item'}>
                             Test
                     </Link>
-                    <Link to="/home" onClick={()=>setActiveHeader('home')} 
+                    
+                    <Link to="/home" 
                     className={ActiveHeader=='home'?'header_item activeHeader':'normalHeader header_item'} >
-                            <div >Home</div>
-                           
+                            <div>Home</div>
                                 <div type="none"  className="selectedHeaderOptions1">
                                     <div className="subHeader">
                                             <a className="subHeaderLink">Sub Header 11</a>
@@ -50,10 +80,8 @@ function Header() {
                                             <a className="subHeaderLink">Sub Header 13</a>
                                     </div>         
                                 </div>
-                                
-                           
                     </Link>
-                    <Link to="/exams" onClick={()=>setActiveHeader('exams')} 
+                    <Link to="/exams" 
                     className={ActiveHeader=='exams'?'header_item activeHeader':'normalHeader header_item'} >
                             <div >Exams</div>
                             <div type="none"  className="selectedHeaderOptions1">
@@ -68,7 +96,7 @@ function Header() {
                                 </div>         
                             </div>
                     </Link>
-                    <Link to="" onClick={()=>setActiveHeader('contact')} className={ActiveHeader=='contact'?'header_item activeHeader':'normalHeader header_item'} >
+                    <Link to=""  className={ActiveHeader=='contact'?'header_item activeHeader':'normalHeader header_item'} >
                             Contact Us
                     </Link>
                 </div>

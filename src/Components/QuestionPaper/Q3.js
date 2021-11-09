@@ -120,7 +120,8 @@ function Q3({el,index}) {
                             }
                             </div>
                             :
-                            <div className="" id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
+                            // Q3 - BASIC TYPE
+                            <div  id={'div'+index} onDrop={(event)=>drop(event)} onDragOver={(event)=>allowDrop(event)}>
                             {
                                 el.options.map((op,idx)=>
                                 <span className="dragelement" onDragEnd={(event)=>dragEnd(event)}
