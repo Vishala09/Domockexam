@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {setCookie,getCookie} from '../HelperFunctions/CookieSettings'
+
+
 function SearchBar(props) {
     
+    const LoggedInUser = useSelector(state => state.LoginReducer);
+
+    useEffect(() => {
+        
+    }, [LoggedInUser])
+
     return (
             <div style={{position:'fixed',background:'black',height:'8vh',textAlign:'center',top:props.view=='mobile'?'7vh':'0',left:0,right:0,
         width:'100%',alignItems:'center',display:'flex',fontWeight:'bolder',color:'white',zIndex:10}}>
@@ -25,7 +35,10 @@ function SearchBar(props) {
                         <input type="text" style={{width:props.view=='mobile'?'70%':'50%',height:'5vh',border:'2px solid #ff8000'}} />
                         <button style={{width:props.view=='mobile'?'15%':'5%',background:'#ff9933',height:'5vh',border:'2px solid #ff8000'}}>
                         <i class="fa fa-search" ></i></button>
-                        
+                    <div style={{color:'white',marginLeft:'5px'}}>Welcome &nbsp;
+                    
+                    {(getCookie('domockexamUsername')=='undefined' || getCookie('domockexamUsername')=='')?' User':getCookie('domockexamUsername')}
+                     </div>    
             </div>
         
     )

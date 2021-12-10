@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Register from './Components/User/Register';
 import Header from './Components/Header/Header';
-import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
+import { BrowserRouter as Router , Switch, Route,Link,useHistory, BrowserRouter , Redirect} from 'react-router-dom';
 import Login from './Components/User/Login';
 import 'font-awesome/css/font-awesome.min.css';
 import SearchBar from './Components/Header/SearchBar';
@@ -13,62 +13,63 @@ import QuestionPaper from './Components/QuestionPaper/QuestionPaper';
 import axios from 'axios';
 import Test from './Components/Test/Test';
 import Report from './Components/Reports/Report';
+import { useDispatch, useSelector } from 'react-redux';
+import {setCookie,getCookie} from './Components/HelperFunctions/CookieSettings';
+import { HashRouter } from 'react-router-dom';
 
-function App() {
+function App(props) {
+      const dispatch = useDispatch();
+      const UserLogin = useSelector(state => state.LoginReducer);
+      let reqBody = {
+            "UserName":UserLogin?.username,
+            "Password":UserLogin?.password,
+            "RememberMe":true
+        }
       useEffect(() => {
-            let rbody = {
-                        "UserName":"bala23",
-                        "Password":"Sample@7774",
-                        "RememberMe":true
-                        }
-            var requestOptions = {
-              method: 'POST',
-              body: JSON.stringify(rbody),
-              redirect: 'follow',
-              headers:{'Content-Type':'application/json'}
-            };
-
-            fetch("https://api.domockexam.com/account/login", requestOptions)
-              .then(response => response.json())
-              .then(result => {console.log(result);
-                 
-            })
-              .catch(error => console.log('error', error));
-
-              //////////////////////////
-
+            console.log(getCookie('domockexamToken'),UserLogin)
+            {
+                  if(UserLogin.firstName=='')
+                  {
+                    //dispatch({type:'LOGIN_USER_REQUESTED',payload:reqBody});
+                  }
+            }
         }, []); 
        
   return (
-    <div className=""  >
+    <div className="">
       <div className="dim" id="dim"></div>
-      <Router>
+      
+      <HashRouter >
            
             <Header ></Header>
             <div style={{marginTop:'15vh'}}>
-            <Route exact path="/test">
+            <Switch>
+            <Route path="/test">
                   <Test />
+                  <Redirect to='/test'  />
             </Route>
-            <Route exact path="/questionpaper">
-                  <QuestionPaper />
-            </Route>
-            <Route exact path="/home">
+            <Route path="/home">
                   <Home />
+                  <Redirect to='/home'  />
             </Route>
-            <Route exact path="/report">
+            <Route path="/report">
                   <Report />
+                  <Redirect to='/report'  />
             </Route>
-            <Route exact path="/exams">
+            <Route path="/exams">
                   <Exams />
+                  <Redirect to='/exams'  />
             </Route>
-            <Route exact path="/login">
+            <Route path="/login">
                   <Login />
+                  <Redirect to='/login'  />
             </Route>
-            <Route exact path="/">
+            <Route path="/">
                   <Register />
             </Route>
+            </Switch>
             </div>
-      </Router>
+      </HashRouter>
       
     </div>
   );

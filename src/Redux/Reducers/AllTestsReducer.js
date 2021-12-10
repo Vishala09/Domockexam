@@ -6,7 +6,7 @@ const AllTestsReducer = (state=initialState,action) => {
         case 'GET_ALL_TESTS':
             {
                 state=action.payload;
-                console.log(state,"GET_ALL_TESTS state")
+                //console.log(state,"GET_ALL_TESTS state")
                 return [...state];
             }
         default:

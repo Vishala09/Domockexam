@@ -1,6 +1,14 @@
 import React from 'react'
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {setCookie,getCookie} from '../HelperFunctions/CookieSettings'
+
 function SideBar(props) {
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const LoggedInUser = useSelector(state => state.LoginReducer);
+    
     
     return (
         <div id="mySidenav" className="sideBar" >
@@ -19,7 +27,8 @@ function SideBar(props) {
                             <i className="fa fa-user-circle" style={{color:'white',fontSize:'50px'}}></i>
                             
                             <div style={{display:'flex',flexDirection:'column',marginLeft:'12px'}} className="">
-                                <span><Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">My Name</Link></span>
+                                <span><Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">
+                                    {(getCookie('domockexamUsername')=='undefined' || getCookie('domockexamUsername')=='')?'':getCookie('domockexamUsername')}</Link></span>
                                 <span style={{color:'gray'}}>Student</span>
                             </div>
                         </div>
@@ -29,7 +38,7 @@ function SideBar(props) {
                                 <hr className="colorHr"></hr>
                                     <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Change Password</Link>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Log Out</Link>
+                                    <Link onClick={()=>{props.closeSideNav();dispatch({type:'LOGOUT_USER'});history.push('')}} to="/" className="noLink linkLH">Log Out</Link>
                             </>
                             :
                             <>

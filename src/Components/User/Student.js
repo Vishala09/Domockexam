@@ -1,4 +1,4 @@
-import React,{useState,useRef, useEffect} from 'react'
+import React,{useState,useRef, useEffect, useCallback} from 'react'
 import District from '../HelperComps/District';
 import PasswordView from '../HelperComps/PasswordView';
 import Parent from './Parent'
@@ -11,7 +11,10 @@ function Student(props) {
                         ];
     const [IsParent, setIsParent] = useState(false);
     const [StudentData, setStudentData] = useState({firstname:"",surname:"",gender:"",grade:"",email:"",password:"",
-                                                school:"",district:"",child:IsParent,phone:"",username:"",source:""})
+                                                school:"",district:"",child:IsParent,phone:"",username:"",source:""});
+    const [ParentData, setParentData] = useState({firstname:"",surname:"",gender:"",email:"",password:"",
+                                                child:false,phone:"",source:""});
+    
     
     const above18ref = useRef()
     let checkSchoolGrade = (val) => {
@@ -36,6 +39,19 @@ function Student(props) {
         above18:"",
         school:""
     });
+
+    let [ParentValidationRules,setParentValidationRules] = useState({
+        firstname:"",
+        surname:"",
+        gender:"",
+        grade:"",
+        email:"",
+        username:"",
+        password:"",
+        phone:"",
+        above18:"",
+        school:""
+    });
    
    
     const validateAbove18 = ( ) => {
@@ -46,16 +62,17 @@ function Student(props) {
     }
     const PhoneInputHandler = (e) => {
         let phone=e.target.value;
-        console.log(e.nativeEvent)
         if(e.nativeEvent.data>=0 && e.nativeEvent.data<=9)
         {
-            console.log(e.nativeEvent.data)
             setStudentData({...StudentData,phone:phone})
             setValidationRules({...validationRules,phone: validatePhone(e.target.value)})
         }
         
     }
+
+
     let validate = () => {
+       // console.log(StudentData);
         let flag=false;
         let tempValidationRules={}
         tempValidationRules['firstname']=validateFirstName(StudentData.firstname);
@@ -78,7 +95,39 @@ function Student(props) {
                 break;
             }
         }
+      //  console.log('tempValidationRulesStudent',tempValidationRules)
        return !flag
+    }
+   
+    let validateParentData = () => {
+       // console.log(ParentData)
+        let flag=false;
+        let tempValidationRules={}
+        tempValidationRules['firstname']=validateFirstName(ParentData.firstname);
+        tempValidationRules['surname']=validateFirstName(ParentData.surname);
+        tempValidationRules['gender']=validateGender(ParentData.gender);
+        tempValidationRules['grade']=validateGrade(ParentData.grade);
+        tempValidationRules['email']=validateEmail(ParentData.email);
+        tempValidationRules['password']=validatePassword(ParentData.password);
+        tempValidationRules['school']=validateSchool(ParentData.school);
+        tempValidationRules['phone']=validatePhone(ParentData.phone);
+        
+      
+        setParentValidationRules({...tempValidationRules})
+        for(let key in tempValidationRules)
+        {
+            if(tempValidationRules[key]!="")
+            {
+                flag=true;
+                break;
+            }
+        }
+      //  console.log('tempValidationRulesParent',tempValidationRules)
+       return !flag
+    }
+
+    const ParentDataHandler = (ParentData) => {
+            setParentData(ParentData)
     }
    
     return (
@@ -134,8 +183,8 @@ function Student(props) {
                 <div className="row smalltext">
                     <h6 class="px-3 smalltext"> School Grade : (In {monthNames[new Date().getMonth()] +" "+ new Date().getFullYear()}) 
                     <span className="px-1" style={{color:'red'}}>*</span>  </h6>
-                    <div class="px-3 paddedInput mb-2" >
-                        <select value={StudentData.grade} class="mb-1 form-select smalltext"
+                    <div class="px-3 paddedInput mb-2" >  
+                        <select  class="mb-1 form-select smalltext" value={StudentData.grade}
                         onChange={(e)=>{setStudentData({...StudentData,grade:e.target.value});checkSchoolGrade(e.target.value);
                         setValidationRules({...validationRules,grade: validateGrade(e.target.value)})}} 
                         
@@ -154,7 +203,7 @@ function Student(props) {
                             <option value="10">10</option>
                             <option value="11">G.C.E O/L</option>
                             <option value="12">G.C.E A/L</option>
-                            <option value="Other">Other(Above 18 years of age)</option>
+                            <option value="18">Other(Above 18 years of age)</option>
 
                         </select>
                         <span className="err">{validationRules.grade}</span>
@@ -209,7 +258,7 @@ function Student(props) {
                         <div class="px-3 paddedInput mb-2" >
                             <span style={{display:'flex',justifyContent:'space-around'}}>
                             <input ref={Passref} class="mb-1 form-control smalltext" type="password" 
-                            value={StudentData.password} name="password"
+                            name="password" value={StudentData.password} 
                             onChange={(e)=>{setStudentData({...StudentData,password:e.target.value});
                             setValidationRules({...validationRules,password: validatePassword(e.target.value)})}}  
                             placeholder="Enter Password" /> 
@@ -244,7 +293,7 @@ function Student(props) {
                     <div className="row smalltext">
                         <h6 class="px-3 smalltext"> How did you hear about us?  </h6>
                         <div class="px-3 paddedInput" >
-                            <select class="form-select smalltext mb-2" value={StudentData.source} name="source" 
+                            <select class="form-select smalltext mb-2"  name="source" value={StudentData.source}
                         onChange={(e)=>setStudentData({...StudentData,source:e.target.value})} aria-label="Default select example">
                                 <option selected>Select Source</option>
                                 <option value="1">Search Engine</option>
@@ -258,11 +307,17 @@ function Student(props) {
         </div>
         </div>
         {
-            IsParent && <Parent />
+            IsParent && <Parent ParentDataHandler={ParentDataHandler} ParentValidationRules={ParentValidationRules}  />
         }
         </div>
         <div>
-            <RegisterFooter validate={validate}  />
+            {
+                IsParent ?
+                <RegisterFooter role={1} StudentData={StudentData} ParentData={ParentData} validate={validate} validateParentData={validateParentData} />
+                :
+                <RegisterFooter role={6} StudentData={StudentData} ParentData={ParentData} validate={validate}  />
+            }
+            
         </div>        
         
         </>

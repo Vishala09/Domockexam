@@ -6,7 +6,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { connect } from 'react-redux';
 
 function Rearrange(props) {
-    const {el,index,qusID,isResult,Results} = props
+    const {el,index,qusID,isResult,Results,sectionID,isCorrectAnswers} = props
     const [choosed, setChoosed] = useState(false);
 
 
@@ -109,7 +109,7 @@ const Kiosk = styled(List)`
 
     function onDragEnd(result) {
         const { destination, source, draggableId } = result
-        console.log(source,destination);
+        //console.log(source,destination);
         if (!destination) {
           return
         }
@@ -117,7 +117,7 @@ const Kiosk = styled(List)`
          let sourceelem = Options[source.index];
          answers[destination.droppableId-1]=sourceelem;
          setanswers([...answers]);
-         let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Re-Ararnge'}
+         let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Re-Ararnge',lastUpdatedSectionIndex:sectionID}
          props.saveAnswersToStore(obj);
       }
 
@@ -130,7 +130,7 @@ const Kiosk = styled(List)`
       const remove = (ind) => {
           answers[ind]='';
           setanswers([...answers]);
-          let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Re-Ararnge'}
+          let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Re-Ararnge',lastUpdatedSectionIndex:sectionID}
          props.saveAnswersToStore(obj);
       }
      
@@ -209,10 +209,16 @@ const Kiosk = styled(List)`
                                                                         snapshot.isDragging,
                                                                         provided.draggableProps.style
                                                                     )}
+                                                                    className={((isResult &&Results && Results.length>0 && Results[ind]?.isCorrect) ? ' bggreen ' : isResult &&Results && Results.length>0 && Results[ind]?.isCorrect==false ?' bgred ' : ' none ')}
+                                                                   
                                                                     >
+                                                                        {isResult && isCorrectAnswers && el.options[ind].option}
+
+                                                                        {/* {isResult && !isCorrectAnswers && 'NA'} */}
+
                                                                         {answers[ind] && answers[ind].option}
                                                                         {
-                                                                            answers[ind]!="" &&
+                                                                            answers[ind]!="" && isResult!=true &&
                                                                             <OverlayTrigger
                                                                                 placement="right"
                                                                                 delay={{ show: 250, hide: 100 }}

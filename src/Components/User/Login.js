@@ -1,10 +1,89 @@
-import React, { useRef } from 'react'
+import React, { useRef , useState , useEffect} from 'react'
 import Home from './Home'
 import { BrowserRouter as Router , Switch, Route,Link,useHistory} from 'react-router-dom';
 import PasswordView from '../HelperComps/PasswordView';
+import { useDispatch, useSelector } from 'react-redux';
+import {validatePassword} from '../HelperFunctions/Validations';
+import {withRouter} from 'react-router-dom'
+
+
 function Login() {
     const history = useHistory();
-    const Passref = useRef()
+    const Passref = useRef();
+    const dispatch = useDispatch();
+    const [UserData, setUserData] = useState({emailusername:"",password:""});
+    const msgFromServer = useSelector(state => state.LoginReducer);
+    const [Typing, setTyping] = useState(false);
+
+    let [validationRules,setValidationRules] = useState({
+        emailusername:"",
+        password:""
+    });
+    function validateEmail(email){
+        if(email=="")
+        {
+                return "Email or Username cannot be empty"
+        }
+        else
+        {
+                return "";
+        }
+    }
+    let validate = () => {
+        // console.log(UserData);
+         let flag=false;
+         let tempValidationRules={}
+
+         tempValidationRules['emailusername']=validateEmail(UserData.email);
+         tempValidationRules['password']=validatePassword(UserData.password);
+        
+         setValidationRules({...tempValidationRules})
+         for(let key in tempValidationRules)
+         {
+             if(tempValidationRules[key]!="")
+             {
+                 flag=true;
+                 break;
+             }
+         }
+       //  console.log('tempValidationRulesStudent',tempValidationRules)
+        return !flag
+     }
+     const loginUser = () => {
+        let canLogin = validate();
+        let reqBody = {
+            "UserName":UserData.emailusername,
+            "Password":UserData.password,
+            "RememberMe":true
+        }
+        if(canLogin)
+        {
+            setTyping(false);
+            dispatch({type:'LOGIN_USER_REQUESTED',payload:reqBody});
+        }
+     }
+
+     useEffect(() => {
+        if(msgFromServer?.result==false)
+        {
+          //  alert("Login failed!")
+        }
+     }, [msgFromServer])
+
+     const UserLogin = useSelector(state => state.LoginReducer);
+     // const history = useHistory();
+      useEffect(() => {
+//     console.log('LOGIN USEEFFECT',Object.keys(UserLogin).length>0 , 
+// (UserLogin.username!=undefined && UserLogin.value?.token!=undefined) && (UserLogin.username!='undefined' && UserLogin.value?.token!='undefined') ,
+//  UserLogin.result!=false)
+         if(Object.keys(UserLogin).length>0 && (
+          (UserLogin.username!='undefined' && UserLogin.value?.token!='undefined')) && UserLogin.result!=false)
+           { 
+               console.log('/exams')
+               history.push('/exams');
+            }
+      }, [UserLogin])
+
     // bootstrap cols - 5 for text,6 for form,1 for right space(not mentioning) ; 
     return (
         <div>
@@ -32,7 +111,11 @@ function Login() {
                                 <div class="row smalltext" > 
                                     <h6 class="px-3 smalltext">Email Address or Username : <span className="px-1" style={{color:'red'}}>*</span></h6>
                                     <div class="px-3 paddedInput" >
-                                        <input class="mb-2 form-control smalltext" type="text" name="Email" placeholder="Enter Email Address or Username" /> 
+                                        <input class="mb-2 form-control smalltext" type="text" name="Email" placeholder="Enter Email Address or Username" 
+                                        value={UserData.emailusername}
+                                        onChange={(e)=>{setUserData({...UserData,emailusername:e.target.value});setTyping(true);
+                                        ;setValidationRules({...validationRules,emailusername: validateEmail(e.target.value)})}}  /> 
+                                        <span className="err">{validationRules.emailusername}</span>
                                     </div>
                                 </div>
                                 <div class="row smalltext" > 
@@ -40,9 +123,13 @@ function Login() {
                                     <h6 class="px-3 smalltext">Password : <span className="px-1" style={{color:'red'}}>*</span></h6>
                                     <div class="px-3 paddedInput" >
                                         <span style={{display:'flex',justifyContent:'space-around'}}>
-                                            <input ref={Passref} class="mb-2 form-control smalltext" type="password" name="password" placeholder="Enter Password" /> 
+                                            <input ref={Passref} class="mb-2 form-control smalltext" type="password" name="password" placeholder="Enter Password" 
+                                            value={UserData.password}
+                                            onChange={(e)=>{setUserData({...UserData,password:e.target.value});setTyping(true);
+                                            ;setValidationRules({...validationRules,password: validatePassword(e.target.value)})}} /> 
                                             <PasswordView Passref={Passref} />
                                         </span>
+                                        <span className="err">{validationRules.password}</span>
                                     </div>
                                 
                                 </div>
@@ -50,7 +137,8 @@ function Login() {
                                 </form>
                         </div>
                         <div className="" style={{margin:'20px'}}>
-                                    <button style={{width:'100%'}} className="btn btn-primary register">Login</button>
+                                    <button style={{width:'100%'}} onClick={loginUser} className="btn btn-primary register">Login</button>
+                            <em style={{color:'red'}}>{msgFromServer?.result==false && Typing==false && 'Login failed.Please try again.'}</em>
                         </div>
                         
                         <div className="d-flex align-items-center justify-content-center" style={{margin:'20px'}}>
@@ -72,4 +160,4 @@ function Login() {
     )
 }
 
-export default Login
+export default withRouter(Login)

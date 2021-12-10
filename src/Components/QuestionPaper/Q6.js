@@ -4,7 +4,7 @@ import Parser from 'html-react-parser';
 import { connect } from 'react-redux';
 
 function Q6(props) {
-    const {el,index,qusID,isResult,Results} = props;
+    const {el,index,qusID,isResult,Results,sectionID,isCorrectAnswers} = props;
     let deSelect = (e,id,op) => {
         //checkbox like radio
         if(e.target.checked)
@@ -24,7 +24,7 @@ function Q6(props) {
             if (ind > -1) {
                 selectedAnswer.splice(ind, 1);
             }
-            let answer = {index:index,qusId:qusID,selectedAnswer:selectedAnswer,qusType:'MCQ'}  //=> makes it radio
+            let answer = {index:index,qusId:qusID,selectedAnswer:selectedAnswer,qusType:'MCQ',lastUpdatedSectionIndex:sectionID}  //=> makes it radio
             props.saveAnswersToStore(answer);
         }
         
@@ -35,7 +35,7 @@ function Q6(props) {
              selectedAnswer = props.answersFromStore[index].selectedAnswer;
         
         selectedAnswer.push(op)
-        let answer = {index:index,qusId:qusID,selectedAnswer:selectedAnswer,qusType:'MCQ'}  //=> makes it radio
+        let answer = {index:index,qusId:qusID,selectedAnswer:selectedAnswer,qusType:'MCQ',lastUpdatedSectionIndex:sectionID}  //=> makes it radio
         props.saveAnswersToStore(answer);
     }
     const [Question, setQuestion] = useState(el);
@@ -62,13 +62,13 @@ function Q6(props) {
                             Question.options.map((op,ind)=>
                             <div  className="col-6 col-lg-3 col-md-3 choose" >
                                 <div  className="mb-1 m-1">
-                                    <label className={"customcheck "+((isResult &&Results && Results.length>0 && Results[ind]?.isCorrect) ? ' bggreen ' : isResult &&Results && Results.length>0 && Results[ind]?.isCorrect==false ?' bgred ' : ' none ')} 
+                                    <label className={"customcheck "+((isResult &&Results && (isCorrectAnswers || Results[ind]?.isSelected) && Results.length>0 && Results[ind]?.isCorrect) ? ' bggreen ' : isResult &&Results && Results.length>0 && Results[ind]?.isCorrect==false ?' bgred ' : ' none ')} 
                                     //style={{background:isResult && Results[ind].isCorrect ? 'green' : isResult && Results[ind].isCorrect==false ?'red' : 'none'}}
                                     >
                                         {op.option}
                                         <input onClick={(e)=>{deSelect(e,''+index+ind,op);}} type="checkbox"
                                             name={''+index} id={''+index+ind} disabled={isResult}
-                defaultChecked={props.answersFromStore[index] && props.answersFromStore[index].selectedAnswer.includes(op)} 
+                defaultChecked={!isResult && props.answersFromStore[index] && props.answersFromStore[index].selectedAnswer.includes(op)} 
                              />
                                         <span class="checkmark"></span>
                                     </label>

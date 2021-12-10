@@ -4,7 +4,13 @@ import './Header.css'
 import SearchBar from './SearchBar';
 import SideBar from './SideBar';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 function Header(props) {
+    const LoggedInUser = useSelector(state => state.LoginReducer);
+    const history = useHistory();
+
     let closeSideNav = () => {
         document.getElementById("mySidenav").style.left='-1000px'
         document.getElementById("mySidenav").classList.add('mySidenav')
@@ -31,10 +37,6 @@ function Header(props) {
         {
             setActiveHeader('test')
         }
-        if(location.pathname=='/questionpaper')
-        {
-            setActiveHeader('questionpaper')
-        }
         if(location.pathname=='/home')
         {
             setActiveHeader('home')
@@ -47,7 +49,17 @@ function Header(props) {
         {
             setActiveHeader('report')
         }
-  }, [location])
+        if(location.pathname=='/login')
+        {
+            setActiveHeader('')
+        }
+        
+  }, [location]);
+
+  const navigate = (path) => {
+            history.push(path);
+  }
+
     return (
         <div>
             
@@ -57,16 +69,16 @@ function Header(props) {
             <div style={{position:'fixed',background:'#232F3E',height:'7vh',top:'8vh',left:0,right:0,
             width:'100%',alignItems:'center',display:'flex',zIndex:3000}} onClick={()=>closeSideNav()}>
                 <div className="header_center" >
-                    <Link to="/report" 
+                    <Link  onClick={() => navigate('report')}
                     className={ActiveHeader=='report'?'header_item activeHeader':'normalHeader header_item'}>
                             My Reports
                     </Link>
-                    <Link to="/test"  
+                    <Link 
                     className={ActiveHeader=='test'?'header_item activeHeader':'normalHeader header_item'}>
                             Test
                     </Link>
                     
-                    <Link to="/home" 
+                    <Link  to="/home"
                     className={ActiveHeader=='home'?'header_item activeHeader':'normalHeader header_item'} >
                             <div>Home</div>
                                 <div type="none"  className="selectedHeaderOptions1">
@@ -81,7 +93,7 @@ function Header(props) {
                                     </div>         
                                 </div>
                     </Link>
-                    <Link to="/exams" 
+                    <Link  onClick={() => navigate('exams')}
                     className={ActiveHeader=='exams'?'header_item activeHeader':'normalHeader header_item'} >
                             <div >Exams</div>
                             <div type="none"  className="selectedHeaderOptions1">
@@ -101,6 +113,7 @@ function Header(props) {
                     </Link>
                 </div>
                 <SideBar openSideNav={openSideNav} closeSideNav={closeSideNav} />
+                
             </div>
         </div>
         :
@@ -125,6 +138,7 @@ function Header(props) {
                 <SideBar openSideNav={openSideNav} closeSideNav={closeSideNav} />
             </div>
             <SearchBar openSideNav={openSideNav} closeSideNav={closeSideNav} view='mobile' />
+            
         </div>
             }
     </div>

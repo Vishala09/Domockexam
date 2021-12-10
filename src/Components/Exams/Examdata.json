@@ -1,110 +1,252 @@
 [
-    {"id": "1",
-    "name": "Grade 5",
-    "children": [
-      {
-        "id": "11",
-        "name": "Scholarship ",
-        "children": [
-            {
-                "id": "111",
-                "name": "Sinhala&nbsp;Medium"
-            },
-            {
-                "id": "112",
-                "name": "Tamil&nbsp;Medium"
-            }
-          ]
-      }
-    ]},
-    {"id": "2",
-    "name": "G.C.E&nbspO/L",
-    "children": [
-      {
-        "id": "21",
-        "name": "English&nbsp;Language "
-      },
-      {
-        "id": "22",
-        "name": "English&nbsp;Literature "
-      },
-      {
-        "id": "23",
-        "name": "Maths ",
-        "children": [
-            {
-                "id": "231",
-                "name": "Sinhala&nbsp;Medium"
-            },
-            {
-                "id": "232",
-                "name": "Tamil&nbsp;Medium"
-            },
-            {
-                "id": "233",
-                "name": "English&nbsp;Medium"
-            }
-          ]
-      }
-    ]
+  {"id": "1",
+  "name": "Sinhala&nbsp;",
+  "children": [
+    {
+      "id": "11",
+      "name": "G.C.E&nbspA/L",
+      "children": [
+          {
+              "id": "111",
+              "name": "English"
+          },
+          {
+              "id": "112",
+              "name": "Maths"
+          },
+    {
+              "id": "113",
+              "name": "Chemistry"
+          },
+          {
+              "id": "114",
+              "name": "Physics"
+          },
+    {
+              "id": "115",
+              "name": "General&nbsp;Knowledge"
+          }
+        ]
     },
-    {"id": "3",
-    "name": "G.C.E&nbspA/L",
-    "children": [
-      {
-        "id": "31",
-        "name": "Physics",
-        "children": [
-            {
-                "id": "311",
-                "name": "Sinhala&nbsp;Medium"
-            },
-            {
-                "id": "312",
-                "name": "Tamil&nbsp;Medium"
-            },
-            {
-                "id": "313",
-                "name": "English&nbsp;Medium"
-            }
-          ]
-      },
-      {
-        "id": "32",
-        "name": "Chemistry",
-        "children": [
-            {
-                "id": "321",
-                "name": "Sinhala&nbsp;Medium"
-            },
-            {
-                "id": "322",
-                "name": "Tamil&nbsp;Medium"
-            },
-            {
-                "id": "323",
-                "name": "English&nbsp;Medium"
-            }
-          ]
-      },
-      {
-        "id": "33",
-        "name": "General&nbsp;Knowledge ",
-        "children": [
-            {
-                "id": "331",
-                "name": "Sinhala&nbsp;Medium"
-            },
-            {
-                "id": "332",
-                "name": "Tamil&nbsp;Medium"
-            },
-            {
-                "id": "333",
-                "name": "English&nbsp;Medium"
-            }
-          ]
-      }
-    ]
+  {
+      "id": "12",
+      "name": "G.C.E&nbspO/L",
+      "children": [
+          {
+              "id": "121",
+              "name": "English"
+          },
+          {
+              "id": "122",
+              "name": "Maths"
+          },
+    {
+              "id": "123",
+              "name": "Chemistry"
+          },
+          {
+              "id": "124",
+              "name": "Physics"
+          },
+    {
+              "id": "125",
+              "name": "General&nbsp;Knowledge"
+          }
+        ]
+    },
+  {
+  "id": "13",
+      "name": "Grade 1",
+      "children": [
+          {
+              "id": "131",
+              "name": "English"
+          },
+          {
+              "id": "132",
+              "name": "Maths"
+          },
+    {
+              "id": "133",
+              "name": "Chemistry"
+          },
+          {
+              "id": "134",
+              "name": "Physics"
+          },
+    {
+              "id": "135",
+              "name": "General&nbsp;Knowledge"
+          }
+        ]
     }
+  ]
+},
+{"id": "2",
+  "name": "Tamil&nbsp;",
+  "children": [
+    {
+      "id": "21",
+      "name": "G.C.E&nbspA/L",
+      "children": [
+          {
+              "id": "211",
+              "name": "English"
+          },
+          {
+              "id": "212",
+              "name": "Maths"
+          },
+    {
+              "id": "213",
+              "name": "Chemistry"
+          },
+          {
+              "id": "214",
+              "name": "Physics"
+          },
+    {
+              "id": "215",
+              "name": "General&nbsp;Knowledge"
+          }
+        ]
+    },
+  {
+      "id": "22",
+      "name": "G.C.E&nbspO/L",
+      "children": [
+          {
+              "id": "221",
+              "name": "English"
+          },
+          {
+              "id": "222",
+              "name": "Maths"
+          },
+    {
+              "id": "223",
+              "name": "Chemistry"
+          },
+          {
+              "id": "224",
+              "name": "Physics"
+          },
+    {
+              "id": "225",
+              "name": "General&nbsp;Knowledge"
+          }
+        ]
+    },
+  {
+  "id": "23",
+      "name": "Grade 1",
+      "children": [
+          {
+              "id": "231",
+              "name": "English"
+          },
+          {
+              "id": "232",
+              "name": "Maths"
+          },
+    {
+              "id": "233",
+              "name": "Chemistry"
+          },
+          {
+              "id": "234",
+              "name": "Physics"
+          },
+    {
+              "id": "235",
+              "name": "General&nbsp;Knowledge"
+          }
+        ]
+    }
+  ]
+},
+{"id": "3",
+  "name": "English&nbsp;",
+  "children": [
+    {
+      "id": "31",
+      "name": "G.C.E&nbspA/L",
+      "children": [
+          {
+              "id": "311",
+              "name": "English"
+          },
+          {
+              "id": "312",
+              "name": "Maths"
+          },
+    {
+              "id": "313",
+              "name": "Chemistry"
+          },
+          {
+              "id": "314",
+              "name": "Physics"
+          },
+    {
+              "id": "315",
+              "name": "General&nbsp;Knowledge"
+          }
+        ]
+    },
+  {
+      "id": "32",
+      "name": "G.C.E&nbspO/L",
+      "children": [
+          {
+              "id": "321",
+              "name": "English"
+          },
+          {
+              "id": "322",
+              "name": "Maths"
+          },
+    {
+              "id": "323",
+              "name": "Chemistry"
+          },
+          {
+              "id": "324",
+              "name": "Physics"
+          },
+    {
+              "id": "325",
+              "name": "General&nbsp;Knowledge"
+          }
+        ]
+    },
+  {
+  "id": "33",
+      "name": "Grade 1",
+      "children": [
+          {
+              "id": "331",
+              "name": "English"
+          },
+          {
+              "id": "332",
+              "name": "Maths"
+          },
+    {
+              "id": "333",
+              "name": "Chemistry"
+          },
+          {
+              "id": "334",
+              "name": "Physics"
+          },
+    {
+              "id": "335",
+              "name": "General&nbsp;Knowledge"
+          }
+        ]
+    }
+  ]
+}
+  
 ]

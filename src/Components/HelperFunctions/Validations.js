@@ -31,9 +31,9 @@ export function validateFirstName(data)
     err += "Name must not contain special characters"
     else if(spaceformat.test(data))
     err += "Name must not contain space"
-    else if(data.length <3) 
+    else if(data?.length <3) 
     err += "Name too short"
-    else if(data.length > 25)
+    else if(data?.length > 25)
     err += "Name too long"
     
     return err;
@@ -68,9 +68,9 @@ export function validateUsername(data)
 
 export function validateEmail(data)
 {
-    let d=data.split("@");
+    let d=data?.split("@");
     //console.log(d,d[0].length,d[0].length>=64)
-    if(data.includes("@") && d[0].length>=64)
+    if(data?.includes("@") && d[0].length>=64)
     return "Please enter a valid email address"
     else if(emailformat.test(data)) 
     return ""
@@ -80,12 +80,12 @@ export function validateEmail(data)
 
 export function validatePassword(data)
 {
-    if(data.match(/[a-z]/g) && data.match(
-        /[A-Z]/g) && data.match(
-        /[0-9]/g) && data.match(
+    if(data?.match(/[a-z]/g) && data?.match(
+        /[A-Z]/g) && data?.match(
+        /[0-9]/g) && data?.match(
         /[^a-zA-Z\d]/g) && 
         splcharformat.test(data) && 
-        !spaceformat.test(data) && data.length >= 8) 
+        !spaceformat.test(data) && data?.length >= 8) 
     return ""
     else if(spaceformat.test(data))
     return "Password must not contain space"
@@ -94,9 +94,11 @@ export function validatePassword(data)
 }
 
 export function validatePhone(data)
-{   console.log('phonevalidate',data)
+{   
     if(data!="" && !numberformat.test(data))
-    return "Phone number must contain only digits"
+    {
+        return "Phone number must contain only digits"
+    }
     else if(data!="" && data.length!=10) 
     {
         return "Phone number must have 10 digits"

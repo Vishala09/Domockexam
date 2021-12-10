@@ -1,30 +1,25 @@
 import {call,put,takeEvery,take} from 'redux-saga/effects';
 import axios from 'axios';
+import {setCookie,getCookie} from '../../Components/HelperFunctions/CookieSettings'
 
 function getAllTestsFromAPI()
 {
-        
-        let rbody = {
-            "UserName":"bala23",
-            "Password":"Sample@7774",
-            "RememberMe":true
-            }
-        return axios.post('https://api.domockexam.com/account/login',rbody)
-        .then((res)=>{
-            console.log('res1',res);
-            return axios.get(`https://api.domockexam.com/StudentTest/GetTest`)
+   
+    return axios.get(`https://api.domockexam.com/StudentTest/GetTest`,
+            { headers:{Authorization:'Bearer '+getCookie('domockexamToken'),"Content-Type":"application/json"}})
                 .then((res)=>{
                     console.log('res',res);
                     return res.data;
                 })
                 .catch((err)=>{
-                    console.log('err2',err);
+                    console.log('err',err.response);
+                    // if(err?.response?.status==401)
+                    // {
+                    //     window.location.href='login';
+                    // }
                     return err;           
                 })
-        })
-        .catch((err)=>{
-            console.log('err1',err);
-        })
+    
 
 }
 

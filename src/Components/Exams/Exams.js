@@ -28,6 +28,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
 import AllTests from './AllTests';
+import { useSelector } from 'react-redux';
 function Exams() {
     const useStyles = makeStyles({
         
@@ -81,6 +82,22 @@ function Exams() {
     
       })(MuiTreeItem);
       const classes = useStyles();
+
+      const UserLogin = useSelector(state => state.LoginReducer);
+      const history = useHistory();
+      useEffect(() => {
+        // console.log('EXAMS USEEFFECT', ((UserLogin.username==undefined && UserLogin.value?.token==undefined) ||
+        // (UserLogin.username=='undefined' && UserLogin.value?.token=='undefined')));
+        // console.log(((UserLogin.username==undefined && UserLogin.value?.token==undefined) ||
+        // (UserLogin.username=='undefined' && UserLogin.value?.token=='undefined')))
+        
+           //if((UserLogin.username=='undefined' && UserLogin.value?.token=='undefined') || (UserLogin.username==undefined && UserLogin.value?.token==undefined))
+        if(((UserLogin.username=='undefined' && UserLogin.value?.token=='undefined')))  
+          {
+            console.log('/login')
+             history.push('/login');
+          }
+      }, [])
   
   var getSubMenuItem = function (subMenuItems, id,arr) {
     if (subMenuItems) {
@@ -225,7 +242,7 @@ var isParentNode = function (subMenuItems, id) {
               {
               window.screen.width >=770 ?
               <>
-              <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-lg-2'} 
+              <TreeView className={window.screen.width<770?classes.treeviewmobile+'':classes.treeview+' col-md-2'} 
                   expanded={expanded}  selected={selected}
                   onNodeToggle={handleToggle}  onNodeSelect={handleSelect}
                   defaultExpandIcon={<svg className="d-flex justify-content-center" xmlns="http://www.w3.org/2000/svg" 

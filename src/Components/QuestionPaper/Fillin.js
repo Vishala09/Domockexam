@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 
 function Fillin(props) {
 
-const {el,index,qusID,isResult,Results} = props;
+const {el,index,qusID,isResult,Results,sectionID,isCorrectAnswers} = props;
 
 const Item = styled.div`
     display: flex;
@@ -62,6 +62,7 @@ useEffect(() => {
         }
         setanswers([...answers]);
     }
+   
 }, [])   
     
 function shuffle(sourceArray) {
@@ -185,9 +186,13 @@ const DroppableComp = (ind) => {
                 className={((isResult &&Results && Results.length>0 &&  Results[ind]?.isCorrect) ? ' bggreen ' : isResult &&Results && Results.length>0 && Results[ind]?.isCorrect==false ?' bgred ' : ' none ')}
                 >
                   
-                  {isResult && answers[ind]=='' && el.options[ind]?.option}
-                    {answers[ind]?.option}
-           
+                    {isResult && isCorrectAnswers && el.options[ind]?.option}
+
+                    {/* {isResult && !isCorrectAnswers && 'NA'} */}
+
+                    {answers[ind] && answers[ind]?.option}
+                                                                        
+                    
                     {
                         answers[ind]!='' && answers[ind]!=undefined && isResult!=true && 
                         <OverlayTrigger
@@ -234,7 +239,7 @@ const getListStyle = (isDraggingOver,item) => ({
          let sourceelem = Options[source.index];
          answers[destination.droppableId-1]={id:sourceelem.id,option:sourceelem.option};
          setanswers([...answers]);
-         let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Gap Filling'}
+         let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Gap Filling',lastUpdatedSectionIndex:sectionID}
          props.saveAnswersToStore(obj);
 
       }
@@ -246,7 +251,7 @@ const getListStyle = (isDraggingOver,item) => ({
       const remove = (ind) => {
           answers[ind]='';
           setanswers([...answers]);
-          let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Gap Filling'}
+          let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Gap Filling',lastUpdatedSectionIndex:sectionID}
          props.saveAnswersToStore(obj);
       }
     return (
@@ -291,7 +296,7 @@ const getListStyle = (isDraggingOver,item) => ({
                                                 {...provided.dragHandleProps}
                                                 isDragging={snapshot.isDragging}
                                                 type={el.type}
-                                                className={Array.isArray(answers) && answers.some(e => e.option === item.option) && 'selected'}
+                                                className={!isResult && Array.isArray(answers) && answers.some(e => e.option === item.option) && 'selected'}
                                                 >
                                                 {item.option} 
                                                 

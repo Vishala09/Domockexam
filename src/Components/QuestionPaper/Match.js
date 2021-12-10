@@ -7,7 +7,7 @@ import HtmlParser from 'react-html-parser';
 import { connect } from 'react-redux';
 
 function Match(props) {
-    const {el,index,qusID,isResult,Results} = props
+    const {el,index,qusID,isResult,Results,sectionID,isCorrectAnswers} = props
     const grid = 2;
 
 const Item = styled.div`
@@ -134,7 +134,7 @@ const getListStyle = (isDraggingOver) => ({
          let sourceelem = OptionsLeft[source.index];
          answers[destination.droppableId-1]=sourceelem;
          setanswers([...answers])
-         let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Match the following'}
+         let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Match the following',lastUpdatedSectionIndex:sectionID}
          props.saveAnswersToStore(obj);
        
       }
@@ -146,7 +146,7 @@ const getListStyle = (isDraggingOver) => ({
       const remove = (ind) => {
           answers[ind]='';
           setanswers([...answers])
-          let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Match the following'}
+          let obj={index:index,qusId:qusID,selectedAnswer:answers,qusType:'Match the following',lastUpdatedSectionIndex:sectionID}
          props.saveAnswersToStore(obj);
       }
     return (
@@ -156,7 +156,7 @@ const getListStyle = (isDraggingOver) => ({
                             <div style={{overflow:'auto',width:'100%'}}>{HtmlParser( el.questionName )}</div>
                             <div >
                             <DragDropContext onDragEnd={onDragEnd} >
-                                <div className="d-flex flex-row justify-content-between flex-wrap" >
+                                <div className="d-flex flex-row flex-wrap" >
                                     
                             {OptionsLeft.map((item, ind) => ( 
                             <Droppable droppableId={'options'+index+''+ind} 
@@ -182,7 +182,7 @@ const getListStyle = (isDraggingOver) => ({
                                                     provided.draggableProps
                                                         .style
                                                 }
-                                                className={answers.includes(item) && 'selected'}
+                                                className={!isResult && answers.includes(item) && 'selected'}
                                                 >
                                                   
                                                 {item.left} 
@@ -249,8 +249,13 @@ const getListStyle = (isDraggingOver) => ({
                                                                     )}
                                                                     className={((isResult &&Results && Results.length>0 && Results[ind]?.isCorrect) ? ' bggreen ' : isResult &&Results && Results.length>0 && Results[ind]?.isCorrect==false ?' bgred ' : ' none ')}
                                                                     >
-                                                                        {isResult && (answers[ind]==undefined || answers[ind].left==undefined) && el.options[ind].left}
-                                                                        {answers[ind] && answers[ind].left}
+
+                                                                        {isResult && isCorrectAnswers && el.options[ind]?.left}
+
+                                                                        {/* {isResult && !isCorrectAnswers && 'NA'} */}
+
+                                                                        {answers[ind] && answers[ind].option}
+
                                                                         {answers[ind] && answers[ind].img &&
                                                                         <>
                                                                         <img draggable={false} src={answers[ind].img} height="70px" width="100px" />

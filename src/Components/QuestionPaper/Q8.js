@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 
 function Q8(props) {
-    const {el,index,qusID,isResult,Results} = props;
+    const {el,index,qusID,isResult,Results,sectionID,isCorrectAnswers} = props;
     const [answers, setanswers] = useState([]);
     let deSelect = (e,id,index,ind) => {
         if(document.getElementById(id).classList.contains('imChecked'+index+ind))
@@ -29,7 +29,7 @@ function Q8(props) {
             answers[ind]='';
             let ans = [...answers]
             setanswers([...answers])
-            let answer = {index:index,qusId:qusID,selectedAnswer:ans,qusType:'True or False'}  
+            let answer = {index:index,qusId:qusID,selectedAnswer:ans,qusType:'True or False',lastUpdatedSectionIndex:sectionID}  
             props.saveAnswersToStore(answer);
         }
     }
@@ -46,7 +46,7 @@ function Q8(props) {
             }
             setanswers([...answers])
         }
-        console.log('res',Results,isResult);
+      
     }, [])
     const saveAnswers = (ind,ans,opid) => {
         var els = document.querySelectorAll(".imChecked"+index+ind);
@@ -54,7 +54,7 @@ function Q8(props) {
         return;
         answers[ind]={id:opid,option:ans};
         setanswers([...answers])
-        let answer = {index:index,qusId:qusID,selectedAnswer:answers,qusType:'True or False'}  
+        let answer = {index:index,qusId:qusID,selectedAnswer:answers,qusType:'True or False',lastUpdatedSectionIndex:sectionID}  
         props.saveAnswersToStore(answer);
     }
     return (
@@ -87,26 +87,26 @@ function Q8(props) {
                                             {q.option}
                                       </div>
                                       <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center',
-                                      background:isResult &&Results && Results.length>0 && Results[ind].correct==0 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==0 ?'red' : 'none'}}
+                                      background:isResult &&Results && Results.length>0 && isCorrectAnswers && Results[ind].correct==0 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==0 ?'red' : 'none'}}
                                      >
                                             <label className={"customcheck"}>
-                                                <input disabled={isResult} checked={props.answersFromStore[index]?.selectedAnswer[ind]?.option=='true'} onClick={(e)=>{deSelect(e,'true'+index+ind,index,ind);saveAnswers(ind,'true',q.id)}} type="radio" name={''+index+ind} id={'true'+index+ind} />
+                                                <input disabled={isResult} checked={!isResult && props.answersFromStore[index]?.selectedAnswer[ind]?.option=='true'} onClick={(e)=>{deSelect(e,'true'+index+ind,index,ind);saveAnswers(ind,'true',q.id)}} type="radio" name={''+index+ind} id={'true'+index+ind} />
                                                 <span style={{marginTop:'-14px'}} class="checkmark"></span>
                                             </label>
                                       </div>
                                       <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'
-                                      ,background:isResult &&Results && Results.length>0 && Results[ind].correct==1 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==1 ?'red' : 'none'}} 
+                                      ,background:isResult &&Results && Results.length>0 && isCorrectAnswers && Results[ind].correct==1 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==1 ?'red' : 'none'}} 
                                       >
                                             <label className={"customcheck "}>
-                                                <input disabled={isResult} checked={props.answersFromStore[index]?.selectedAnswer[ind]?.option=='false'}  onClick={(e)=>{deSelect(e,'false'+index+ind,index,ind);saveAnswers(ind,'false',q.id)}} type="radio" name={''+index+ind} id={'false'+index+ind} />
+                                                <input disabled={isResult} checked={!isResult && props.answersFromStore[index]?.selectedAnswer[ind]?.option=='false'}  onClick={(e)=>{deSelect(e,'false'+index+ind,index,ind);saveAnswers(ind,'false',q.id)}} type="radio" name={''+index+ind} id={'false'+index+ind} />
                                                 <span style={{marginTop:'-14px'}} class="checkmark"></span>
                                             </label>
                                       </div>
                                       <div className="col-2 col-md-1" style={{borderWidth:'0px 2px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center',
-                                      background:isResult &&Results && Results.length>0 && Results[ind].correct==2 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==2 ?'red' : 'none'}} 
+                                      background:isResult &&Results && Results.length>0 && isCorrectAnswers && Results[ind].correct==2 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==2 ?'red' : 'none'}} 
                                      >
                                             <label className={"customcheck "}>
-                                                <input disabled={isResult} checked={props.answersFromStore[index]?.selectedAnswer[ind]?.option=='na'}  onClick={(e)=>{deSelect(e,'na'+index+ind,index,ind);saveAnswers(ind,'na',q.id)}} type="radio" name={''+index+ind} id={'na'+index+ind} />
+                                                <input disabled={isResult} checked={!isResult && props.answersFromStore[index]?.selectedAnswer[ind]?.option=='na'}  onClick={(e)=>{deSelect(e,'na'+index+ind,index,ind);saveAnswers(ind,'na',q.id)}} type="radio" name={''+index+ind} id={'na'+index+ind} />
                                                 <span style={{marginTop:'-14px'}} class="checkmark"></span>
                                             </label>
                                       </div>

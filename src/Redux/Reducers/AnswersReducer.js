@@ -13,7 +13,13 @@ const AnswersReducer = (state=initialState,action) => {
             {
                 state[action.payload.index]=action.payload;
                 state['lastUpdatedIndex']=action.payload.index;
+                state['lastUpdatedSectionIndex']=action.payload.lastUpdatedSectionIndex;
                 console.log(state,"SET_ANSWERS state")
+                return {...state};
+            }
+        case 'CLEAR_ANSWERS':
+            {
+                state={}
                 return {...state};
             }
         default:

@@ -25,12 +25,14 @@ function TestCard(props) {
         <div  className="col-12 col-md-6 col-lg-4">
             
            <Card style={{margin:'10px'}} >
-                <Card.Header>Title : {title}</Card.Header>
+                <Card.Header><Card.Title>Title : {title}</Card.Title></Card.Header>
                 <Card.Body>
-                    <Card.Title>Subject Name : {subjectName} </Card.Title>
+                    
                     <Card.Text>
-                            <div>Grade Name : {gradeName} </div>
+                            <div>Subject : {subjectName} </div>
+                            <div>Grade : {gradeName} </div>
                             <div>Duration : {duration} minutes </div>
+                            <div style={{fontSize:'11px'}}>Test Id : {id}  </div>
                     </Card.Text>
                     <Button variant="primary" onClick={()=>getTest()}>Take Test</Button>
                 </Card.Body>

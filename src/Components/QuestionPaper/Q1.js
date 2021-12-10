@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import './Qp.css';
 import Parser from 'html-react-parser';
 
-function Q1({el,index,qusID}) {
+function Q1(props) {
+    const {el,index,qusID,isResult,Results,sectionID} = props
     const [answers, setanswers] = useState([]);
     const [Question, setQuestion] = useState(el);
     function changedValue(){

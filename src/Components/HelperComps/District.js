@@ -10,7 +10,8 @@ function District(props) {
                     <h6 class="px-3 smalltext"> District Name :</h6>
                     <div class="px-3 paddedInput" >
                     <input class="mb-1 form-control smalltext" list="districts" type="text" value={props.Data.district} name="district" 
-                        onChange={(e)=>{props.setData({...props.StudentData,district:e.target.value})}} placeholder="Select District" />
+                        onChange={(e)=>{props.Data.district=e.target.value;
+                            props.setData({...props.Data})}} placeholder="Select District" />
                             <datalist id="districts">
                             {
                                 Districts.map((dis)=><option>{dis}</option>)

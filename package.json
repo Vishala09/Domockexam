@@ -2,6 +2,7 @@
   "name": "courses",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://domockexam.com/",
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
@@ -25,6 +26,7 @@
     "react-dnd-multi-backend": "^6.0.2",
     "react-dnd-touch-backend": "^14.0.0",
     "react-dom": "^17.0.2",
+    "react-full-screen": "^1.1.0",
     "react-google-invisible-recaptcha": "^0.2.11",
     "react-html-parser": "^2.0.2",
     "react-recaptcha": "^2.3.10",

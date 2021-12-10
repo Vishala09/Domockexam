@@ -5,11 +5,10 @@ import {setCookie,getCookie} from '../../Components/HelperFunctions/CookieSettin
 function saveStudentTestAPI(action)
 {
     const requestBody = action.payload 
-    return axios.post(`https://api.domockexam.com/StudentTest/SaveStudentTest`,requestBody,
+    return axios.post(`https://api.domockexam.com/StudentTest/SaveStudentTest`,requestBody, 
     { headers:{Authorization:'Bearer '+getCookie('domockexamToken'),"Content-Type":"application/json"}})
     .then((res)=>{
-        setCookie('domockexamStudentTestId',res.data.studentTestId)
-        console.log("Successfully registered test ")
+        console.log("Successfully posted answer log")
         return res.data;
     })
     .catch((err)=>{
@@ -21,7 +20,7 @@ function* saveStudentTestAPIWorkerSaga(action)
 {
     try{
             const Result = yield call(saveStudentTestAPI,action);
-            console.log('registered',Result);
+            console.log('saveAnswerLogAPI',Result);
             yield put({type:'SAVE_STUDENT_TEST'})
     }
     catch(e)
