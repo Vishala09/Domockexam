@@ -1,12 +1,11 @@
 import Fillin from "./QuestionPaper/Fillin";
 import Q1 from "./QuestionPaper/Q1";
 import Q4 from "./QuestionPaper/Q4";
-import Q6 from "./QuestionPaper/Q6";
-import Q8 from "./QuestionPaper/Q8";
+import MCQ from "./QuestionPaper/MCQ";
+import TrueOrFalse from "./QuestionPaper/TrueOrFalse";
 
  Q4
- match
  Fillin
  Q1
- Q8
- Q6
+ TrueOrFalse
+ MCQ

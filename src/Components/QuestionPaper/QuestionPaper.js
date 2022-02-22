@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Q1 from './Q1';
 import Q4 from './Q4';
 import Q5 from './Q5';
-import Q6 from './Q6';
+import MCQ from './MCQ';
 import Questions from './Questions.json';
 import 'bootstrap/dist/css/bootstrap.css';
 import Q7 from './Q7';
-import Q8 from './Q8';
+import TrueOrFalse from './TrueOrFalse';
 import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Match from './Match';
@@ -56,9 +56,9 @@ function QuestionPaper() {
                     { (el.type=="dragin" || el.type=="singledragbox" ) && <Fillin el={el} index={index} />}
                      {el.type=="dropdown" && <Q4 el={el} index={index} />}
                     {el.type=="typein" && <Q5 el={el} index={index} />} */}
-                    {(el.qusType=="MCQ") && <Q6 el={el} index={index} />}
+                    {(el.qusType=="MCQ") && <MCQ el={el} index={index} />}
                     {/* {el.type=="essay" && <Q7 el={el} index={index} />} */}
-                    {(el.qusType=="True or False") && <Q8 el={el} index={index} />} 
+                    {(el.qusType=="True or False") && <TrueOrFalse el={el} index={index} />} 
                     {el.qusType=="Gap Filling" && <Fillin el={el} index={el.qusID} key={el.qusID} /> }
                     {el.qusType=='One word answer' && <Q1 el={el} index={el.qusID} key={el.qusID} />}
 

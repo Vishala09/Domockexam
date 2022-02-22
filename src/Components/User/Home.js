@@ -1,4 +1,5 @@
 import React from 'react'
+import CompanyName from '../Home/CompanyName'
 
 function Home() {
     return (
@@ -6,7 +7,7 @@ function Home() {
                   style={{minHeight:window.screen.width<=770?'50vh':'85vh',backgroundColor:'#0D6EFD'}}>
                     <div class="" >
                         <div class="card-body d-flex flex-column justify-content-center align-items-center" >
-                            <h3>Company Name</h3>
+                            <h3><CompanyName/></h3>
                             
                             <div className="d-flex justify-content-center align-items-center" 
                                  style={{height:'20vh',width:'100%',backgroundColor:'green'}}>

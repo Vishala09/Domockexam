@@ -9,6 +9,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import './Qp.css'
 import Parser from 'html-react-parser';
+
 import { connect } from 'react-redux';
 
 function Fillin(props) {
@@ -46,10 +47,12 @@ const Kiosk = styled(List)`
     let [answers, setanswers] = useState([]);
     const [Question, setQuestion] = useState(el);
     let [dropCompIndex, setdropCompIndex] = useState(0);
-    const [Options, setOptions] = useState([...el.options])
-
+    const [Options, setOptions] = useState([...el.customOptions])
+  
 useEffect(() => {
-    formatQuestion();
+
+   // formatQuestion();
+
     if(props.answersFromStore[index])
     {
         setanswers(props.answersFromStore[index].selectedAnswer)
@@ -65,37 +68,6 @@ useEffect(() => {
    
 }, [])   
     
-function shuffle(sourceArray) {
-    for (var i = 0; i < sourceArray.length - 1; i++) {
-        var j = i + Math.floor(Math.random() * (sourceArray.length - i));
-
-        var temp = sourceArray[j];
-        sourceArray[j] = sourceArray[i];
-        sourceArray[i] = temp;
-    }
-    return sourceArray;
-}
-
-const formatQuestion = () => {
-            let str=el.questionName; 
-            const regex = /{[^{}]+}/g;
-            str = str.replace(regex, '<h1 style="display:inline-block;"></h1>');
-        
-            str=str.split('<p>&nbsp;</p>').join("");
-            str=str.split('<br />').join("");
-            Question.questionName=str;
-
-            // const imgRegex = /<img .*?>/ig
-            // str = str.replace(imgRegex, 'IMAGE');
-           let opts = Options;
-           opts = shuffle(opts);
-           setOptions([...opts]);
-        
-        Question.questionName=str;
-        setQuestion({...Question})
-
-}
-
 
 const added =[]
 function renderData(){ 
@@ -190,7 +162,7 @@ const DroppableComp = (ind) => {
 
                     {/* {isResult && !isCorrectAnswers && 'NA'} */}
 
-                    {answers[ind] && answers[ind]?.option}
+                    {!isCorrectAnswers && answers[ind] && answers[ind]?.option}
                                                                         
                     
                     {
@@ -258,11 +230,11 @@ const getListStyle = (isDraggingOver,item) => ({
         <div>
        
                         <div  style={{marginLeft:'20px',marginRight:'20px'}}>
-                            
+                            <h5>{Question.instruction}</h5>
                             <div style={{overflow:'auto !important'}} >
                             <DragDropContext  onDragEnd={onDragEnd} >
                                    
-                            <div  >
+                            <div>
                             <div style={{border:'2px solid gray',borderRadius:'5px',padding:'2px'}} className={el.image?'row':''}>
                                     {
                                         el.image && 
@@ -298,12 +270,12 @@ const getListStyle = (isDraggingOver,item) => ({
                                                 type={el.type}
                                                 className={!isResult && Array.isArray(answers) && answers.some(e => e.option === item.option) && 'selected'}
                                                 >
-                                                {item.option} 
+                                                {item.option.includes('extra:')?item.option.replace("extra:",""):item.option} 
                                                 
                                             </Item>
                                                   
                                                     {snapshot.isDragging && (
-                                                        <Clone isDragging={snapshot.isDragging}> {item.option}</Clone>
+                                                        <Clone isDragging={snapshot.isDragging}> {item.option.includes('extra:')?item.option.replace("extra:",""):item.option}</Clone>
                                                     )}
                                         </React.Fragment>
                                     )}

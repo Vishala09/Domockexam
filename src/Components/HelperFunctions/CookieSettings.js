@@ -24,7 +24,33 @@ export function getCookie(cname) {
 
   export function deleteUserCookies()
   {
-    document.cookie = 'domockexamToken' + '=;';
-                document.cookie = 'domockexamEmail' + '=;';
+                document.cookie = 'domockexamToken' + '=;';
                 document.cookie = 'domockexamUsername' + '=;';
+                document.cookie = 'domockexamID' + '=;';
+                document.cookie = 'domockexamUserID' + '=;';
+                document.cookie = 'domockexamUserType' + '=;';
+
+                document.cookie = 'domockexamStudentData' + '=;';
+                document.cookie = 'domockexamParentChildrenData' + '=;';
+
+
+
+                // document.cookie = 'domockexamFirstName' + '=;';
+                // document.cookie = 'domockexamLastName' + '=;';
+                // document.cookie = 'domockexamDistrict' + '=;';
+                // document.cookie = 'domockexamInstitution' + '=;';
+                // document.cookie = 'domockexamLanguageKnown' + '=;';
+                
+                // document.cookie = 'domockexamChildFirstName' + '=;';
+                // document.cookie = 'domockexamChildLastName' + '=;';
+                // document.cookie = 'domockexamChildDistrict' + '=;';
+                // document.cookie = 'domockexamChildInstitution' + '=;';
+                // document.cookie = 'domockexamChildLanguageKnown' + '=;';
+                // document.cookie = 'domockexamChildUsername' + '=;';
+                // document.cookie = 'domockexamChildID' + '=;';
+                // document.cookie = 'domockexamChildUserID' + '=;';
+                // document.cookie = 'domockexamChildUserType' + '=;';
+
+                console.log('logout')
+                window.location.reload();
   }

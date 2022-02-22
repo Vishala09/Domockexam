@@ -28,8 +28,8 @@ function Register() {
                                     <select value={UserType} class="form-select smalltext mb-2" aria-label="Default select example"
                                     onChange={(e)=>{setUserType(e.target.value);}} >
                                         <option selected value="">Select User Type</option>
-                                        <option value="Adult">Student</option>
-                                        <option value="Teacher">Teacher</option>
+                                        <option value="Adult">Student/Parent</option>
+                                        {/* <option value="Teacher">Teacher</option> */}
                                        
                                     </select>
                                 </div>

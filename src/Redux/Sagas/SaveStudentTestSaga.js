@@ -22,7 +22,7 @@ function* saveStudentTestAPIWorkerSaga(action)
     try{
             const Result = yield call(saveStudentTestAPI,action);
             console.log('registered',Result);
-            yield put({type:'SAVE_STUDENT_TEST'})
+            yield put({type:'SAVE_STUDENT_TEST',payload:Result})
     }
     catch(e)
     {

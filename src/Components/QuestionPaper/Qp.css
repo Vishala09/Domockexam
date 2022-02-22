@@ -151,7 +151,7 @@
    font-weight: 600;
 }
 .mydropdown:hover , .myoption:active , .myoption:checked{
-  border:2px dotted #0D6EFD;
+  border:2px dotted #0D6EFD !important;
 }
 .myoption{
   font-style: normal;
@@ -265,9 +265,19 @@ img{
 }
 
 .bgred{
-  background: red;
+  background: #ff704d;
+  opacity: 1 !important;
 }
 
 .bggreen{
-  background: green;
+  background: #66ff66;
+  opacity: 1 !important;
+}
+
+.bgwhite{
+  background: white;
+}
+
+.bggray{
+  background: gainsboro;
 }

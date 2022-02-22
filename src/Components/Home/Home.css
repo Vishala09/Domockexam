@@ -1,6 +1,101 @@
+.homepage{
+   background-color:peachpuff;
+}
+
 .homediv{
   text-indent: 30px;
     text-align: justify;
   text-justify: inter-word;
+  
 }
 
+.aboutus{
+  font-family: Tahoma, Verdana, sans-serif;
+  padding: 10px;
+  color:black;
+  font-weight: bold;
+}
+
+
+.serviceHeader{
+  color: dodgerblue;
+}
+
+
+
+.awesome {
+  animation:colorchange 20s infinite alternate;
+  font-weight: 900;
+  font-style: italic;
+}
+
+@keyframes colorchange {
+  0% {
+    
+    color: blue;
+  }
+  
+  10% {
+    
+    color: #8e44ad;
+  }
+  
+  20% {
+    
+    color: #1abc9c;
+  }
+  
+  30% {
+    
+    color: #d35400;
+  }
+  
+  40% {
+    
+    color: blue;
+  }
+  
+  50% {
+    
+    color: #34495e;
+  }
+  
+  60% {
+    
+    color: blue;
+  }
+  
+  70% {
+    
+    color: #2980b9;
+  }
+  80% {
+ 
+    color: #f1c40f;
+  }
+  
+  90% {
+ 
+    color: #2980b9;
+  }
+  
+  100% {
+    
+    color: pink;
+  }
+}
+
+
+
+.leftslide {
+  font-weight: 900;
+  font-style: italic;
+  position: absolute;
+  left: -600px;
+  animation: slide 2s forwards;
+}
+
+
+@keyframes slide {
+  100% { left: 0;color: #8e44ad; }
+}

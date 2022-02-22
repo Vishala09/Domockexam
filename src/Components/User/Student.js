@@ -3,7 +3,7 @@ import District from '../HelperComps/District';
 import PasswordView from '../HelperComps/PasswordView';
 import Parent from './Parent'
 import RegisterFooter from './RegisterFooter';
-import {validateFirstName,validatePhone,validateSchool,validateGender,validateGrade,validateEmail,validatePassword,validateUsername} from '../HelperFunctions/Validations'
+import {validateFirstName,validatePhone,validateSchool,validateGender,validateGrade,validateEmail,validatePassword,validateUsername,validateSecretAnswer} from '../HelperFunctions/Validations'
 
 function Student(props) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -11,10 +11,16 @@ function Student(props) {
                         ];
     const [IsParent, setIsParent] = useState(false);
     const [StudentData, setStudentData] = useState({firstname:"",surname:"",gender:"",grade:"",email:"",password:"",
-                                                school:"",district:"",child:IsParent,phone:"",username:"",source:""});
+                                                school:"",district:"",child:IsParent,phone:"",username:"",source:"",secretQuestion:"",secretAnswer:""});
     const [ParentData, setParentData] = useState({firstname:"",surname:"",gender:"",email:"",password:"",
                                                 child:false,phone:"",source:""});
     
+    useEffect(() => {
+        if(props.AddStudent==true)
+        {
+            setIsParent(true);
+        }
+       }, []);
     
     const above18ref = useRef()
     let checkSchoolGrade = (val) => {
@@ -37,7 +43,9 @@ function Student(props) {
         password:"",
         phone:"",
         above18:"",
-        school:""
+        school:"",
+        secretQuestion:"",
+        secretAnswer:""
     });
 
     let [ParentValidationRules,setParentValidationRules] = useState({
@@ -72,20 +80,28 @@ function Student(props) {
 
 
     let validate = () => {
-       // console.log(StudentData);
+        console.log(StudentData);
         let flag=false;
         let tempValidationRules={}
         tempValidationRules['firstname']=validateFirstName(StudentData.firstname);
         tempValidationRules['surname']=validateFirstName(StudentData.surname);
         tempValidationRules['gender']=validateGender(StudentData.gender);
         tempValidationRules['grade']=validateGrade(StudentData.grade);
+
+        if(IsParent)
+        tempValidationRules['email']=validateEmail("dummy@test.com");
+        else
         tempValidationRules['email']=validateEmail(StudentData.email);
+
         tempValidationRules['password']=validatePassword(StudentData.password);
         tempValidationRules['school']=validateSchool(StudentData.school);
         tempValidationRules['phone']=validatePhone(StudentData.phone);
         tempValidationRules['above18']=validateAbove18();
+        tempValidationRules['secretAnswer']=validateSecretAnswer(StudentData.secretAnswer);
+
         if(IsParent)
         tempValidationRules['username']=validateUsername(StudentData.username);
+
         setValidationRules({...tempValidationRules})
         for(let key in tempValidationRules)
         {
@@ -95,12 +111,12 @@ function Student(props) {
                 break;
             }
         }
-      //  console.log('tempValidationRulesStudent',tempValidationRules)
+        console.log('tempValidationRulesStudent',tempValidationRules)
        return !flag
     }
    
     let validateParentData = () => {
-       // console.log(ParentData)
+        console.log(ParentData)
         let flag=false;
         let tempValidationRules={}
         tempValidationRules['firstname']=validateFirstName(ParentData.firstname);
@@ -122,14 +138,15 @@ function Student(props) {
                 break;
             }
         }
-      //  console.log('tempValidationRulesParent',tempValidationRules)
+        console.log('tempValidationRulesParent',tempValidationRules)
        return !flag
     }
 
     const ParentDataHandler = (ParentData) => {
             setParentData(ParentData)
     }
-   
+
+
     return (
         <>
         <div className="row d-flex flex-row justify-content-center align-items-start" style={{width:'100%'}}>
@@ -203,7 +220,10 @@ function Student(props) {
                             <option value="10">10</option>
                             <option value="11">G.C.E O/L</option>
                             <option value="12">G.C.E A/L</option>
-                            <option value="18">Other(Above 18 years of age)</option>
+                            {
+                                props.AddStudent!=true && <option value="18">Other(Above 18 years of age)</option>
+                            }
+                            
 
                         </select>
                         <span className="err">{validationRules.grade}</span>
@@ -303,19 +323,45 @@ function Student(props) {
                         </div>
                     </div>
                 }
+                <hr></hr>
+                <div style={{border:'1px solid black',margin:'2px'}}>
+                  <div className="row smalltext">
+                        <h6 class="px-3 smalltext"> Choose Your Secret Question : <span className="px-1" style={{color:'red'}}>*</span> </h6>
+                        <div class="px-3 paddedInput" >
+                            <select class="form-select smalltext mb-2"  name="secretquestion" value={StudentData.secretQuestion}
+                        onChange={(e)=>setStudentData({...StudentData,secretQuestion:e.target.value})} aria-label="Default select example">
+                                {/* <option selected>Select Secret Question</option> */}
+                                <option selected value="1">What is your place of birth?</option>
+                                <option value="2">Who is your favourite person?</option>
+                                <option value="3">Where did you go to school?</option>
+                            </select>
+                        </div>
+                        <h6 class="px-3 smalltext">Your Answer : <span className="px-1" style={{color:'red'}}>*</span></h6>
+                        <div class="px-3 paddedInput mb-2" >
+                            <input class="mb-1 form-control smalltext" type="text"  name="secretanswer" value={StudentData.secretAnswer}
+                            onChange={(e)=> {setStudentData({...StudentData,secretAnswer:e.target.value});
+                            setValidationRules({...validationRules,secretAnswer: validateSecretAnswer(e.target.value)})}}  
+                            placeholder="Enter Secret Answer" /> 
+                            <span className="err">{validationRules.secretAnswer}</span>
+                        </div>
+                  </div>
+                </div>
             </form>
         </div>
         </div>
         {
-            IsParent && <Parent ParentDataHandler={ParentDataHandler} ParentValidationRules={ParentValidationRules}  />
+            IsParent && props.AddStudent!=true && <Parent ParentDataHandler={ParentDataHandler} ParentValidationRules={ParentValidationRules}  />
         }
         </div>
         <div>
             {
-                IsParent ?
-                <RegisterFooter role={1} StudentData={StudentData} ParentData={ParentData} validate={validate} validateParentData={validateParentData} />
+                props.AddStudent ? 
+                <RegisterFooter AddStudent={true} role={6} StudentData={StudentData} ParentData={ParentData} validate={validate}  />
                 :
-                <RegisterFooter role={6} StudentData={StudentData} ParentData={ParentData} validate={validate}  />
+                IsParent ?
+                <RegisterFooter role={2} StudentData={StudentData} ParentData={ParentData} validate={validate} validateParentData={validateParentData} />
+                :
+                <RegisterFooter role={7} StudentData={StudentData} ParentData={ParentData} validate={validate}  />
             }
             
         </div>        

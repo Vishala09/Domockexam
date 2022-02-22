@@ -21,7 +21,7 @@ function* saveStudentTestAPIWorkerSaga(action)
     try{
             const Result = yield call(saveStudentTestAPI,action);
             console.log('saveAnswerLogAPI',Result);
-            yield put({type:'SAVE_STUDENT_TEST'})
+            yield put({type:'SAVE_CALCULATED_RESULT_TEST'})
     }
     catch(e)
     {
@@ -31,5 +31,5 @@ function* saveStudentTestAPIWorkerSaga(action)
 
 export function* saveStudentTestAPISaga()
 {
-    yield takeEvery('SAVE_STUDENT_TEST_REQUESTED',saveStudentTestAPIWorkerSaga)
+    yield takeEvery('SAVE_CALCULATED_RESULT_TEST_REQUESTED',saveStudentTestAPIWorkerSaga)
 }

@@ -71,12 +71,23 @@ const Kiosk = styled(List)`
     
     const formatQuestion = () => {
                 let str=el.questionName; 
-                const regex = /{[^{}]+}/g;
-                str = str.replace(regex, '<h1 style="display:inline-block;"></h1>');
+
+            if(Question.instruction==undefined || Question.instruction==""){
+                const regex = /\[Instruction:"(.*?)\"\]+/g;
+                var matches = regex.exec(el.questionName);
+                console.log(matches,'matches');
+
+                str = str.replace(regex, '');
+                
+          if(matches!=null && matches.length>0)
+          Question.instruction = matches[1];
+          else
+          Question.instruction = "Please Rearrange the follwing to form a meaningful sentence"
+                }
             
                 str=str.split('<p>&nbsp;</p>').join("");
                 str=str.split('<br />').join("");
-                Question.questionName=str;
+
     
                 // const imgRegex = /<img .*?>/ig
                 // str = str.replace(imgRegex, 'IMAGE');
@@ -84,7 +95,8 @@ const Kiosk = styled(List)`
                opts = shuffle(opts);
                setOptions([...opts]);
             
-            Question.questionName=str;
+          //  Question.questionName=str;
+
             setQuestion({...Question})
     
     }
@@ -138,7 +150,7 @@ const Kiosk = styled(List)`
         <div>
 
                         <div style={{marginLeft:'20px',marginRight:'20px'}}>
-                            <h5>{el.questionName}</h5>
+                            <h5>{Question.instruction}</h5>
                             <div style={{overflow:'auto !important'}}>
                             <DragDropContext onDragEnd={onDragEnd} >
                             <div className="d-flex flex-row flex-wrap" >
@@ -162,7 +174,7 @@ const Kiosk = styled(List)`
                                                 {...provided.dragHandleProps}
                                                 isDragging={snapshot.isDragging}
                                                 
-                                                className={answers.includes(item) && 'selected'}
+                                                className={!isResult && answers.includes(item) && 'selected'}
                                                 >
                                                 {item.option} 
                                                
@@ -212,11 +224,11 @@ const Kiosk = styled(List)`
                                                                     className={((isResult &&Results && Results.length>0 && Results[ind]?.isCorrect) ? ' bggreen ' : isResult &&Results && Results.length>0 && Results[ind]?.isCorrect==false ?' bgred ' : ' none ')}
                                                                    
                                                                     >
-                                                                        {isResult && isCorrectAnswers && el.options[ind].option}
+                                                                        {isResult && isCorrectAnswers && JSON.parse(el.correctOption)[ind]}
 
                                                                         {/* {isResult && !isCorrectAnswers && 'NA'} */}
 
-                                                                        {answers[ind] && answers[ind].option}
+                                                                        {!isCorrectAnswers && answers[ind] && answers[ind].option}
                                                                         {
                                                                             answers[ind]!="" && isResult!=true &&
                                                                             <OverlayTrigger

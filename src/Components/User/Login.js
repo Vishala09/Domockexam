@@ -5,6 +5,7 @@ import PasswordView from '../HelperComps/PasswordView';
 import { useDispatch, useSelector } from 'react-redux';
 import {validatePassword} from '../HelperFunctions/Validations';
 import {withRouter} from 'react-router-dom'
+import Popup from '../HelperComps/Popup';
 
 
 function Login() {
@@ -52,32 +53,22 @@ function Login() {
      const loginUser = () => {
         let canLogin = validate();
         let reqBody = {
-            "UserName":UserData.emailusername,
+            "UserName":UserData.emailusername.trim(),
             "Password":UserData.password,
             "RememberMe":true
         }
         if(canLogin)
         {
             setTyping(false);
+            
             dispatch({type:'LOGIN_USER_REQUESTED',payload:reqBody});
         }
      }
 
-     useEffect(() => {
-        if(msgFromServer?.result==false)
-        {
-          //  alert("Login failed!")
-        }
-     }, [msgFromServer])
 
      const UserLogin = useSelector(state => state.LoginReducer);
-     // const history = useHistory();
       useEffect(() => {
-//     console.log('LOGIN USEEFFECT',Object.keys(UserLogin).length>0 , 
-// (UserLogin.username!=undefined && UserLogin.value?.token!=undefined) && (UserLogin.username!='undefined' && UserLogin.value?.token!='undefined') ,
-//  UserLogin.result!=false)
-         if(Object.keys(UserLogin).length>0 && (
-          (UserLogin.username!='undefined' && UserLogin.value?.token!='undefined')) && UserLogin.result!=false)
+         if(Object.keys(UserLogin).length>0 && ((UserLogin.value?.token!='undefined')) && UserLogin.result!=false)
            { 
                console.log('/exams')
                history.push('/exams');
@@ -85,8 +76,15 @@ function Login() {
       }, [UserLogin])
 
     // bootstrap cols - 5 for text,6 for form,1 for right space(not mentioning) ; 
+
+
+    const forgotPassword = () => {
+        history.push('/forgotpassword')
+    }
+
+
     return (
-        <div>
+        <div>            
             <div style={{}} className="container-fluid">
            
             <div className="row d-flex justify-content-center align-items-center" >
@@ -97,8 +95,7 @@ function Login() {
                     </div>
                     <div className="d-flex flex-row text-center justify-content-center align-items-center row">
                     <p></p>
-                    <h1 className="col-lg-5 col-12 text-center">
-                        We help you practice for your exam success</h1>
+                    <h1 className="col-lg-5 col-12 text-center"> We help you practice for your exam success</h1>
                     
                     <div className="mycard col-lg-6 col-11 mb-3 " >
                         <h3 className="d-flex flex-column justify-content-center align-items-center">Login</h3>
@@ -137,13 +134,14 @@ function Login() {
                                 </form>
                         </div>
                         <div className="" style={{margin:'20px'}}>
-                                    <button style={{width:'100%'}} onClick={loginUser} className="btn btn-primary register">Login</button>
-                            <em style={{color:'red'}}>{msgFromServer?.result==false && Typing==false && 'Login failed.Please try again.'}</em>
+                            <button style={{width:'100%'}} onClick={loginUser} className="btn btn-primary register">Login</button>
+                            <em style={{color:'red'}}>{UserLogin?.result==false && Typing==false && 'Login failed.Please try again. ' + UserLogin.message}</em>
                         </div>
                         
                         <div className="d-flex align-items-center justify-content-center" style={{margin:'20px'}}>
-                                <a href="/" className="linkBlue">Forgot Password</a>
+                                <a onClick={()=>forgotPassword()} className="cursor-pointer linkBlue">Forgot Password</a>
                         </div>
+
                         <div className="" style={{margin:'20px'}}>
                                 <hr></hr>
                         </div>

@@ -60,8 +60,8 @@ useEffect(() => {
     
 }, [])  
 useEffect(() => {
-    //console.log(answers);
-}, [answers]) 
+    console.log('Results',Results);
+}, [Results]) 
 
 function shuffle(sourceArray) {
     for (var i = 0; i < sourceArray.length - 1; i++) {
@@ -75,27 +75,41 @@ function shuffle(sourceArray) {
 } 
 const formatQuestion = () => {
             let str=el.questionName; 
+
+        if(Question.instruction==undefined ||Question.instruction==""){
+            //const instregex = /{Instruction:"(.*?)\"}/g;
+            const instregex = /\[Instruction:"(.*?)\"\]+/g;
+            var matches = instregex.exec(el.questionName);
+            //console.log(matches,'matches');
+            str = str.replace(instregex, '');
+            if(matches!=null && matches.length>0)
+                Question.instruction = matches[1];
+            else
+                Question.instruction = "Please match the following items"
+        }
+
             str=str.split('<p>&nbsp;</p>').join("");
             str=str.split('<br />').join("");
             Question.questionName=str;
+            let correctOpts = JSON.parse(el.correctOption);
+            let optsRight = [];
+            for(let opt in correctOpts[0])
+            {
+                optsRight.push(opt)
+            }
+            
             let opts = el.options;
-            //opts = shuffle(el.options)
             const regex = /{[^{}]+}/g;
             for(let i=0;i<opts.length;i++)
             {
-                
-                opts[i].left = opts[i].option.replace(regex,'');
-                opts[i].right = opts[i].option.match(regex);
-                if(Array.isArray(opts[i].right))
-                {
-                    opts[i].right = opts[i].right[0]
-                    opts[i].right = opts[i].right.replace('{','');
-                    opts[i].right = opts[i].right.replace('}','');
-                }
+                opts[i].left = opts[i].option;
+                opts[i].right = optsRight[i];
                 OptionsLeft[i]= opts[i];
             }
 
             Question.options=opts;
+
+       
             setQuestion({...Question});
 
             let optsleft = shuffle(OptionsLeft)
@@ -153,6 +167,7 @@ const getListStyle = (isDraggingOver) => ({
         <div>
             {/* <h4>{index}.&nbsp;{el.questionheading} </h4> */}
                         <div style={{marginLeft:'20px',marginRight:'20px'}}>
+                            <h5>{Question.instruction}</h5>
                             <div style={{overflow:'auto',width:'100%'}}>{HtmlParser( el.questionName )}</div>
                             <div >
                             <DragDropContext onDragEnd={onDragEnd} >
@@ -254,13 +269,13 @@ const getListStyle = (isDraggingOver) => ({
 
                                                                         {/* {isResult && !isCorrectAnswers && 'NA'} */}
 
-                                                                        {answers[ind] && answers[ind].option}
+                                                                        {!isCorrectAnswers && answers[ind] && answers[ind].left}
 
-                                                                        {answers[ind] && answers[ind].img &&
+                                                                        {/* {!isCorrectAnswers && answers[ind] && answers[ind].img &&
                                                                         <>
                                                                         <img draggable={false} src={answers[ind].img} height="70px" width="100px" />
                                                                         </>
-                                                                        }
+                                                                        } */}
                                                                     </div>
                                                                 )}
                                                                 </Draggable>

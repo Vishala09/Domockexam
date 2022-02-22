@@ -73,13 +73,27 @@ function Q4({el,index}) {
     const [Question, setQuestion] = useState(el);
 
 useEffect(() => {
-    // let str=el.questionName; 
-    //         const regex = /{[^{}]+}/g;
-    //         str = str.replace(regex, '<span style="display:inline-block;"></span>');
-        
-    //         str=str.split('<p>&nbsp;</p>').join("");
-    //         str=str.split('<br />').join("");
-    //         Question.questionName=str;
+    
+        let str=el.questionName; 
+
+        if(Question.instruction==undefined ||Question.instruction==""){
+
+            const regex = /{Instruction:"(.*?)\"}/g;
+            var matches = regex.exec(el.questionName);
+            console.log(matches,'matches');
+            str = str.replace(regex, '');
+            if(matches!=null && matches.length>0)
+            Question.instruction = matches[1];
+            else
+            Question.instruction = "Please choose from the drop down.";
+
+        }
+    
+            str=str.split('<p>&nbsp;</p>').join("");
+            str=str.split('<br />').join("");
+
+        Question.questionName=str;
+
     let opts = Question.options;
     opts = shuffle(opts);
     Question.options=opts;
@@ -100,6 +114,7 @@ function shuffle(sourceArray) {
         <div>
                 <div>
                     <div style={{marginLeft:'20px',marginRight:'20px'}}>
+                        <h5>{Question.instruction}</h5>
                         <div style={{lineHeight:'2.5',overflow:'auto',width:'100%'}}>
                                 {Parser(formatques(Question.questionName))}
                         </div>

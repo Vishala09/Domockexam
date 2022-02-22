@@ -6,6 +6,14 @@ import RegisterReducer from './RegisterReducer'
 import { combineReducers } from 'redux';
 import ReportsReducer from './GetStudentTestReportReducer';
 import GetCalculatedResultsReducer from './GetCalculatedResultsReducer';
+import GetSubjectsReducer from './GetSubjectsReducer'
+import SearchReducer from './SearchReducer'
+import ResetPasswordReducer from './ResetPasswordRecuder'
+import ResetStudentPasswordByStudentReducer from './ResetStudentPasswordByStudentReducer'
+import GetStudentAssignedTestReducer from './GetStudentAssignedTestReducer'
+import SaveStudentTestReducer from './SaveStudentTestReducer'
+import EmailConfirmationReducer from './EmailConfirmationReducer'
+import RegisterStudentReducer from './RegisterStudentReducer'
 
 const allReducers = combineReducers({
     AnswersReducer,
@@ -14,7 +22,15 @@ const allReducers = combineReducers({
     LoginReducer,
     RegisterReducer,
     ReportsReducer,
-    GetCalculatedResultsReducer
+    GetCalculatedResultsReducer,
+    GetSubjectsReducer,
+    SearchReducer,
+    ResetPasswordReducer,
+    ResetStudentPasswordByStudentReducer,
+    GetStudentAssignedTestReducer,
+    SaveStudentTestReducer,
+    EmailConfirmationReducer,
+    RegisterStudentReducer
 })
 
 export default allReducers;

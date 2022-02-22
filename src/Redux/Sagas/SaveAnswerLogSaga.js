@@ -5,16 +5,16 @@ import {setCookie,getCookie} from '../../Components/HelperFunctions/CookieSettin
 function saveAnswerLogAPI(action)
 {
     const requestBody = action.payload;
-    console.log('saveAnswerLogAPI',requestBody)
+    //console.log('saveAnswerLogAPI',requestBody)
 
         return axios.post(`https://api.domockexam.com/StudentTest/SaveStudentanswerlog`,requestBody,
         { headers:{Authorization:'Bearer '+getCookie('domockexamToken'),"Content-Type":"application/json"}})
         .then((res)=>{
-            console.log("Successfully posted answer log")
+           // console.log("Successfully posted answer log")
             return res.data;
         })
         .catch((err)=>{
-            console.log('err-saveAnswerLogAPI:',err);
+          //  console.log('err-saveAnswerLogAPI:',err);
             return err;
         })
 }
@@ -23,7 +23,7 @@ function* saveAnswerLogAPIWorkerSaga(action)
 {
     try{
             const Result = yield call(saveAnswerLogAPI,action);
-            console.log('saveAnswerLogAPI',Result);
+          //  console.log('saveAnswerLogAPI',Result);
             yield put({type:'SAVE_ANSWER_LOG'})
     }
     catch(e)

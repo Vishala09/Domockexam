@@ -16,7 +16,7 @@ export function validateFirstName(data)
 // console.log('entered',data,numberformat.test(data))
     let err=""
     if(data=="")
-    err = "Name must be 3 to 25 letters long"
+    err = "Name must be 3 to 25 characters long"
     else if(spaceformat.test(data) && numberformat.test(data) && splcharformat.test(data))
     err += "Name must not contain special characters or numbers or space"
     else if(spaceformat.test(data) && splcharformat.test(data))
@@ -40,6 +40,13 @@ export function validateFirstName(data)
 
 }
 
+export function validateNotEmpty(data)
+{
+    if(data == "") 
+    return "Must not be empty"
+    else
+    return ""
+}
 
 export function validateGender(data)
 {
@@ -61,7 +68,7 @@ export function validateGrade(data)
 export function validateUsername(data)
 {
     if(data.length<4 || data.length>10) 
-    return "Username must be 4 to 10 letters long"
+    return "Username must be 4 to 10 characters long"
     else
     return ""
 }
@@ -93,6 +100,18 @@ export function validatePassword(data)
     return "Password must be minimum 8 characters long and must contain 1 lowercase, 1 uppercase ,1 special character and 1 number"
 }
 
+export function validatePasswordEquality(data1,data2)
+{
+    if(data1==data2)
+    {
+        return ""
+    }
+    else
+    {
+        return "Password and Confirm Password doesn't match"
+    }
+}
+
 export function validatePhone(data)
 {   
     if(data!="" && !numberformat.test(data))
@@ -121,4 +140,14 @@ export function validateSchool(data)
     return ""
 }
 
+
+export function validateSecretAnswer(data)
+{
+    if(data=="")
+    return "Secret Answer must not be empty"
+    else if(data?.length<3)
+    return "Secret Answer must be minimum 3 characters long"
+    else
+    return ""
+}
 

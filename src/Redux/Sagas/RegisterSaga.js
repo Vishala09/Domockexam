@@ -6,7 +6,7 @@ function registerTestAPI(action)
 {
     let requestBody = action.payload;
 
-    console.log(requestBody)
+   // console.log(requestBody)
     return axios.post(`https://api.domockexam.com/account/register`,requestBody,
     { headers:{Authorization:'Bearer '+getCookie('domockexamToken'),"Content-Type":"application/json"}})
     .then((res)=>{

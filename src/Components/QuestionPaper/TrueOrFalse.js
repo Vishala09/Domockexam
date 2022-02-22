@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import HtmlParser from 'react-html-parser';
 import { connect } from 'react-redux';
+import Parser from 'html-react-parser';
 
-
-function Q8(props) {
+function TrueOrFalse(props) {
     const {el,index,qusID,isResult,Results,sectionID,isCorrectAnswers} = props;
     const [answers, setanswers] = useState([]);
     let deSelect = (e,id,index,ind) => {
@@ -40,7 +40,7 @@ function Q8(props) {
         }
         else
         {
-            for(let i=0;i<el.options.length;i++)
+            for(let i=0;i<JSON.parse(el.correctOption).length;i++)
             {
                 answers[i]='';
             }
@@ -57,12 +57,40 @@ function Q8(props) {
         let answer = {index:index,qusId:qusID,selectedAnswer:answers,qusType:'True or False',lastUpdatedSectionIndex:sectionID}  
         props.saveAnswersToStore(answer);
     }
+
+    const [Question, setQuestion] = useState(el);
+   
+    useEffect(() => {
+        //normalize('NFD')
+        let str=el.questionName; 
+
+        if(Question.instruction==undefined ||Question.instruction==""){
+            const regex = /\[Instruction:"(.*?)\"\]+/g;
+            var matches = regex.exec(el.questionName);
+            console.log(matches,'matches');
+            str = str.replace(regex, '');
+            if(matches!=null && matches.length>0)
+            Question.instruction = matches[1];
+            else
+            Question.instruction = "Please Select True or False"
+
+        }
+    
+            str=str.split('<p>&nbsp;</p>').join("");
+            str=str.split('<br />').join("");
+
+        Question.questionName=str;
+        setQuestion({...Question});
+
+    }, [])
+
     return (
         <div>
             <div>
                     <div style={{marginLeft:'20px',marginRight:'20px'}}>
+                    <h5>{Question.instruction}</h5>
                         <div className="container-fluid">
-                        <div style={{width:'100%',overflow:'auto',lineHeight:'2.5'}}>{HtmlParser(el.questionName)}</div>
+                        {/* <div style={{width:'100%',overflow:'auto',lineHeight:'2.5'}}>{HtmlParser(el.questionName)}</div> */}
                         {el.qusType=="True or False" &&      
                         <div className="row">
                             <div className="col-6 col-md-9" style={{borderWidth:'2px 0px 2px 2px',borderStyle:'solid',borderColor:'black',fontWeight:'bold',background:'darkgrey',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}}>
@@ -75,19 +103,19 @@ function Q8(props) {
                                             False
                             </div>
                             <div className="col-2 col-md-1" style={{borderWidth:'2px 2px 2px 2px',borderStyle:'solid',borderColor:'black',fontWeight:'bold',background:'darkgrey',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                            Not Given
+                                            NA
                             </div>
                         </div>}
                     <div style={{borderCollapse:'collapse'}}>
                               {     el.qusType=="True or False" ?
-                                  el.options.map((q,ind)=>
+                                JSON.parse(el.correctOption).map((q,ind)=>
                                   <div className="row">
                                      
                                       <div className="col-6 col-md-9" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black',}}>
-                                            {q.option}
+                                            {Parser(el.questionName)}
                                       </div>
                                       <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center',
-                                      background:isResult &&Results && Results.length>0 && isCorrectAnswers && Results[ind].correct==0 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==0 ?'red' : 'none'}}
+                                      background:isResult &&Results && Results.length>0 && (isCorrectAnswers || Results[ind].correct==Results[ind].choosed ) && Results[ind].correct==0 ? '#66ff66' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==0 ?'#ff704d' : 'none'}}
                                      >
                                             <label className={"customcheck"}>
                                                 <input disabled={isResult} checked={!isResult && props.answersFromStore[index]?.selectedAnswer[ind]?.option=='true'} onClick={(e)=>{deSelect(e,'true'+index+ind,index,ind);saveAnswers(ind,'true',q.id)}} type="radio" name={''+index+ind} id={'true'+index+ind} />
@@ -95,7 +123,7 @@ function Q8(props) {
                                             </label>
                                       </div>
                                       <div className="col-2 col-md-1" style={{borderWidth:'0px 0px 2px 2px',borderStyle:'solid',borderColor:'black',textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center'
-                                      ,background:isResult &&Results && Results.length>0 && isCorrectAnswers && Results[ind].correct==1 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==1 ?'red' : 'none'}} 
+                                      ,background:isResult &&Results && Results.length>0 && (isCorrectAnswers || Results[ind].correct==Results[ind].choosed ) && Results[ind].correct==1 ? '#66ff66' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==1 ?'#ff704d' : 'none'}} 
                                       >
                                             <label className={"customcheck "}>
                                                 <input disabled={isResult} checked={!isResult && props.answersFromStore[index]?.selectedAnswer[ind]?.option=='false'}  onClick={(e)=>{deSelect(e,'false'+index+ind,index,ind);saveAnswers(ind,'false',q.id)}} type="radio" name={''+index+ind} id={'false'+index+ind} />
@@ -103,7 +131,7 @@ function Q8(props) {
                                             </label>
                                       </div>
                                       <div className="col-2 col-md-1" style={{borderWidth:'0px 2px 2px 2px',borderStyle:'solid',borderColor:'black', textAlign:'center',display:'flex',justifyContent:'center',alignItems:'center',
-                                      background:isResult &&Results && Results.length>0 && isCorrectAnswers && Results[ind].correct==2 ? 'green' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==2 ?'red' : 'none'}} 
+                                      background:isResult &&Results && Results.length>0 && (isCorrectAnswers || Results[ind].correct==Results[ind].choosed ) && Results[ind].correct==2 ? '#66ff66' : isResult &&Results && Results.length>0 && Results[ind].choosed!=Results[ind].correct && Results[ind].choosed==2 ?'#ff704d' : 'none'}} 
                                      >
                                             <label className={"customcheck "}>
                                                 <input disabled={isResult} checked={!isResult && props.answersFromStore[index]?.selectedAnswer[ind]?.option=='na'}  onClick={(e)=>{deSelect(e,'na'+index+ind,index,ind);saveAnswers(ind,'na',q.id)}} type="radio" name={''+index+ind} id={'na'+index+ind} />
@@ -122,7 +150,7 @@ function Q8(props) {
                                     </div>
                                     
                                 </div>
-                                  {el.options.map((q,ind)=>
+                                  {JSON.parse(el.correctOption).map((q,ind)=>
                                   <div>
                                       
                                       <div className="row">
@@ -149,7 +177,7 @@ function Q8(props) {
     )
 }
 
-//export default Q8
+//export default TrueOrFalse
 
 
 const mapStateToProps = state => {
@@ -162,4 +190,4 @@ const mapStateToProps = state => {
         saveAnswersToStore:(json) => dispatch({type:'SET_ANSWERS',payload:json})
     }
   }
-  export default connect(mapStateToProps,mapDispatchToProps)(Q8);
+  export default connect(mapStateToProps,mapDispatchToProps)(TrueOrFalse);

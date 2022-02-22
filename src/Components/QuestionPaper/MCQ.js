@@ -3,7 +3,7 @@ import './Qp.css';import './CustomCheckBox.css'
 import Parser from 'html-react-parser';
 import { connect } from 'react-redux';
 
-function Q6(props) {
+function MCQ(props) {
     const {el,index,qusID,isResult,Results,sectionID,isCorrectAnswers} = props;
     let deSelect = (e,id,op) => {
         //checkbox like radio
@@ -43,8 +43,23 @@ function Q6(props) {
     useEffect(() => {
         //normalize('NFD')
         let str=el.questionName; 
+
+        if(Question.instruction==undefined ||Question.instruction==""){
+        const regex = /\[Instruction:"(.*?)\"\]+/g;
+        var matches = regex.exec(el.questionName);
+        console.log(matches,'matches');
+        str = str.replace(regex, '');
+        
+        if(matches!=null && matches.length>0)
+            Question.instruction = matches[1];
+        else
+            Question.instruction = "Please select the correct option"
+        }
+    
             str=str.split('<p>&nbsp;</p>').join("");
             str=str.split('<br />').join("");
+
+
         Question.questionName=str;
         setQuestion({...Question});
 
@@ -52,15 +67,14 @@ function Q6(props) {
     return (
         <div>
                 <div>
-                    {/* <h4>{index}.&nbsp;{el.questionheading} </h4> */}
                     
                     <div style={{marginLeft:'20px',marginRight:'20px'}}>
-                       
+                        <h5>{Question.instruction}</h5>
                         <div style={{width:'100%',overflow:'auto',lineHeight:'2.5',marginTop:'20px'}}>{Parser(el.questionName)}</div>
                         <div className="d-flex flex-row flex-wrap " >
                         {
                             Question.options.map((op,ind)=>
-                            <div  className="col-6 col-lg-3 col-md-3 choose" >
+                            <div  className="col-12 col-lg-3 col-md-6 choose" >
                                 <div  className="mb-1 m-1">
                                     <label className={"customcheck "+((isResult &&Results && (isCorrectAnswers || Results[ind]?.isSelected) && Results.length>0 && Results[ind]?.isCorrect) ? ' bggreen ' : isResult &&Results && Results.length>0 && Results[ind]?.isCorrect==false ?' bgred ' : ' none ')} 
                                     //style={{background:isResult && Results[ind].isCorrect ? 'green' : isResult && Results[ind].isCorrect==false ?'red' : 'none'}}
@@ -77,42 +91,7 @@ function Q6(props) {
                             )
                         }
                         </div>
-                             {/* {
-                                 el.q.map((q,ind)=>
-                                 <div style={{marginTop:'10px'}}>
-                                        <div>{q.ques}</div>
-                                        <div className="d-flex flex-row flex-wrap " >
-                                            {
-                                                el.type=='radio' ?
-                                                q.options.map((op,i) => 
-                                                <div  className="col-6 col-lg-2 col-md-3 choose" style={{}} >
-                                                    <div  className="mb-1">
-                                                        <label class="customcheck">{op}
-                                                            <input onClick={(e)=>deSelect(e,''+index+ind+i)} type="checkbox"
-                                                             name={''+index+ind} id={''+index+ind+i}  />
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                )
-                                                :
-                                                q.options.map((op,i) => 
-                                                <div className="col-6 col-lg-2 col-md-3 choose" style={{}} >
-                                                    <div  className="mb-1">
-                                                    <label class="customcheck">{op}
-                                                        <input type="checkbox" name={''+index+ind} />
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                    </div>
-                                                </div>
-                                                )
-                                            }
-                                        </div>
-                                        
-                                 </div>
-                                 )
-                             } */}
-                        
+                            
                     </div>
                     
                 </div>
@@ -120,7 +99,7 @@ function Q6(props) {
     )
 }
 
-//export default Q6
+//export default MCQ
 
 const mapStateToProps = state => {
     return {
@@ -132,4 +111,4 @@ const mapStateToProps = state => {
         saveAnswersToStore:(json) => dispatch({type:'SET_ANSWERS',payload:json})
     }
   }
-  export default connect(mapStateToProps,mapDispatchToProps)(Q6);
+  export default connect(mapStateToProps,mapDispatchToProps)(MCQ);

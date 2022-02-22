@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react'
 import Q1 from '../QuestionPaper/Q1';
 import Q4 from '../QuestionPaper/Q4';
 import Q5 from '../QuestionPaper/Q5';
-import Q6 from '../QuestionPaper/Q6';
+import MCQ from '../QuestionPaper/MCQ';
 import Q7 from '../QuestionPaper/Q7';
-import Q8 from '../QuestionPaper/Q8';
+import TrueOrFalse from '../QuestionPaper/TrueOrFalse';
 import Match from '../QuestionPaper/Match';
 import Fillin from '../QuestionPaper/Fillin';
 import Rearrange from '../QuestionPaper/Rearrange';
@@ -29,6 +29,8 @@ import TestStatus from './TestStatus';
 import {setCookie,getCookie} from '../HelperFunctions/CookieSettings'
 import { numToRoman } from '../HelperFunctions/NumToRoman';
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import DropDown from '../QuestionPaper/DropDown';
+import QuestionPallet from './QuestionPallet';
 
 
 // import Questions from '../QuestionPaper/Questions.json';
@@ -37,18 +39,18 @@ function Test(props) {
         
     const [Questions, setQuestions] = useState({});
     const [TestStarted, setTestStarted] = useState(false);
-    const handleFullScreen = useFullScreenHandle();
     
     const [Loading, setLoading] = useState(true);
     
     const [Sections, setSections] = useState([]);
-    const [SectionsStatus, setSectionsStatus] = useState({})
+    const [SectionsStatus, setSectionsStatus] = useState({});
+    
    
     const [currentSectionId, setcurrentSectionId] = useState(null);
-   // let [currentIds, setcurrentIds] = useState([]);
+    const [currentSubSectionSingleId, setcurrentSubSectionSingleId] = useState(0);
     const [QuestionToggle, setQuestionToggle] = useState(true);
+    const [SubSectionToggle, setSubSectionToggle] = useState(true);
     const [QuestionsStatus, setQuestionsStatus] = useState({});
-    const [QuestionsStatusFromProps, setQuestionsStatusFromProps] = useState(props.answersFromStore);
 
     const history = useHistory();
     const location = useLocation();
@@ -57,11 +59,15 @@ function Test(props) {
     const TestDetails = useSelector(state => state.GetQuestionsByTestReducer.testdetails);
     const [showModal, setshowModal] = useState(false);
     const [submitClicked, setSubmitClicked] = useState(false);
+    const SectionCut = 5;
+
+
 
     useEffect(() => {
+        console.log('TestDetails',TestDetails)
         if(QuestionsByTest==undefined)
         {
-            if(location?.state?.previousPath!='/exams')
+            if(location?.state?.previousPath!='/exams' && location?.state?.previousPath!='/assignedtests')
             {
                 history.push('/exams');
             }
@@ -77,12 +83,17 @@ function Test(props) {
             let qArr={}
             let sects=[];
             let sectflag=0;
+            let count=0;
+            let singleseccount=0;
+            let quesCount = 1;
             for(let i=0;i<QuestionsByTest.length;i++)
             {
+                
                 sectflag=0;
                 if(QuestionsByTest[i].section!=0)
                 {
-                    sects.push(QuestionsByTest[i])
+
+                    sects.push({sections:[{questions:QuestionsByTest[i].questions,section:QuestionsByTest[i].section,qIndex:quesCount}],section:QuestionsByTest[i].section});
                 }
                 else
                 {
@@ -94,39 +105,81 @@ function Test(props) {
                         qArr[QuestionsByTest[i].questions[j].qusID]=QuestionsByTest[i].questions[j];
                         if(sectflag==1)
                         {
-                            sects.push({questions:[QuestionsByTest[i].questions[j]],section:0})
+                           if(count%SectionCut==0 || count==0)
+                           {
+                                sects.push({sections:[{questions:[QuestionsByTest[i].questions[j]],section:0,qIndex:quesCount}],section:0});
+                                singleseccount++;
+                           }
+                           else
+                           {
+                                let s = singleseccount-1;
+                               sects[s].sections.push({questions:[QuestionsByTest[i].questions[j]],section:0,qIndex:quesCount});
+                           }
+                        
+                            count++;
+
                         }
+                        quesCount++;
                 }
             }
             setQuestions({...qArr});
-            setSections([...sects])
+            setSections([...sects]);          
+            console.log('sects',sects);
         }
     }, [QuestionsByTest,TestDetails])
 
     const StartTest = () => {
-        let reqBody = {
-            "StudentId":Number(getCookie('domockexamID')),
-            "TestId":TestDetails.id,
-            "Assigner":3,
-            "AssignedOn":new Date().toISOString(),
-            "StatusId":1,
-            "Active":true
+        //In progress
+        let  previousPath = location?.state?.previousPath;
+        let StudentTestId = location?.state?.StudentTestId;
+        if(previousPath=='/assignedtests')
+        {
+            setCookie('domockexamStudentTestId',StudentTestId)
+
+            let reqBody = [{
+                "StudentTestId":Number(StudentTestId),
+                "StatusId":2
+            }]
+           console.log('rb-updateTest',reqBody)
+           dispatch({type:'UPDATE_STUDENT_TEST_STATUS_REQUESTED',payload:reqBody});
         }
-        
-        console.log('rb',reqBody)
-       dispatch({type:'SAVE_STUDENT_TEST_REQUESTED',payload:reqBody});
+        else{
+            //1=student
+            let reqBody = {
+                "StudentId":Number(getCookie('domockexamID')),
+                "TestId":TestDetails.id,
+                "Assigner":1,
+                "AssignedOn":new Date().toISOString(),
+                "StatusId":2,
+                "Active":true
+            }
+            console.log('rb-ASSIGNTESTBYSTUD',reqBody)
+            dispatch({type:'SAVE_STUDENT_TEST_REQUESTED',payload:reqBody});
+           
+        }
     }
     
+    const AssignedTest = useSelector(state => state.SaveStudentTestReducer);
+    useEffect(() => {
+        {
+            if(AssignedTest.status==true)
+            dispatch({type:'RESET_STUDENT_TEST'});
+        }
+    }, [AssignedTest]);
+
     const submitAndExitTest = () => {
                 //
         if(submitClicked==false)
         {
-            setcurrentSectionId(Object.keys(Questions).length); // set it to higher number than actual number 
+            //setcurrentSectionId(Object.keys(Questions).length); // set it to higher number than actual number 
+             setcurrentSectionId(Sections.length);
+             setcurrentSubSectionSingleId(0);
             setSubmitClicked(true);
         }
         else
         {
             setshowModal(true);
+
         }
     }
 
@@ -136,11 +189,10 @@ function Test(props) {
             setSubmitClicked(true)
             if(submitClicked)
             {
-                let totalseconds = (Object.keys(Questions)?.length) * 60;
+                
+                let totalseconds = (Number(TestDetails?.duration)) * 60;
                 let ttseconds = Number(document.getElementById('minutes').innerHTML)*60 + Number(document.getElementById('seconds').innerHTML);
-                console.log('TT',totalseconds)
-                console.log('TT',ttseconds)
-                history.push({pathname:'/report',state:{TimeTaken:(totalseconds - ttseconds)}});
+                history.push({pathname:'/report',state:{TimeTaken:(totalseconds - ttseconds),previousPath:'/test'}});
             }
         }
         setshowModal(clickedclose);
@@ -154,14 +206,14 @@ function Test(props) {
             visited:false,
             answered:false,
             flagged:false,
-            halfanswered:false,
-            flagged:false
+            halfanswered:false
         }
         let status = {}
         for(let key in Questions)
         {
              status[Questions[key].qusID]={...obj};
         }
+
         setQuestionsStatus(status);
 
         let objSection = 
@@ -169,17 +221,26 @@ function Test(props) {
             visited:false,
             answered:false,
             flagged:false,
-            halfanswered:false,
-            flagged:false
+            halfanswered:false
         }
         let statusSection = {}
         for(let i=0;i<Sections.length;i++)
         {
             statusSection[i]={...objSection};  //because of currentID - using i - section(top most)
+            for(let j=0;j<Sections[i].sections.length;j++)
+            {
+                statusSection[i][j]={};
+                for(let k=0;k<Sections[i].sections[j].questions.length;k++)
+                {
+                    let qId = Sections[i].sections[j].questions[k].qusID;
+                    statusSection[i][j][qId]={...objSection};
+                    statusSection[i][j][qId].visited=true;
+                }
+            }
         }
         statusSection[0].visited=true;
-       // console.log('SS',statusSection)
         setSectionsStatus(statusSection);
+
         return status;
     }
     
@@ -188,7 +249,7 @@ function Test(props) {
         let flagFill=0;
         for(let i=0;i<props.answersFromStore[index].selectedAnswer.length;i++)
         {
-            if(props.answersFromStore[index].selectedAnswer[i]=='' )
+            if(props.answersFromStore[index].selectedAnswer[i]=='' || props.answersFromStore[index].selectedAnswer[i]=='Select Answer' )
             {
                 flagEmpty=1;
             }
@@ -198,57 +259,28 @@ function Test(props) {
             }
         }
 
-        if(flagEmpty==1 && flagFill==0)   //all are empty(probably deleted)
+        if((flagEmpty==1 && flagFill==0)||(flagEmpty==0 && flagFill==0))   //all are empty(probably deleted)
         {
-            return 2;
+            return 2;    //false false
         }
         if(flagEmpty==1)
         {
-            return 1;
+            return 1;   //false true
         }
-        return 0;
+        return 0;  //true false
     }
 
     useEffect(() => {
         let sectIdex = props.answersFromStore['lastUpdatedSectionIndex']
-   
         if(sectIdex!=undefined){
-            
-            let answered = 0;
-            let halfanswered=0;
-         
-            for(let i=0;i<Sections[sectIdex]?.questions.length;i++)
-            {
-                let qusID =Sections[sectIdex].questions[i].qusID; 
-                if(QuestionsStatus[qusID].answered==true)
-                {
-                    answered=1;
-                }
-                else if(QuestionsStatus[qusID].halfanswered==true || QuestionsStatus[qusID].answered==false)
-                {
-                    answered=0;
-                    halfanswered=1;
-                }
-            }
-            if(halfanswered==1)
-            {
-                SectionsStatus[sectIdex].halfanswered=true;
-            }
-            else if(answered==1)
-            {
-                SectionsStatus[sectIdex].answered=true;  //first checks halfanswered , if it is true , then it cant be fully answered
-            }
-            else if(halfanswered==0)
-            {
-                SectionsStatus[sectIdex].halfanswered=false;
-            }
-       
-            setSectionsStatus({...SectionsStatus})
+            updateSectionStatus(sectIdex);
         }
-    },[props.answersFromStore,currentSectionId])
+    },[currentSectionId,props.answersFromStore['lastUpdatedIndex']])
+
+
 
     useEffect(() => {
-        console.log(props.answersFromStore['lastUpdatedIndex'])
+        console.log('lastUpdatedIndex',props.answersFromStore['lastUpdatedIndex'])
        
         if(QuestionsStatus[props.answersFromStore['lastUpdatedIndex']])
         {
@@ -256,29 +288,37 @@ function Test(props) {
             {
                 QuestionsStatus[props.answersFromStore['lastUpdatedIndex']].answered=false;
                 QuestionsStatus[props.answersFromStore['lastUpdatedIndex']].halfanswered=true;
+
+                SectionsStatus[currentSectionId][currentSubSectionSingleId][props.answersFromStore['lastUpdatedIndex']].answered=false;
+                SectionsStatus[currentSectionId][currentSubSectionSingleId][props.answersFromStore['lastUpdatedIndex']].halfanswered=true;
             }
             else if(checkSubQuestionsHalfAnswered(props.answersFromStore['lastUpdatedIndex'])==2)
             {
                 QuestionsStatus[props.answersFromStore['lastUpdatedIndex']].halfanswered=false;
                 QuestionsStatus[props.answersFromStore['lastUpdatedIndex']].answered=false;
+
+                SectionsStatus[currentSectionId][currentSubSectionSingleId][props.answersFromStore['lastUpdatedIndex']].answered=false;
+                SectionsStatus[currentSectionId][currentSubSectionSingleId][props.answersFromStore['lastUpdatedIndex']].halfanswered=false;
             }
             else
             {
-                QuestionsStatus[props.answersFromStore['lastUpdatedIndex']].halfanswered=false;
                 QuestionsStatus[props.answersFromStore['lastUpdatedIndex']].answered=true;
+                QuestionsStatus[props.answersFromStore['lastUpdatedIndex']].halfanswered=false;
+
+                SectionsStatus[currentSectionId][currentSubSectionSingleId][props.answersFromStore['lastUpdatedIndex']].answered=true;
+                SectionsStatus[currentSectionId][currentSubSectionSingleId][props.answersFromStore['lastUpdatedIndex']].halfanswered=false;
             }
         }
-
         setQuestionsStatus({...QuestionsStatus})
-       // FormulateSectionStatus(props.answersFromStore['lastUpdatedSectionIndex'])
-        setQuestionsStatusFromProps({...props.answersFromStore})  
+        setSectionsStatus({...SectionsStatus})
+       // setQuestionsStatusFromProps({...props.answersFromStore})  
         
 
-        console.log('QuestionsStatus',QuestionsStatus,currentSectionId)
+       // console.log('QuestionsStatus',QuestionsStatus,currentSectionId)
         //SAVE_ANSWER_LOG_REQUESTED
 
         let lui = props.answersFromStore['lastUpdatedIndex'];
-        console.log(lui,props.answersFromStore[lui])
+       // console.log(lui,props.answersFromStore[lui])
         if(lui && props.answersFromStore[lui]!=undefined){
         let reqBodySaveAnswerLog = {
             "StudentTestId":Number(getCookie('domockexamStudentTestId')),
@@ -289,18 +329,83 @@ function Test(props) {
             "CorrectAnswers":props.answersFromStore[lui]?.selectedAnswer,
             "OptionId":0
         }
-        console.log(reqBodySaveAnswerLog);
+       // console.log(reqBodySaveAnswerLog);
         dispatch({type:'SAVE_ANSWER_LOG_REQUESTED',payload:reqBodySaveAnswerLog});
         }
     }, [props.answersFromStore]);
 
-    
+    const updateSectionStatus = (sectIdex) => {
+            let answered = -1;
+            let halfanswered= -1;
+
+        if(SectionsStatus[sectIdex]!=undefined )
+        for(let sstatus in SectionsStatus[sectIdex])
+        {
+            
+            if(typeof SectionsStatus[sectIdex][sstatus] == 'object')
+            {
+                for(let qstatus in SectionsStatus[sectIdex][sstatus])
+                {
+                    if(typeof SectionsStatus[sectIdex][sstatus][qstatus] == 'object'){
+                    let secStats = SectionsStatus[sectIdex][sstatus][qstatus];
+                                if(secStats.answered==true)
+                                {
+                                    if(answered==-1)
+                                    {
+                                        answered=1;     //make ans=1 once... if any other question is not ans or half answered , answered will become 0 in next cond
+                                    }
+                                    else if(answered==0)
+                                    {
+                                        halfanswered=1; //if answered is 1 till the end , it will override halfanswered's value
+                                    }
+                                }
+                                else if(secStats.answered==false)
+                                {
+                                    if(answered==1)
+                                    {
+                                        answered=0;
+                                        halfanswered=1;
+                                    }
+                                    else
+                                    {
+                                        answered=0;
+                                    }
+                                }
+                                if(secStats.halfanswered==true)
+                                {
+                                    answered=0;
+                                    halfanswered=1;
+                                    break;
+                                }
+                    }
+                }
+            }
+        }
+            if(answered==1)
+            {
+                SectionsStatus[sectIdex].answered=true;  //first checks halfanswered , if it is true , then it cant be fully answered
+                SectionsStatus[sectIdex].halfanswered=false;
+            }
+            else if(halfanswered==1)
+            {
+                SectionsStatus[sectIdex].halfanswered=true;
+                SectionsStatus[sectIdex].answered=false;
+            }
+            
+            else if(halfanswered==-1)
+            {
+                SectionsStatus[sectIdex].halfanswered=false;
+                SectionsStatus[sectIdex].answered=false;
+            }
+            setSectionsStatus({...SectionsStatus})
+    }
     
     useEffect(() => {
         if(Object.keys(Questions).length>0)
         {
             getQuestionInitialStatus();
             setcurrentSectionId(0);
+            setcurrentSubSectionSingleId(0);
         }
     }, [Questions])
 
@@ -311,34 +416,74 @@ function Test(props) {
           behavior: "smooth"
         });
       }
-    const getQuestionBycurrentSectionId = () => {
+    const setStatusOnToggle = () => {
        {
-            for(let j=0;j<Sections[currentSectionId]?.questions.length;j++)
-            {
-                QuestionsStatus[Sections[currentSectionId].questions[j].qusID].visited=true;
-            }
+        SectionsStatus[currentSectionId].visited = true;
+          
         }
-        setQuestionsStatus({...QuestionsStatus})
+        setSectionsStatus({...SectionsStatus})
     }
     const moveForward = () => {
-        if(currentSectionId!=Sections.length-1)
+        //
         {
-            sectionIdChange(currentSectionId+1)
+           // sectionIdChange(currentSectionId+1);
+           if(Sections[currentSectionId].sections.length-1 > currentSubSectionSingleId)
+           {
+               subSectionIdChange(Sections[currentSectionId].sections[currentSubSectionSingleId+1].questions[0].qusID)
+                setcurrentSubSectionSingleId(currentSubSectionSingleId=>(currentSubSectionSingleId+1))
+           }
+            else
+            {
+                if(currentSectionId!=Sections.length-1)
+                sectionIdChange(currentSectionId+1);
+            }
+           // console.log(currentSubSectionSingleId)
         }
     }
     const moveBackward = () => {
-        if(currentSectionId>0)
         {
-            sectionIdChange(currentSectionId-1);
+            if(currentSubSectionSingleId!=0)
+            {
+                
+                {
+                subSectionIdChange(Sections[currentSectionId].sections[currentSubSectionSingleId-1].questions[0].qusID);
+                setcurrentSubSectionSingleId(currentSubSectionSingleId=>(currentSubSectionSingleId-1));
+                }
+            }
+            else
+            {
+                let currsec = currentSectionId;
+
+                if(currsec>0)
+                {
+                    let qusLen = Sections[currsec-1].sections.length;
+                    subSectionIdChange(Sections[currsec-1].sections[qusLen-1].questions[0].qusID);
+                    setcurrentSubSectionSingleId(()=>(qusLen-1));
+                    
+
+                    setSubmitClicked(false);
+                    setcurrentSectionId(currsec-1);
+                    SectionsStatus[currsec-1].visited = true;
+                    SectionsStatus[currsec-1][0].visited = true;
+                    setSectionsStatus({...SectionsStatus})
+                }
+            }
         }
     }
     useEffect(() => {
-        if(currentSectionId!=null && Object.keys(Questions).length>0 )
+        if(currentSectionId!=null && Object.keys(Questions).length>0 && currentSectionId<Sections.length)
         {
-            getQuestionBycurrentSectionId();
+            setStatusOnToggle();
             setQuestionToggle(true);
         }
     }, [currentSectionId]);
+
+    useEffect(() => {
+        if(currentSubSectionSingleId!=null && Object.keys(Questions).length>0 )
+        {
+            setSubSectionToggle(true);
+        }
+    }, [currentSubSectionSingleId]);
 
     useEffect(() => {
   
@@ -349,18 +494,26 @@ function Test(props) {
     }, [currentSectionId])
    
     function sectionIdChange(id)  {
-       // console.log('sectionIdChange',id)
-       setSubmitClicked(false);
+        setSubmitClicked(false);
         setcurrentSectionId(id);
-        SectionsStatus[id].visited = true;
-        setSectionsStatus({...SectionsStatus})
+        setcurrentSubSectionSingleId(0);
         scrollToTop();
     }
-    //
- 
+
+    function subSectionIdChange(id,sectionIndex) {
+        if(sectionIndex!=undefined)
+        setcurrentSectionId(sectionIndex);
+
+        setSubmitClicked(false);
+        QuestionsStatus[id].visited = true;
+        setQuestionsStatus({...QuestionsStatus});
+    }
+
     let seconds = 59;
-    let minutes = (Object.keys(Questions)?.length-1) * 1;
+    //let minutes = (Object.keys(Questions)?.length-1) * 1;
+    let minutes = Number(TestDetails?.duration)-1;
     useEffect(()=>{
+        if(TestStarted)
       {
     let myInterval = setInterval(() => {
         if(document.getElementById('minutes'))
@@ -411,7 +564,8 @@ function Test(props) {
             }
             if(minutes==0 && seconds==0)
             {
-                history.push({pathname:'/report',state:{TimeTaken:document.getElementById('minutes').innerHTML+':'+document.getElementById('seconds').innerHTML}});
+             
+                history.push({pathname:'/report',state:{TimeTaken:((Number(TestDetails?.duration)) * 60 ),previousPath:'/test'}});
             } 
         }, 1000)
         return ()=> {
@@ -420,29 +574,37 @@ function Test(props) {
         }
     },[TestStarted]);
 
-    
+    const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
+
+    // window.onbeforeunload = (event) => {
+    //     if(location.pathname=='/test'){
+    //     const e = event || window.event;
+    //     const promp = prompt("Are you sure you want leave without submitting test?")
+    //     e.preventDefault();
+    //     if (e) {
+    //       e.returnValue = ''; // Legacy method for cross browser support
+    //     }
+    //     return ''; // Legacy method for cross browser support
+    //     }
+    //   };
 
     return (
-        <div className="container-fluid" id="domockexamtestpage" style={{height:window.screen.width>770 ?'85vh':''}}>
+        <div className="container-fluid" id="domockexamtestpage" style={{border:'3px solid gray',padding:'1px',minHeight:'100vh'}}>
             {/* <NavigationBlocker /> */}
-            {showModal && submitClicked && <Popup title="Submit Test" body="Are you sure you want to submit test?" returnStateHandler={returnStateHandler} />}
-            <div className="d-flex justify-content-between">
-                <div><b>Title</b> : {TestDetails?.title}</div>
-                <div><b>Subject</b> : {TestDetails?.subjectName}</div>
-                <div><b>Grade</b> : {TestDetails?.gradeName}</div>
-                {/* <div><b>Duration</b> : {TestDetails?.duration}</div> */}
-                <div><b>Test ID</b> : {TestDetails?.id}</div>
-              
+            {showModal && submitClicked && <Popup from="test" title="Submit Test" body="Are you sure you want to submit test for marking?" returnStateHandler={returnStateHandler} />}
+            
+            <div className="card text-center" style={{marginBottom:'10px',color:'dodgerblue',background:'black',padding:'5px'}}>
+                <div style={{marginRight:'10px'}}>{TestDetails?.title} (TEST ID: {TestDetails?.id})</div>
             </div>
             
             {
                 TestStarted == false ?
-                <div className="d-flex justify-content-center align-items-center flex-column" style={{height:'85vh'}}>
+                <div className="d-flex justify-content-center align-items-center flex-column" >
                    
-                    <Instructions /> 
+                    <Instructions TestDetails={TestDetails} TotalQuestions={Questions.length} /> 
                     <p></p>
-                    <div >
-                        <Button onClick={()=>{setTestStarted(true);StartTest();}} variant="primary">Start Test</Button>
+                    <div style={{padding:'50px'}}>
+                        <Button style={{width:'300px'}} onClick={()=>{setTestStarted(true);StartTest();}} variant="primary">Start Test</Button>
                     </div>
                 </div> 
                 :
@@ -457,12 +619,19 @@ function Test(props) {
                 <div className="container-fluid" style={{height:'100%'}}>
                     <div className="row ">
                         <div className="col-md-8 col-12" > 
-                            <div  className="row">
-                                <Card style={{backgroundColor:'#999999',color:'white',borderStyle:'none',height:'35px',display:'flex',justifyContent:'center'}}>
+                            <div  className="">
+                                <Card style={{backgroundColor:'#999999',color:'white',borderStyle:'none',height:'35px',width:'100% !important'}}>
                                     <div className="d-flex flex-row justify-content-between">
                                         <div >
-                                                <b><i>Section {currentSectionId+1} of {QuestionsByTest.length}</i></b>
-                                                {/* <b>Marks : {Question.mark}</b> */}
+                                            {
+                                                submitClicked == false ? 
+                                                <b><i>Q - {range(Sections[currentSectionId].sections[currentSubSectionSingleId].qIndex, 
+                                                    (Sections[currentSectionId].sections[currentSubSectionSingleId].qIndex+Sections[currentSectionId].sections[currentSubSectionSingleId].questions.length-1),
+                                                     1).toString()} of {Object.keys(Questions)?.length}  </i></b>
+                                                :
+                                                ""
+                                            }
+                                                
                                         </div>
                                         <div>
                                             <Button id="time" style={{height:'100%'}} variant="success">
@@ -473,93 +642,143 @@ function Test(props) {
                                     </div>  
                                 </Card>
                             </div>
-                            <div className="row">
+                            <div className="" style={{position:'relative'}}>
                             {
                                  submitClicked ?
-                                 <div className="d-flex justify-content-center align-items-center flex-column" style={{overflow:'hidden'}}> 
-                                     <TestStatus QuestionsStatus={QuestionsStatus} SectionsStatus={SectionsStatus} Sections={Sections} />
-                                     <Button variant="primary" onClick={()=>{setSubmitClicked(false);setcurrentSectionId(0)}}> Go Back </Button>
+                                 <div className="" style={{overflowY:'auto',height:'80vh'}}> 
+                                     <div className='' >
+                                         {/* <TestStatus QuestionsStatus={QuestionsStatus} SectionsStatus={SectionsStatus} Sections={Sections} /> */}
+                                         <QuestionPallet Sections={Sections} SectionsStatus={SectionsStatus} QuestionsStatus={QuestionsStatus} QuestionToggle={QuestionToggle}
+        currentSectionId={currentSectionId} currentSubSectionSingleId={currentSubSectionSingleId} numToRoman={numToRoman} sectionIdChange={sectionIdChange} 
+        setQuestionToggle={setQuestionToggle} setcurrentSubSectionSingleId={setcurrentSubSectionSingleId} subSectionIdChange={subSectionIdChange}
+        setQuestionsStatus={setQuestionsStatus} setSectionsStatus={setSectionsStatus} answersFromStore={props.answersFromStore} submitClicked={submitClicked}/>
+      
+                                     </div>
+                                     <div style={{width:'100px',right:'0px',position:'absolute',bottom:'5px'}}><Button variant="primary"  onClick={()=>{setSubmitClicked(false);setcurrentSectionId(0)}}> Go Back </Button></div>
+                                     <p></p>
                                  </div>
                                  :
-                                <Card style={{paddingBottom:'20px',height:'70vh',overflow:'auto'}}>
-                                {
-                                    Sections[currentSectionId].questions.map((Question,index)=>
-                                <>
-                                    <Card.Title className="">
-                                         {Question.qusID}  {Question.qusType} 
-                                    </Card.Title>
-                                    <Card.Text style={{}}>
+                                <Card style={{paddingBottom:'20px',height:'80vh',overflow:'auto'}}>
+                                { 
+                                Sections[currentSectionId].sections[currentSubSectionSingleId]?.questions?.map((Question,qind)=>
+                                <div>
+                                    {/* <div style={{marginLeft:'20px',marginRight:'20px',fontWeight:'bold'}} className="">
+                                       Q{Sections[currentSectionId].sections[currentSubSectionSingleId]?.qIndex+qind}
+                                       
+                                    </div> */}
+                                    <div style={{}}>
                                     <>
                                     {
 
                                         Question!=null && 
                                         <>
-                                        {Question.qusType=='MCQ' && <Q6 el={Question} sectionID={currentSectionId} qusID={Question.qusID} index={Question.qusID} key={Question.qusID} /> }
+                                        {Question.qusType=='MCQ' && <MCQ el={Question} sectionID={currentSectionId} qusID={Question.qusID} index={Question.qusID} key={Question.qusID} /> }
                                        
-                                        {Question.qusType=='True or False' && <Q8 el={Question} sectionID={currentSectionId} qusID={Question.qusID} index={Question.qusID} key={Question.qusID} /> }
+                                        {Question.qusType=='True or False' && <TrueOrFalse el={Question} sectionID={currentSectionId} qusID={Question.qusID} index={Question.qusID} key={Question.qusID} /> }
 
-                                        {   
-                                            Question.qusType=="Gap Filling" && (
-                                           // Question.options.length>=5 ? 
-                                            <Fillin el={Question} sectionID={currentSectionId} qusID={Question.qusID} index={Question.qusID} key={Question.qusID} /> 
-                                           // :
-                                            // <Q4 el={Question} qusID={Question.qusID} index={Question.qusID} key={currentId} /> 
-                                            )
-                                        }
+                                        {Question.qusType=="Gap Filling" && <Fillin el={Question} sectionID={currentSectionId} qusID={Question.qusID} index={Question.qusID} key={Question.qusID} />  }
 
                                         {Question.qusType=='One word answer' && <Q1 el={Question} sectionID={currentSectionId} qusID={Question.qusID}  index={Question.qusID} key={Question.qusID} />}
 
                                         {Question.qusType=='Match the following' && <Match el={Question} sectionID={currentSectionId} qusID={Question.qusID} index={Question.qusID} key={Question.qusID}  />}
                                         
                                         {Question.qusType=='Re-Ararnge' && <Rearrange el={Question} sectionID={currentSectionId} qusID={Question.qusID}  index={Question.qusID} key={Question.qusID} />}
+                                        
+                                        {Question.qusType=='Dropdown' &&  <DropDown el={Question} sectionID={currentSectionId} qusID={Question.qusID}  index={Question.qusID} key={Question.qusID} />}
+                                        
                                         </>
                                     }
                                        
                                     </>
-                                    </Card.Text>
+                                    </div>
                                     <hr></hr>
-                                </>
+                                </div>
                                     )
                                 }   
                             </Card>
                             }
                             </div>
-                            <div  className="row" >
+                            <div  className="" >
                                 <Card style={{backgroundColor:'#999999',color:'white',borderStyle:'none',height:'35px'}}>
                                     <>
                                         <div style={{height:'100%'}} className="row ">
                                             
-                                            <div style={{height:'100%'}} className="col-md-1 col-4">
+                                            <div style={{height:'100%'}} className="col-4">
                                             {
-                                                currentSectionId !=0 ?
-                                                 <Button variant="primary" style={{width:'100%',height:'100%'}}onClick={()=>{moveBackward();scrollToTop()}}><i class="fa fa-backward"></i></Button>
+                                                currentSectionId ==0 && currentSubSectionSingleId==0?
+                                                <Button variant="secondary" style={{width:'100%',height:'100%'}} disabled={true} ><i style={{height:'100%'}} class="fa fa-backward"></i></Button>
                                                  :
-                                                 <Button variant="secondary" style={{width:'100%',height:'100%'}} disabled={true} ><i style={{height:'100%'}} class="fa fa-backward"></i></Button>
-                                            }
+                                                 <Button variant="primary" style={{width:'100%',height:'100%'}} onClick={()=>{moveBackward();scrollToTop()}}><i class="fa fa-backward"></i></Button>
+                                                
+                                                     }
                                             </div>
-                                            <Button disabled={true} style={{height:'100%'}} className="col-md-3 col-4" variant="warning" onClick={()=>{
+                                            <div className="col-4">
+                                            {
+                                                currentSectionId <= Sections.length-1 &&
+                                            <Button style={{height:'100%'}}  variant="warning" onClick={()=>{
                                                                 let temp = SectionsStatus;
                                                                 temp[currentSectionId].flagged = temp[currentSectionId].flagged?false:true;
-                                                                setSectionsStatus({...temp})
+                                                                temp[currentSectionId][currentSubSectionSingleId].flagged = temp[currentSectionId][currentSubSectionSingleId].flagged?false:true;
+                                                                
+                                                               
+                                                                for(let qstatus in temp[currentSectionId][currentSubSectionSingleId])
+                                                                {
+                                                                if(typeof temp[currentSectionId][currentSubSectionSingleId][qstatus] == 'object'){
+                                                                    if(temp[currentSectionId][currentSubSectionSingleId].flagged==true)
+                                                                    {
+                                                                        temp[currentSectionId][currentSubSectionSingleId][qstatus].flagged=true;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        temp[currentSectionId][currentSubSectionSingleId][qstatus].flagged=false;
+                                                                    }
+                                                                    }
+                                                                }
+                                                                ///////////
+                                                                let flagged = 0;
+                                                                for(let sstatus in SectionsStatus[currentSectionId])
+                                                                {
+                                                                    
+                                                                    if(typeof SectionsStatus[currentSectionId][sstatus] == 'object')
+                                                                    {
+                                                                        for(let qstatus in SectionsStatus[currentSectionId][sstatus])
+                                                                        {
+                                                                            if(typeof SectionsStatus[currentSectionId][sstatus][qstatus] == 'object'){
+                                                                            let secStats = SectionsStatus[currentSectionId][sstatus][qstatus];
+                                                                                    if(secStats.flagged==true)
+                                                                                    {
+                                                                                        flagged=1;break;
+                                                                                    }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                if(flagged==0)
+                                                                SectionsStatus[currentSectionId].flagged=false;
+                                                                else if(flagged==1)
+                                                                SectionsStatus[currentSectionId].flagged=true;
+
+                                                                setSectionsStatus({...temp});
                                                                 }}  >
-                                                <i style={{color:SectionsStatus[currentSectionId]?.flagged?'red':'white',marginRight:'5px'}}
-                                                
+                                                <i style={{color:SectionsStatus[currentSectionId][currentSubSectionSingleId]?.flagged?'red':'white',marginRight:'5px'}}
                                                 class="fa fa-flag"></i> 
-                                                Mark for Review
+                                                Mark 
                                             </Button>
-                                            
-                                            <div style={{height:'100%'}} className="offset-md-5 col-md-3 col-4">
+                                            }
+                                            </div>
+
+                                            <div style={{height:'100%',position:'absolute',right:'0px'}} className="col-4">
                                             {
-                                                currentSectionId < Sections.length-1 
+                                                (currentSectionId < Sections.length-1 || currentSubSectionSingleId<Sections[currentSectionId]?.sections.length-1 )
                                                 ?
-                                                <Button variant="primary" style={{width:'100%',height:'100%'}} onClick={()=>{moveForward();scrollToTop()}} ><i class="fa fa-forward"></i></Button>
+                                                <Button variant="primary" style={{width:'100%',height:'100%',position:'absolute',right:'0px'}} onClick={()=>{moveForward();scrollToTop()}} ><i class="fa fa-forward"></i></Button>
                                                 
                                                 :
                                                 submitClicked==false?
-                                                <Button  style={{maxWidth:'200px',border:'2px solid green',height:'100%'}} onClick={()=>submitAndExitTest()} variant="success">Submit Test</Button>
+                                                <Button  style={{border:'2px solid green',width:'100%',height:'100%',position:'absolute',right:'0px'}} onClick={()=>submitAndExitTest()} variant="success">Review</Button>
                                          
                                                 :
-                                                <Button  style={{maxWidth:'200px',border:'2px solid green',height:'100%'}} onClick={()=>submitAndExitTest()} variant="success">Submit And Exit Test</Button>
+                                                <Button  style={{border:'2px solid green',width:'100%',height:'100%',position:'absolute',right:'0px'}} onClick={()=>submitAndExitTest()} variant="success">Submit</Button>
                                             }
                                             </div>
                                         </div>
@@ -591,180 +810,11 @@ function Test(props) {
     
                                         </div>
                                         <hr></hr>
-        <div className="">
-            <div className="d-flex flex-row flex-wrap ">
-                {
-                Sections!=null &&  Sections?.map((section,index) => 
-                <>
-                <>
-                    <span className="" style={{background:index==currentSectionId&&QuestionToggle?'lightblue':'',padding:''}}>
-                    
-                    {
-                        index != currentSectionId ? 
-                        SectionsStatus[index].answered==true && SectionsStatus[index].flagged==true ? 
-                        <Button  class="btn"  style={{margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'13px',backgroundImage:'linear-gradient(to right, #007bff 50% , #ffc107 50%)'}} 
-                        onClick={()=>sectionIdChange(index)} >{(numToRoman(index+1))<10?"0"+(numToRoman(index+1)):numToRoman(index+1)}</Button>
-                        :
-                        SectionsStatus[index].answered==true ? 
-                        <Button style={{margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'13px'}} 
-                        onClick={()=>sectionIdChange(index)}  variant="primary">{(numToRoman(index+1))<10?"0"+(numToRoman(index+1)):(numToRoman(index+1))}</Button>
-                        :
-                        SectionsStatus[index].flagged==true && SectionsStatus[index].halfanswered==true ? 
-                        <button class="btn" style={{margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'13px',backgroundImage:'linear-gradient(to right, #007bff 0, #007bff 33%, #6c757d 33%, #6c757d 66%, #ffc107 66%, #ffc107 100%)'}} 
-                        onClick={()=>sectionIdChange(index)} >{(numToRoman(index+1))<10?"0"+(numToRoman(index+1)):(numToRoman(index+1))}</button>
-                        :
-                        SectionsStatus[index].halfanswered==true?
-                        <button class="btn" style={{margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'13px',backgroundImage:'linear-gradient(to right, #007bff 50% , #6c757d 50%)'}} 
-                        onClick={()=>sectionIdChange(index)}>{(numToRoman(index+1))<10?"0"+(numToRoman(index+1)):(numToRoman(index+1))}</button>
-                        :
-                        SectionsStatus[index].flagged==true ? 
-                        <Button style={{margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'13px'}} 
-                        onClick={()=>sectionIdChange(index)}  variant="warning">{(numToRoman(index+1))<10?"0"+(numToRoman(index+1)):(numToRoman(index+1))}</Button>
-                        :
-                        SectionsStatus[index].visited==true ? 
-                        <Button style={{margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'13px'}} 
-                        onClick={()=>sectionIdChange(index)}  variant="secondary">{(numToRoman(index+1))<10?"0"+(numToRoman(index+1)):(numToRoman(index+1))}</Button> 
-                        :
-                        <Button style={{margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'13px'}} 
-                        onClick={()=>sectionIdChange(index)}  variant="dark">{(numToRoman(index+1))<10?"0"+(numToRoman(index+1)):(numToRoman(index+1))}</Button> 
-                        : 
-                        !QuestionToggle && <Button style={{margin:'5px',display:'flex',justifyContent:'center',border:'2px solid black',fontWeight:'bold',fontSize:'13px'}} 
-                        onClick={()=>{sectionIdChange(index);setQuestionToggle((pQuestionToggle)=>!pQuestionToggle)}}  variant="light">
-                        {(numToRoman(index+1))<10?"0"+numToRoman(index+1):numToRoman(index+1)}</Button>
-
-                    }
-                    </span> 
-                     
-              
-                    { index==currentSectionId &&    QuestionToggle &&  
-                    <>
-                        <div style={{background:'lightblue',width:'100%'}}  >
-                        <Button style={{margin:'5px',display:'flex',justifyContent:'center',border:'2px solid black',fontWeight:'bold',fontSize:'13px'}} 
-                                onClick={()=>{sectionIdChange(index);setQuestionToggle((pQuestionToggle)=>!pQuestionToggle)}}  variant="light">
-                                {(numToRoman(index+1))<10?"0"+numToRoman(index+1):numToRoman(index+1)}</Button>
-                        </div>
-                        <div style={{background:'lightblue',width:'100%'}} className="d-flex flex-row flex-wrap" >
-                                    {
-                                    
-                                    Sections[currentSectionId].questions.map((el,ind)=>
-                                    <div style={{padding:'10px'}}>
-                                    <div className="d-flex flex-row ">
-                                    <div className="">       
-                                    {
-                                                                    el.qusID  ? 
-                                    QuestionsStatus[el.qusID].answered==true && QuestionsStatus[el.qusID].flagged==true ? 
-                                    <Button  class="btn"  style={{width:'100%',margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'11px',backgroundImage:'linear-gradient(to right, #007bff 50% , #ffc107 50%)'}} 
-                                    >{(ind+1)<10?"0"+(ind+1):(ind+1)}</Button>
-                                    :
-                                    QuestionsStatus[el.qusID].answered==true ? 
-                                    <Button style={{width:'100%',margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'11px'}} 
-                                    variant="primary">{(ind+1)<10?"0"+(ind+1):(ind+1)}</Button>
-                                    :
-                                    QuestionsStatus[el.qusID].flagged==true && QuestionsStatus[el.qusID].halfanswered==true ? 
-                                    <button class="btn" style={{width:'100%',margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'11px',backgroundImage:'linear-gradient(to right, #007bff 0, #007bff 33%, #6c757d 33%, #6c757d 66%, #ffc107 66%, #ffc107 100%)'}} 
-                                    >{(ind+1)<10?"0"+(ind+1):(ind+1)}</button>
-                                    :
-                                    QuestionsStatus[el.qusID].halfanswered==true?
-                                    <button class="btn" style={{width:'100%',margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'11px',backgroundImage:'linear-gradient(to right, #007bff 50% , #6c757d 50%)'}} 
-                                    >{(ind+1)<10?"0"+(ind+1):(ind+1)}</button>
-                                    :
-                                    QuestionsStatus[el.qusID].flagged==true ? 
-                                    <Button style={{width:'100%',margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'11px'}} 
-                                        variant="warning">{(ind+1)<10?"0"+(ind+1):(ind+1)}</Button>
-                                    :
-                                    QuestionsStatus[el.qusID].visited==true ? 
-                                    <Button style={{width:'100%',margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'11px'}} 
-                                        variant="secondary">{(ind+1)<10?"0"+(ind+1):(ind+1)}</Button> 
-                                    :
-                                    <Button style={{width:'100%',margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'11px'}} 
-                                        variant="dark">{(ind+1)<10?"0"+(ind+1):(ind+1)}</Button> 
-                                    : 
-                                    <Button style={{width:'100%',margin:'5px',display:'flex',justifyContent:'center',border:'2px solid black',fontWeight:'bold',fontSize:'11px'}} 
-                                        variant="light">
-                                    {(ind+1)<10?"0"+(ind+1):(ind+1)}</Button> 
-                                    
-                                        
-                                    }
-                                    </div>
-                                    <div className="">
-                                            <Button style={{width:'100%',margin:'5px',display:'flex',justifyContent:'center',fontWeight:'bold',fontSize:'15px'}} 
-                                                     variant="warning" onClick={()=>{
-
-                                                                QuestionsStatus[el.qusID].flagged = QuestionsStatus[el.qusID].flagged?false:true;
-                                                                setQuestionsStatus({...QuestionsStatus});
-                                                                let flag=0;
-                                                                if(QuestionsStatus[el.qusID].flagged)
-                                                                {
-                                                                    SectionsStatus[currentSectionId].flagged = true;
-                                                                    setSectionsStatus({...SectionsStatus});
-                                                                    flag=1;
-                                                                }
-                                                                if(flag==0)
-                                                                for(let f=0;f<Sections[currentSectionId].questions.length;f++)
-                                                                {
-                                                                    
-                                                                    let qID = Sections[currentSectionId].questions[f].qusID;
-                                                                    if(QuestionsStatus[qID].flagged==true)
-                                                                    {
-                                                                            flag=1;
-                                                                    }
-                                                                    if(flag==1)
-                                                                    {
-                                                                        SectionsStatus[currentSectionId].flagged=true;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        SectionsStatus[currentSectionId].flagged=false;
-                                                                    }
-                                                                }
-                                                                
-                                                                }}  >
-                                                <i style={{color:QuestionsStatus[el.qusID].flagged?'red':'white'}}
-                                                
-                                                class="fa fa-flag"></i> 
-                                                
-                                            </Button>
-                                    </div>
-                                    </div>
-                                    {
-                                        //SUBQUESTIONs                       
-                                            <div >
-                                                {
-                                                    <>
-                                                <div className="d-flex flex-row flex-wrap">
-                                                {
-                                                    
-                                                    el.qusType!='MCQ' &&  el.options.map((op,idx)=>
-                                                        <>
-                                                        
-                                                            {<Button key={props.answersFromStore[Number(el.qusID)]?.selectedAnswer[idx]?'true'+el.qusID+''+idx:'false'+el.qusID+''+idx} 
-                                                            style={{margin:'2px',fontSize:'10px',fontWeight:'bold'}}
-                variant={props.answersFromStore[Number(el.qusID)] ? props.answersFromStore[Number(el.qusID)].selectedAnswer[idx]!=undefined&&props.answersFromStore[Number(el.qusID)].selectedAnswer[idx]!=''?'primary':'secondary':'secondary'} >{idx+1}
-                                                            
-                                                            </Button> }
-                                                        </>
-                                                    )
-                                                }
-                                                
-                                                </div>
-                                                </>
-                                            }
-                                            </div>
-                                    }
-                          </div>
-                          )
-                      }
-                        </div>
-                    
-                    </>
-                    }
-               
-            </>              
-            </>
-            )
-            }
-            </div>
-        </div>
+        <QuestionPallet Sections={Sections} SectionsStatus={SectionsStatus} QuestionsStatus={QuestionsStatus} QuestionToggle={QuestionToggle}
+        currentSectionId={currentSectionId} currentSubSectionSingleId={currentSubSectionSingleId} numToRoman={numToRoman} sectionIdChange={sectionIdChange} 
+        setQuestionToggle={setQuestionToggle} setcurrentSubSectionSingleId={setcurrentSubSectionSingleId} subSectionIdChange={subSectionIdChange}
+        setQuestionsStatus={setQuestionsStatus} setSectionsStatus={setSectionsStatus} answersFromStore={props.answersFromStore} submitClicked={false}/>
+      
                                     </Card.Text>
                                 </Card.Body>
                             </Card>

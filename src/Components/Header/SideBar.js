@@ -7,7 +7,7 @@ function SideBar(props) {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const LoggedInUser = useSelector(state => state.LoginReducer);
+    const UserLogin = useSelector(state => state.LoginReducer);
     
     
     return (
@@ -28,17 +28,28 @@ function SideBar(props) {
                             
                             <div style={{display:'flex',flexDirection:'column',marginLeft:'12px'}} className="">
                                 <span><Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">
-                                    {(getCookie('domockexamUsername')=='undefined' || getCookie('domockexamUsername')=='')?'':getCookie('domockexamUsername')}</Link></span>
-                                <span style={{color:'gray'}}>Student</span>
+                                {(UserLogin.username=='undefined' || UserLogin.username=='')?' User':UserLogin.username}
+                                </Link></span>
+                                <span style={{color:'gray'}}>User</span>
                             </div>
                         </div>
-                        {
-                            window.screen.width>=770?
+                        {   
+                            UserLogin.username!='undefined' ?
+                            (window.screen.width>=770?
                             <>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Change Password</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/changePassword" className="noLink linkLH">Reset Password</Link>
+                                {
+                                    UserLogin.userType=='Parent' && 
+                                    <>
+                                        <hr className="colorHr"></hr>
+                                        <Link onClick={()=>{props.closeSideNav()}} to="/addStudent" className="noLink linkLH">Add Student</Link>
+                                    </>
+                                }
+                                
                                 <hr className="colorHr"></hr>
                                     <Link onClick={()=>{props.closeSideNav();dispatch({type:'LOGOUT_USER'});history.push('')}} to="/" className="noLink linkLH">Log Out</Link>
+                                
                             </>
                             :
                             <>
@@ -46,12 +57,39 @@ function SideBar(props) {
                                     <Link onClick={()=>props.closeSideNav()} to="/home" className="noLink linkLH">Home</Link>
                                 <hr className="colorHr"></hr>
                                     <Link onClick={()=>props.closeSideNav()} to="/exams" className="noLink linkLH">Exams</Link>
+                                {   
+                                    !(UserLogin.username=='undefined' && UserLogin.value?.token=='undefined') &&
+                        
+                                    <>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/test" className="noLink linkLH">Test</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/report" className="noLink linkLH">Reports</Link>
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Change Password</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/assignedtests" className="noLink linkLH">Assigned Exams</Link>
+                                 
+
                                 <hr className="colorHr"></hr>
-                                    <Link onClick={()=>props.closeSideNav()} to="/" className="noLink linkLH">Log Out</Link>
+                                    <Link onClick={()=>props.closeSideNav()} to="/changePassword" className="noLink linkLH">Reset Password</Link>
+                                    {
+                                    UserLogin.userType=='Parent' && 
+                                    <>
+                                        <hr className="colorHr"></hr>
+                                        <Link onClick={()=>{props.closeSideNav()}} to="/addStudent" className="noLink linkLH">Add Student </Link>
+                                    </>
+                                    }
+                                <hr className="colorHr"></hr>
+                                    <Link onClick={()=>{props.closeSideNav();dispatch({type:'LOGOUT_USER'});history.push('')}} to="/" className="noLink linkLH">Log Out</Link>
+                                    </>
+                                }
+                            </>)
+                            :
+                            <>
+                                <hr className="colorHr"></hr>
+                                    <Link onClick={()=>props.closeSideNav()} to="/home" className="noLink linkLH">Home</Link>
+                                <hr className="colorHr"></hr>
+                                    <Link onClick={()=>props.closeSideNav()} to="/login" className="noLink linkLH">Login</Link>
+                                <hr className="colorHr"></hr>
+                                    <Link onClick={()=>props.closeSideNav()} to="/exams" className="noLink linkLH">Exams</Link>
+                                
                             </>
                         }
                         

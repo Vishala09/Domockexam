@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
 import RecaptchaComp from './RecaptchaComp';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import Popup from '../HelperComps/Popup';
 
 function RegisterFooter(props) {
     const {StudentData,ParentData} = props;
     const [Human, setHuman] = useState(false);
     const [TcChecked, setTcChecked] = useState(false);
     const msgFromServer = useSelector(state => state.RegisterReducer)
+    const msgFromServerStudent = useSelector(state => state.RegisterStudentReducer)
     const dispatch = useDispatch();
+    const history = useHistory();
+    const UserLogin = useSelector(state => state.LoginReducer);
     const register = () => {
         let reg = props.validate();
         let regp = true;
@@ -19,17 +24,42 @@ function RegisterFooter(props) {
         if(reg && regp)
         {
            // alert('Validation Success');
-            console.log('StudentData',StudentData,ParentData);
-            if(props.role==6)  //>18
+            console.log('StudentData',StudentData);
+            console.log('ParentData',ParentData);
+    
+            if(props.AddStudent)
+            {
+                reqBody =  {
+                    "UserId":Number(UserLogin.ID),
+                    "StudentFirstName":StudentData.firstname,
+                    "StudentLastName":StudentData.surname,
+                    "StudentGender":StudentData.gender,
+                    "StudentPassword":StudentData.password,
+                    "StudentConfirmPassword":StudentData.password,
+                    "StudentUserName":StudentData.username,
+                    "GradeLevels":Number(StudentData.grade),
+                    "StudentDistrict":StudentData.district,
+                    "LanguageKnown":"Tamil, English",
+                    "Institution":StudentData.school,
+                    "RoleRequested":6,
+                    "StudentAccountRecoveryAnswers":[{
+                        "QuestionId":3,
+                        "Answer":StudentData.secretAnswer
+                        }]
+                }
+                 console.log('DISPATCHING REGISTER_STUDENT_REQUESTED...',UserLogin.ID)
+                 dispatch({type:'REGISTER_STUDENT_REQUESTED',payload:reqBody});
+            }
+            else if(props.role==7)  //>18  
             {
                 reqBody = {
                     "FirstName":StudentData.firstname,
                     "LastName":StudentData.surname,
-                    "UserName":StudentData.email,
+                    "UserName":StudentData.email.trim(),
                     "PhoneNumber":"9876543210",
                     "Gender":1,
                     "Role":props.role,
-                    "Email":StudentData.email,
+                    "Email":StudentData.email.trim(),
                     "Password":StudentData.password,
                     "ConfirmPassword":StudentData.password,
                     "StudentModel":{
@@ -39,18 +69,25 @@ function RegisterFooter(props) {
                         "StudentPassword":StudentData.password,
                         "StudentConfirmPassword":StudentData.password,
                         "StudentUserName":StudentData.email,
+                        "RoleRequested":7,
                         "GradeLevels":Number(StudentData.grade),
                         "StudentDistrict":StudentData.district,
                         "LanguageKnown":"Tamil,English",
-                        "Institution":StudentData.school
+                        "Institution":StudentData.school,
+                        "StudentAccountRecoveryAnswers":[{
+                            "QuestionId":Number(StudentData.secretQuestion),
+                            "Answer":StudentData.secretAnswer
+                            }]
                     }
                 };
+                console.log('DIspatching...')
+                dispatch({type:'REGISTER_USER_REQUESTED',payload:reqBody});
             }
-            else if(props.role==1){          //<18
+            else if(props.role==2){          //<18   (Parent and Child)
                 reqBody = {
                     "FirstName":ParentData.firstname,
                     "LastName":ParentData.surname,
-                    "UserName":StudentData.username,
+                    "UserName":ParentData.email,
                     "PhoneNumber":"9876543210",
                     "Gender":ParentData.gender,
                     "Role":props.role,
@@ -64,22 +101,34 @@ function RegisterFooter(props) {
                         "StudentPassword":StudentData.password,
                         "StudentConfirmPassword":StudentData.password,
                         "StudentUserName":StudentData.username,
+                        "RoleRequested":6,
                         "GradeLevels":Number(StudentData.grade),
                         "StudentDistrict":StudentData.district,
                         "LanguageKnown":"Tamil,English",
-                        "Institution":StudentData.school
+                        "Institution":StudentData.school,
+                        "StudentAccountRecoveryAnswers":[{
+                            "QuestionId":Number(StudentData.secretQuestion),
+                            "Answer":StudentData.secretAnswer
+                            }]
                     }
                 };
+                console.log('DIspatching...')
+                dispatch({type:'REGISTER_USER_REQUESTED',payload:reqBody});
             }
-            console.log('DIspatching...')
-            dispatch({type:'REGISTER_USER_REQUESTED',payload:reqBody});
+            
 
         }
         else
         {
+            console.log(reg,regp);
             alert('Please check for errors')
         }
     }
+
+    const returnStateHandler = (clickedyes,clickedclose) => {
+        history.push('/login');
+    }
+
     return (
         <div className="">
             <div className="d-flex flex-column align-items-center">
@@ -95,11 +144,27 @@ function RegisterFooter(props) {
                 <button className="btn btn-primary register lrbutton" onClick={()=>register()} type="submit">Register</button>
                 : <button className="btn btn-secondary lrbutton"  type="button">Register</button>}
                 {
-                    msgFromServer?.useresult ? 
-                    <em style={{color:'red'}}><b>Error : {msgFromServer?.useresult?.errors[0].description}</b></em>
+                    props.AddStudent==true ? 
+                    msgFromServerStudent.result==false ?
+                    <em style={{color:'red'}}><b>Error : {msgFromServerStudent?.message}</b></em>
                     :
+                    msgFromServerStudent.result==true ?
+                    <>
+                        <Popup from="register" title="Successfully Registered" body="Successfully Registered Student. Thankyou for using. " returnStateHandler={returnStateHandler} />
+                        <em style={{color:'green'}}>{"Successfully Registered Student. Thankyou for using."}</em>
+                    </>
+                    :
+                    ''
+                    :
+                    msgFromServer?.error ? 
+                    //msgFromServer?.useresult?.errors[0].description
+                    <em style={{color:'red'}}><b>Error : {msgFromServer?.error}</b></em>
+                   :
                     Object.keys(msgFromServer).length!=0 ?
-                    <em style={{color:'green'}}>{"Successfully Registered.Please Login to continue."}</em>
+                    <>
+                        <Popup from="register" title="Successfully Registered" body="Successfully Registered.Please activate your account by clicking on the link sent to your email to proceed." returnStateHandler={returnStateHandler} />
+                        <em style={{color:'green'}}>{"Successfully Registered.Please activate your account by clicking on the link sent to your email to proceed."}</em>
+                    </>
                     :
                     ''
                 }

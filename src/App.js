@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Register from './Components/User/Register';
 import Header from './Components/Header/Header';
-import { BrowserRouter as Router , Switch, Route,Link,useHistory, BrowserRouter , Redirect} from 'react-router-dom';
+import { BrowserRouter as Router , Switch, Route,Link,useHistory, BrowserRouter , Redirect, useLocation} from 'react-router-dom';
 import Login from './Components/User/Login';
 import 'font-awesome/css/font-awesome.min.css';
 import SearchBar from './Components/Header/SearchBar';
@@ -16,56 +16,86 @@ import Report from './Components/Reports/Report';
 import { useDispatch, useSelector } from 'react-redux';
 import {setCookie,getCookie} from './Components/HelperFunctions/CookieSettings';
 import { HashRouter } from 'react-router-dom';
+import ForgotPassword from './Components/User/ForgotPassword';
+import ResetPassword from './Components/User/ResetPassword';
+import ChangePassword from './Components/User/ChangePassword';
+import AssignedTests from './Components/AssignedTests/AssignedTests';
+import EmailConfirmation from './Components/User/EmailConfirmation';
+import AddStudent from './Components/User/AddStudent';
+import ContactUs from './Components/Home/ContactUs';
+
 
 function App(props) {
-      const dispatch = useDispatch();
       const UserLogin = useSelector(state => state.LoginReducer);
-      let reqBody = {
-            "UserName":UserLogin?.username,
-            "Password":UserLogin?.password,
-            "RememberMe":true
-        }
-      useEffect(() => {
-            console.log(getCookie('domockexamToken'),UserLogin)
-            {
-                  if(UserLogin.firstName=='')
-                  {
-                    //dispatch({type:'LOGIN_USER_REQUESTED',payload:reqBody});
-                  }
-            }
-        }, []); 
+       useEffect(() => {
+          console.log('LOOGED IN USER DETAILS ',UserLogin)
+       }, []);
+      
+      
        
   return (
     <div className="">
       <div className="dim" id="dim"></div>
       
       <HashRouter >
-           
-            <Header ></Header>
-            <div style={{marginTop:'15vh'}}>
+            
+            
+            <div >
             <Switch>
             <Route path="/test">
                   <Test />
-                  <Redirect to='/test'  />
             </Route>
+            
             <Route path="/home">
-                  <Home />
-                  <Redirect to='/home'  />
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><Home /></div>
+                  
+            </Route>
+            <Route path="/contactUs">
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><ContactUs /></div>
             </Route>
             <Route path="/report">
-                  <Report />
-                  <Redirect to='/report'  />
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><Report /></div>
+            </Route>
+            <Route path="/assignedtests">
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><AssignedTests /></div>
             </Route>
             <Route path="/exams">
-                  <Exams />
-                  <Redirect to='/exams'  />
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><Exams /></div>
+            </Route>
+            <Route path="/addStudent">
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><AddStudent /></div>
+            </Route>
+            <Route path="/ConfirmEmail">
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><EmailConfirmation /></div>
+            </Route>
+            <Route path="/changePassword">
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><ChangePassword /></div>
+            </Route>
+            <Route path="/ResetPassword">
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><ResetPassword /></div>
+            </Route>
+            <Route path="/forgotpassword">
+
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><ForgotPassword /></div>
             </Route>
             <Route path="/login">
-                  <Login />
-                  <Redirect to='/login'  />
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><Login /></div>
+                  {/* <Redirect to='/login'  /> */}
             </Route>
             <Route path="/">
-                  <Register />
+                  <Header ></Header>
+                  <div style={{marginTop:'15vh'}}><Register /></div>
             </Route>
             </Switch>
             </div>

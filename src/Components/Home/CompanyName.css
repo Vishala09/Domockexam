@@ -1,0 +1,11 @@
+.compName{
+    font-weight: 900;
+    color:white;
+    text-shadow: -1px 1px 0 #000,
+                          1px 1px 0 #000,
+                         1px -1px 0 #000,
+                        -1px -1px 0 #000;
+  /* background: -webkit-linear-gradient(dodgerblue, #4CAF50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+}

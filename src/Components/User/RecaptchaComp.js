@@ -12,11 +12,11 @@ function RecaptchaComp(props) {
       };
     const herokuSitekey = "6LfW5-4aAAAAAMWz_1Sx7zElvz19Ekfc9h8sdJQV"
     const localSiteKey = "6LeC8eoaAAAAAEwh0OPhVpwgs4tkCOHmB6XsCpq_"
-    const domockexamsitekey = "6Ldc6JAdAAAAAK7IUGdcxZZOicxmnhbRHvKpBurX";
+    const domockexamsitekey = "6Ld3t5IdAAAAALdYJDg6uAcKK62UemdSMkehxxAj";
     return (
         <div>
             <Recaptcha
-                sitekey={domockexamsitekey}
+                sitekey={localSiteKey}
                 render="explicit"
                 verifyCallback={()=>props.verifyHumanCallback()}
                 onloadCallback={() => callback()}
